@@ -30,7 +30,6 @@ development:
   # The password associated with the postgres role (username).
   password: secret
 
-
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
   #port: 5432
@@ -76,4 +75,4 @@ production:
   <<: *default
   database: bfnz_production
   username: bfnz
-  password: <%= ENV['bfnz_DATABASE_PASSWORD'] %>
+  password: <%= ENV['BFNZ_DATABASE_PASSWORD'] %>
