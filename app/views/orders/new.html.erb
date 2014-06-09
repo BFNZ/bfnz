@@ -1,0 +1,30 @@
+<h1>Free Order</h1>
+
+<p>
+To order your free copy of the New Testament Recovery Version simply fill out the order form below.
+</p>
+<p>
+Please note that Bibles for New Zealand can only service requests for Recovery Versions from New Zealand.
+</p>
+<p>
+Please allow 4-6 weeks for delivery.
+</p>
+<%= form_for @order, html: {role: "form", class: "form-horizontal"} do |f| %>
+  <div class="form-group">
+    <%= label_tag :district, 'District', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-4">
+      <%= select_tag :district, options_from_collection_for_select(@districts, :id, :name), prompt: "Please select", class: "form-control", "data-places" => districts_and_places_data %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :place, 'Place', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-4">
+      <%= f.select :place, [], {prompt: 'Select District first'}, class: "form-control", disabled: "disabled" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= f.submit 'Order', class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>
