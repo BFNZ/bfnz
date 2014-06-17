@@ -10,6 +10,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'authlogic'
+gem 'bcrypt'
 
 gem 'unicorn'
 
@@ -23,6 +25,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'launchy'
 end
 
 # Use Capistrano for deployment
