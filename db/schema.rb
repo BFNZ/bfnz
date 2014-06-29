@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617093819) do
+ActiveRecord::Schema.define(version: 20140629013134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20140617093819) do
 
   create_table "orders", force: true do |t|
     t.integer  "historical_subscriber_id"
-    t.integer  "place_id"
     t.integer  "shipment_id"
     t.string   "first_name"
     t.string   "last_name"
@@ -33,13 +32,20 @@ ActiveRecord::Schema.define(version: 20140617093819) do
     t.string   "city_town"
     t.string   "phone"
     t.string   "email"
-    t.string   "gender"
     t.text     "admin_notes"
     t.text     "coordinator_notes"
     t.integer  "method_of_discovery"
-    t.integer  "further_contact_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title",                    limit: 10
+    t.string   "ip_address",               limit: 40
+    t.string   "session_identifier",       limit: 100
+    t.string   "ta",                       limit: 100
+    t.string   "pxid",                     limit: 50
+    t.integer  "post_code"
+    t.integer  "method_received"
+    t.boolean  "tertiary_student",                     default: false
+    t.string   "tertiary_institution"
   end
 
   add_index "orders", ["address"], name: "index_orders_on_address", using: :btree
@@ -48,7 +54,6 @@ ActiveRecord::Schema.define(version: 20140617093819) do
   add_index "orders", ["first_name"], name: "index_orders_on_first_name", using: :btree
   add_index "orders", ["last_name"], name: "index_orders_on_last_name", using: :btree
   add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
-  add_index "orders", ["place_id"], name: "index_orders_on_place_id", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
   add_index "orders", ["suburb"], name: "index_orders_on_suburb", using: :btree
 
@@ -62,6 +67,18 @@ ActiveRecord::Schema.define(version: 20140617093819) do
 
   add_index "places", ["coordinator_id"], name: "index_places_on_coordinator_id", using: :btree
   add_index "places", ["district_id"], name: "index_places_on_district_id", using: :btree
+
+  create_table "territorial_authorities", force: true do |t|
+    t.string   "name",               null: false
+    t.integer  "code",               null: false
+    t.string   "addressfinder_name", null: false
+    t.integer  "coordinator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "territorial_authorities", ["addressfinder_name"], name: "index_territorial_authorities_on_addressfinder_name", using: :btree
+  add_index "territorial_authorities", ["coordinator_id"], name: "index_territorial_authorities_on_coordinator_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",             null: false

@@ -5,6 +5,12 @@ class OrdersController < ApplicationController
   end
 
   def create
-    redirect_to new_order_path
+    order_service = CreateOrderService.new(self)
+    if order_service.save
+      redirect_to root_path, notice: "Thanks, your order will be shipped as soon as possible"
+    else
+      @order = order_service.order
+      render :new
+    end
   end
 end

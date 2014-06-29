@@ -11,19 +11,53 @@ Please allow 4-6 weeks for delivery.
 </p>
 <%= form_for @order, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group">
-    <%= label_tag :district, 'District', class: 'col-sm-2 control-label' %>
-    <div class="col-sm-4">
-      <%= select_tag :district, options_from_collection_for_select(@districts, :id, :name), prompt: "Please select", class: "form-control", "data-places" => districts_and_places_data %>
+    <div class="col-xs-2">
+      <%= f.label :title, class: "control-label" %>
+      <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms']), {include_blank: true}, class: "form-control"%>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :first_name, class: "control-label" %>
+      <%= f.text_field :first_name, class: "form-control" %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :last_name, class: "control-label" %>
+      <%= f.text_field :last_name, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :place, 'Place', class: 'col-sm-2 control-label' %>
-    <div class="col-sm-4">
-      <%= f.select :place, [], {prompt: 'Select District first'}, class: "form-control", disabled: "disabled" %>
+    <div class="col-xs-8">
+      <%= f.label :address, "Postal Address", class: "control-label" %>
+      <%= f.text_field :address, class: "addressfinder_widget form-control", prompt: "Start typing to see a list of addresses" %>
+      <%= f.hidden_field :suburb %>
+      <%= f.hidden_field :city_town %>
+      <%= f.hidden_field :post_code %>
+      <%= f.hidden_field :pxid %>
+      <%= f.hidden_field :ta %>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-4">
+    <div class="col-xs-4">
+      <%= f.label :phone, class: "control-label" %>
+      <%= f.text_field :phone, class: "form-control" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :email, class: "control-label" %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox col-xs-4">
+      <label for="order_tertiary_student">
+	<%= f.check_box :tertiary_student %>Are you a tertiary student?
+      </label>
+    </div>
+    <div id="tertiary_institution" class="col-xs-4">
+      <%= f.label :tertiary_institution, class: "control-label" %>
+      <%= f.text_field :tertiary_institution, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-4">
       <%= f.submit 'Order', class: "btn btn-default" %>
     </div>
   </div>

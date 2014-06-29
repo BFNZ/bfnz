@@ -24,3 +24,7 @@ body {
 .navbar-static-top {
   margin-bottom: 19px;
 }
+
+.field_with_errors {
+  @extend .has-error;
+}

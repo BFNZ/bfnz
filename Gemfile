@@ -26,6 +26,7 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 # Use Capistrano for deployment

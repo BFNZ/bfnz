@@ -1,10 +1,23 @@
+clear_hidden_values = ->
+  $("#order_suburb").val('')
+  $("#order_city_town").val('')
+  $("#order_post_code").val('')
+  $("#order_pxid").val('')
+  $("#order_ta").val('')
+
 $(document).ready ->
-  $('#district').on 'change', ->
-    selected_district = $(this).val()
-    places = $(this).data('places')[selected_district]
-    place_options = ''
+  $(".addressfinder_widget").each ->
+    widget = new AddressFinder.Widget(this, "LQV6EB4DXFAKGHMCYRPU", show_locations: false)
 
-    for place in places
-      place_options += "<option>#{place}</option>"
+    widget.on "result:select", (value, item)->
+      $("#order_suburb").val(item.suburb || '')
+      $("#order_city_town").val(item.city || '')
+      $("#order_post_code").val(item.postcode || '')
+      $("#order_pxid").val(item.pxid || '')
+      $("#order_ta").val(item.ta.toLowerCase()) if item.ta?
 
-    $('#order_place').removeAttr("disabled").empty().append(place_options)
+    $(this).on "change", ->
+      clear_hidden_values()
+
+  $("#order_tertiary_student").on 'change', ->
+    $("#tertiary_institution").toggle()
