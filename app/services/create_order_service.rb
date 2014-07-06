@@ -7,11 +7,11 @@ class CreateOrderService
     order.save
   end
 
-  private
-
   def order
     @order ||= Order.new(order_params.merge(ip_address: ip_address))
   end
+
+  private
 
   def order_params
     @controller.params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution)
