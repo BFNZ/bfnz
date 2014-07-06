@@ -11,13 +11,11 @@ class AlterOrdersTable < ActiveRecord::Migration
     add_column :orders, :tertiary_institution, :string
 
     remove_column :orders, :gender
-    remove_column :orders, :place_id
     remove_column :orders, :further_contact_by
   end
 
   def down
     add_column :orders, :gender, :string
-    add_column :orders, :place_id, :integer
     add_column :orders, :further_contact_by, :integer
 
     remove_column :orders, :title

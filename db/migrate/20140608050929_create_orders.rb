@@ -2,7 +2,6 @@ class CreateOrders < ActiveRecord::Migration
   def change
     create_table :orders do |t|
       t.integer :historical_subscriber_id
-      t.references :place
       t.references :shipment
       t.string :first_name
       t.string :last_name
@@ -27,6 +26,5 @@ class CreateOrders < ActiveRecord::Migration
     add_index :orders, :phone
     add_index :orders, :email
     add_index :orders, :shipment_id
-    add_index :orders, :place_id
   end
 end

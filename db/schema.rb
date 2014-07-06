@@ -16,12 +16,6 @@ ActiveRecord::Schema.define(version: 20140629013134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "districts", force: true do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "orders", force: true do |t|
     t.integer  "historical_subscriber_id"
     t.integer  "shipment_id"
@@ -56,17 +50,6 @@ ActiveRecord::Schema.define(version: 20140629013134) do
   add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
   add_index "orders", ["suburb"], name: "index_orders_on_suburb", using: :btree
-
-  create_table "places", force: true do |t|
-    t.string   "name",           null: false
-    t.integer  "district_id",    null: false
-    t.integer  "coordinator_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "places", ["coordinator_id"], name: "index_places_on_coordinator_id", using: :btree
-  add_index "places", ["district_id"], name: "index_places_on_district_id", using: :btree
 
   create_table "territorial_authorities", force: true do |t|
     t.string   "name",               null: false
