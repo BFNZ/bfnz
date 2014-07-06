@@ -7,7 +7,7 @@ clear_hidden_values = ->
 
 $(document).ready ->
   $(".addressfinder_widget").each ->
-    widget = new AddressFinder.Widget(this, "LQV6EB4DXFAKGHMCYRPU", show_locations: false)
+    widget = new AddressFinder.Widget(this, "TWVJBCDGM7Y4NPH9QX68", show_locations: false)
 
     widget.on "result:select", (value, item)->
       $("#order_suburb").val(item.suburb || '')
