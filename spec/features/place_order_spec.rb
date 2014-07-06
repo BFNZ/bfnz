@@ -6,8 +6,8 @@ feature 'Placing an order', js: true do
     expect(page).to have_text("Free Order")
 
     select "Mr", from: "Title"
-    fill_in "First name", with: "John"
-    fill_in "Last name", with: "Doe"
+    fill_in "order_first_name", with: "John"
+    fill_in "order_last_name", with: "Doe"
     select_address("1 Short Street")
     fill_in "Phone", with: "12345678"
     fill_in "Email", with: "email@test.com"
