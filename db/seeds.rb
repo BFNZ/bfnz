@@ -2,7 +2,6 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
-TerritorialAuthority.destroy_all unless Rails.env.production?
 [
  ["001","Far North District", :far_north],
  ["002","Whangarei District", :whangarei],
@@ -71,7 +70,7 @@ TerritorialAuthority.destroy_all unless Rails.env.production?
  ["075","Invercargill City", :invercargill],
  ["076","Auckland", :auckland],
 ].each do |code, name, addressfinder_name|
-  TerritorialAuthority.create!(code: code, name: name, addressfinder_name: addressfinder_name)
+  TerritorialAuthority.create!(code: code, name: name, addressfinder_name: addressfinder_name) unless TerritorialAuthority.find_by_code(code)
 end
 
 [
