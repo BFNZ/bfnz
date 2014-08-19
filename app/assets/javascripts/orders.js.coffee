@@ -21,3 +21,5 @@ $(document).ready ->
 
   $("#order_tertiary_student").on 'change', ->
     $("#tertiary_institution").toggle()
+
+  $("#order_item_ids").imagepicker(show_label: true)

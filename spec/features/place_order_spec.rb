@@ -13,6 +13,7 @@ feature 'Placing an order', js: true do
     fill_in "Email", with: "email@test.com"
     check "Are you a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
+    page.first(".image_picker_image").click
     click_button "Order"
     expect(page).to have_text("your order will be shipped as soon as possible")
   end

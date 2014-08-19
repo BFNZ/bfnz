@@ -2,6 +2,12 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
+
+if Rails.env.development?
+  TerritorialAuthority.destroy_all
+  Item.destroy_all
+end
+
 [
  ["001","Far North District", :far_north],
  ["002","Whangarei District", :whangarei],
@@ -74,12 +80,12 @@
 end
 
 [
- ['R', "The New Testament Recovery Version", nil, "new_testament.jpg", "The New Testament Recovery Version is a comprehensive study Bible accurately translated from the original Greek text into modern English. It features extensive notes emphasizing the revelation of the truth, outlines of each book, cross-references, charts and maps, and more."],
- ['A', "The All Inclusive Christ", "Witness Lee", "all_inclusive_christ.jpg", "Lee shows that the good land in all its aspects is actually a type of Christ in His all-inclusiveness. In this book, the riches of the good land are explained and applied to our experience of Christ today."],
- ['G', "The Glorious Church", "Watchman Nee", "glorious_church.jpg", "What is the the church and what is its purpose? Watchman Nee uses types of the church from throughout the Bible to show us the church's origin, purpose, and destiny."],
+ ['R', "The New Testament Recovery Version", nil, "the_new_testament.jpg", "The New Testament Recovery Version is a comprehensive study Bible accurately translated from the original Greek text into modern English. It features extensive notes emphasizing the revelation of the truth, outlines of each book, cross-references, charts and maps, and more."],
+ ['A', "The All Inclusive Christ", "Witness Lee", "the_all_inclusive_christ.jpg", "Lee shows that the good land in all its aspects is actually a type of Christ in His all-inclusiveness. In this book, the riches of the good land are explained and applied to our experience of Christ today."],
+ ['G', "The Glorious Church", "Watchman Nee", "the_glorious_church.jpg", "What is the the church and what is its purpose? Watchman Nee uses types of the church from throughout the Bible to show us the church's origin, purpose, and destiny."],
  ['B', "Basic Elements of the Christian Life", "Watchman Nee and Witness Lee", "basic_elements.jpg", "This series details the basic yet crucial elements of the life of a Christian, showing how each provides the foundation for a rich and meaningful Christian life."],
-# ['E', "The Economoy of God", "economy_of_god", "TODO"],
-# ['K', "The Knowledge of Life", "knowledge_of_life", "TODO"]
+['E', "The Economoy of God", "Witness Lee", "the_economy_of_god.jpg", "TODO"],
+['K', "The Knowledge of Life", "Witness Lee", "the_knowledge_of_life.jpg", "TODO"]
 ].each do |code, title, author, image_path, description|
    Item.create!(code: code, title: title, author: author, image_path: image_path, description: description) unless Item.find_by_code(code)
  end

@@ -1,6 +1,7 @@
 class CreateOrderService
-  def initialize(controller)
-    @controller = controller
+  def initialize(request, params)
+    @request = request
+    @params = params
   end
 
   def save
@@ -14,10 +15,10 @@ class CreateOrderService
   private
 
   def order_params
-    @controller.params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution)
+    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution, :item_ids => [])
   end
 
   def ip_address
-    @controller.request.remote_ip
+    @request.remote_ip
   end
 end
