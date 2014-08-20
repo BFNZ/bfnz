@@ -18,6 +18,6 @@ class Order < ActiveRecord::Base
   private
 
   def contains_at_least_one_item
-    errors.add(:item_ids, "must be selected") if item_ids.none?
+    errors.add(:item_ids, "You must select at least one item") if item_ids.none?
   end
 end
