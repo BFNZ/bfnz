@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'https://www.addressfinder.co.nz/assets/v2/widget.js' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -37,7 +38,18 @@
     </div>
     <div class="container">
       <%= render partial: "shared/flash_messages", flash: flash %>
-      <%= yield %>
+      <div class="row">
+	<div class="col-xs-3">
+	  <p>Welcome to the BFNZ Administration Centre. Please select a task from the menu.</p>
+	  <div class="list-group">
+	    <%= link_to "View Orders", admin_orders_path, class: "list-group-item #{active_if_current_page(:orders, :index)}" %>
+	    <%= link_to "Add Order", new_admin_order_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
+	  </div>
+	</div>
+	<div class="col-xs-9">
+	  <%= yield %>
+	</div>
+      </div>
     </div>
   </body>
 </html>

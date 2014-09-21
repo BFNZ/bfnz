@@ -1,15 +1,4 @@
-<h1>Free Order</h1>
-
-<p>
-To order your free copy of the New Testament Recovery Version simply fill out the order form below.
-</p>
-<p>
-Please note that Bibles for New Zealand can only service requests for Recovery Versions from New Zealand.
-</p>
-<p>
-Please allow 4-6 weeks for delivery.
-</p>
-<%= form_for @order, html: {role: "form", class: "form-horizontal"} do |f| %>
+<%= form_for [:admin, @order], html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group">
     <div class="col-xs-2">
       <%= f.required_label :title, class: "control-label"%>
@@ -46,9 +35,19 @@ Please allow 4-6 weeks for delivery.
     </div>
   </div>
   <div class="form-group">
+    <div class="col-xs-4">
+      <%= f.label :method_received, class: "control-label"%>
+      <%= f.select :method_received, options_for_select(method_received_options, @order.method_received), {include_blank: true}, class: "form-control"%>
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :method_of_discovery, class: "control-label"%>
+      <%= f.select :method_of_discovery, options_for_select(method_of_discovery_options, @order.method_of_discovery), {include_blank: true}, class: "form-control"%>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="checkbox col-xs-4">
       <label for="order_tertiary_student">
-	<%= f.check_box :tertiary_student %>Are you a tertiary student?
+	<%= f.check_box :tertiary_student %>Is the order for a tertiary student?
       </label>
     </div>
     <div id="tertiary_institution" class="col-xs-4">
@@ -57,13 +56,13 @@ Please allow 4-6 weeks for delivery.
     </div>
   </div>
   <div class="form-group">
-    <h4>Select the item(s) you would like to receive</h4>
+    <h4>Item(s)</h4>
     <div class="error_msg"><%= @order.errors[:item_ids].join %></div>
     <%= f.select :item_ids, items_for_select, {}, :multiple => 'multiple' %>
   </div>
   <div class="form-group">
     <div class="col-sm-4">
-      <%= f.submit 'Place Order', class: "btn btn-default" %>
+      <%= f.submit 'Save', class: "btn btn-default" %>
     </div>
   </div>
 <% end %>

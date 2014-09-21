@@ -89,3 +89,7 @@ end
 ].each do |code, title, author, image_path, description|
    Item.create!(code: code, title: title, author: author, image_path: image_path, description: description) unless Item.find_by_code(code)
  end
+
+unless Rails.env.production?
+  User.create!(email: 'shevaun.coker@gmail.com', password: 'password', password_confirmation: 'password') unless User.find_by_email('shevaun.coker@gmail.com')
+end

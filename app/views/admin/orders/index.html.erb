@@ -1,0 +1,22 @@
+<h2>Orders</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th><th>First Name</th><th>Last Name</th><th>Items</th><th>Shipped</th>
+    </tr>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.first_name %></td>
+      <td><%= order.last_name %></td>
+      <td><%= order.items.map(&:title).join(", ") %></td>
+      <td><%= order.shipped? %></td>
+      <td>
+	<div class='btn-group-vertical'>
+	  <%= link_to 'Edit', edit_admin_order_path(order), class: 'btn btn-default' %>
+	</div>
+      </td>
+    </tr>
+  <% end %>
+</table>

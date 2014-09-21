@@ -15,6 +15,10 @@ class Order < ActiveRecord::Base
     @territorial_authority ||= TerritorialAuthority.find_by_addressfinder_name(ta)
   end
 
+  def shipped?
+    shipment_id.present?
+  end
+
   private
 
   def contains_at_least_one_item
