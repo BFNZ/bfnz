@@ -14,6 +14,7 @@ feature 'Managing orders', js: true do
   end
 
   scenario "Adding a new order" do
+    visit "/admin"
     click_link "Add Order"
     expect(page).to have_text("Create Order")
 

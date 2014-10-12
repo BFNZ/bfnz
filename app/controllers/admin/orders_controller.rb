@@ -1,6 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
   def index
-    @orders = Order.order('created_at desc')
+    @order_search_form = Admin::OrderSearchForm.new(params[:admin_order_search_form])
+    @order_presenters = @order_search_form.filtered_orders.map { |order| Admin::OrderPresenter.new(order) }
   end
 
   def new

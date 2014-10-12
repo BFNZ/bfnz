@@ -1,20 +1,41 @@
-<h2>Orders</h2>
+<h2>Search Orders</h2>
+
+<%= form_for @order_search_form, url: admin_orders_path, html: {class: "form-inline", role: "form", method: :get} do |f| %>
+  <div class="form-group">
+    <%= f.label :first_name, class: "sr-only" %>
+    <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name, class: "sr-only" %>
+    <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :item_ids, "Items" %>
+    <%= f.select :item_ids, @order_search_form.item_ids_options, {}, {class: "form-control", multiple: :multiple} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :shipped, "Shipped?" %>
+    <%= f.select :shipped, @order_search_form.shipped_options, {include_blank: true}, {class: "form-control"} %>
+  </div>
+  <%= f.submit "Search", class: "btn btn-default" %>
+  <%= link_to "Reset", admin_orders_path, class: "btn btn-default" %>
+<% end %>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>ID</th><th>First Name</th><th>Last Name</th><th>Items</th><th>Shipped</th>
     </tr>
-  <% @orders.each do |order| %>
+  <% @order_presenters.each do |presenter| %>
     <tr>
-      <td><%= order.id %></td>
-      <td><%= order.first_name %></td>
-      <td><%= order.last_name %></td>
-      <td><%= order.items.map(&:title).join(", ") %></td>
-      <td><%= order.shipped? %></td>
+      <td><%= presenter.id %></td>
+      <td><%= presenter.first_name %></td>
+      <td><%= presenter.last_name %></td>
+      <td><%= presenter.items %></td>
+      <td><%= presenter.shipped? %></td>
       <td>
 	<div class='btn-group-vertical'>
-	  <%= link_to 'Edit', edit_admin_order_path(order), class: 'btn btn-default' %>
+	  <%= link_to 'Edit', edit_admin_order_path(presenter.id), class: 'btn btn-default' %>
 	</div>
       </td>
     </tr>

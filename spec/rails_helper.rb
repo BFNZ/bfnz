@@ -40,11 +40,19 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.before(:all, type: :feature) do
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
     Rails.application.load_seed
   end
 
-  config.after(:all, type: :feature) do
-    DatabaseCleaner.clean_with :truncation
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
+  config.before(:all, type: :feature) do
+    DatabaseCleaner.strategy = :truncation, {except: %w{items territorial_authorities users}}
   end
 end

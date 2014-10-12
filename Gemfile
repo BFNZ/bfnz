@@ -11,6 +11,7 @@ gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
 gem 'authlogic'
 gem 'bcrypt'
+gem 'virtus'
 
 gem 'unicorn'
 
@@ -30,6 +31,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'machinist'
 end
 
 # Use Capistrano for deployment
