@@ -8,6 +8,10 @@ Order.blueprint do
   items      { [Item.first] }
 end
 
+Order.blueprint(:shipped) do
+  shipment { Shipment.create }
+end
+
 ## Items are loaded from seed data
 
 ## TerritorialAuthorities are loaded from seed data

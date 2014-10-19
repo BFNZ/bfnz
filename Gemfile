@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
+gem 'bootstrap-datepicker-rails'
 gem 'authlogic'
 gem 'bcrypt'
 gem 'virtus'
@@ -32,6 +33,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'machinist'
+  gem 'timecop'
 end
 
 # Use Capistrano for deployment

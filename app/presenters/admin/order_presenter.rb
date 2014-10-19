@@ -5,12 +5,16 @@ class Admin::OrderPresenter
 
   delegate :id, :first_name, :last_name, to: :order
 
+  def created_at
+    order.created_at.to_s(:display)
+  end
+
   def items
     order.items.map(&:title).join(", ")
   end
 
-  def shipped?
-    order.shipped? ? "Yes" : "No"
+  def shipped_at
+    order.shipped_at.to_s(:display) if order.shipped?
   end
 
   private

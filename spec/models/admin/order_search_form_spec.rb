@@ -25,7 +25,8 @@ describe Admin::OrderSearchForm do
     subject(:filtered_orders) { described_class.new(attrs).filtered_orders }
 
     let!(:order) { Order.make! }
-    let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
+    let!(:shipped_order) { Order.make!(:shipped) }
+    let!(:jan_order) { Timecop.freeze(Date.new(2014,1,3)) { Order.make! } }
 
     context "when no attrs are passed in" do
       let(:attrs) { {} }
@@ -40,6 +41,14 @@ describe Admin::OrderSearchForm do
 
       it "scopes orders by shipped" do
         expect(filtered_orders).to eq [shipped_order]
+      end
+    end
+
+    context "when created_at from and to are passed in" do
+      let(:attrs) { {created_at_from: '2014-01-01', created_at_to: '2014-01-31'} }
+
+      it "scopes orders by created_at" do
+        expect(filtered_orders).to eq [jan_order]
       end
     end
   end

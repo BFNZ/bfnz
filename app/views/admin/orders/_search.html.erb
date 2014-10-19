@@ -1,0 +1,88 @@
+<%= form_for @order_search_form, url: admin_orders_path, html: {class: "form-horizontal", role: "form", method: :get} do |f| %>
+  <div class="form-group">
+    <label class="col-xs-2">Name</label>
+    <div class="col-xs-4">
+      <%= f.label :first_name, class: "sr-only" %>
+      <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :last_name, class: "sr-only" %>
+      <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-xs-2">Contact info</label>
+    <div class="col-xs-4">
+      <%= f.label :email, class: "sr-only" %>
+      <%= f.text_field :email, class: "form-control", placeholder: "Email address" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :phone, "Phone", class: "sr-only" %>
+      <%= f.text_field :phone, class: "form-control", placeholder: "Phone number" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-xs-2">Address</label>
+    <div class="col-xs-4">
+      <%= f.label :address, class: "sr-only" %>
+      <%= f.text_field :address, class: "form-control", placeholder: "Street address" %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :suburb, class: "sr-only" %>
+      <%= f.text_field :suburb, class: "form-control", placeholder: "Suburb" %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :city, class: "sr-only" %>
+      <%= f.text_field :city, class: "form-control", placeholder: "City" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-xs-2">Created Date</label>
+    <div class="col-xs-3">
+      <%= f.label :created_at_from, class: "sr-only" %>
+      <%= f.text_field :created_at_from, class: "form-control datepicker", placeholder: "From" %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :created_at_to, class: "sr-only" %>
+      <%= f.text_field :created_at_to, class: "form-control datepicker", placeholder: "To" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-xs-2">Shipped Date</label>
+    <div class="col-xs-3">
+      <%= f.label :shipped_at_from, class: "sr-only" %>
+      <%= f.text_field :shipped_at_from, class: "form-control datepicker", placeholder: "From" %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :shipped_at_to, class: "sr-only" %>
+      <%= f.text_field :shipped_at_to, class: "form-control datepicker", placeholder: "To" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-xs-2">Order info</label>
+    <div class="col-xs-2">
+      <%= f.label :id, "ID" %>
+      <%= f.text_field :id, class: "form-control" %>
+    </div>
+
+    <div class="col-xs-2">
+      <%= f.label :shipped, "Shipped?" %>
+      <%= f.select :shipped, @order_search_form.shipped_options, {include_blank: true}, {class: "form-control"} %>
+    </div>
+
+    <div class="col-xs-4">
+      <%= f.label :item_ids, "Items" %>
+      <%= f.select :item_ids, @order_search_form.item_ids_options, {}, {class: "form-control", multiple: :multiple} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Search", class: "btn btn-default" %>
+    <%= link_to "Reset", admin_orders_path, class: "btn btn-default" %>
+  </div>
+<% end %>
