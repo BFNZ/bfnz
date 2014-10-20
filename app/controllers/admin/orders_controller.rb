@@ -1,7 +1,21 @@
+require 'csv'
+
 class Admin::OrdersController < Admin::BaseController
   def index
     @order_search_form = Admin::OrderSearchForm.new(params[:admin_order_search_form])
-    @order_presenters = @order_search_form.filtered_orders.map { |order| Admin::OrderPresenter.new(order) }
+    orders = @order_search_form.filtered_orders
+
+    params[:format] = 'csv' if params[:csv]
+    respond_to do |format|
+      format.html do
+        @order_presenters = orders.map { |order| Admin::OrderPresenter.new(order) }
+      end
+      format.csv do
+        @order_presenters = orders.map { |order| Admin::OrderCsvPresenter.new(order) }
+        headers['Content-Disposition'] = "attachment; filename=\"orders\""
+        headers['Content-Type'] = 'text/csv'
+      end
+    end
   end
 
   def new

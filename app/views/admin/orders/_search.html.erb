@@ -82,7 +82,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Search", class: "btn btn-default" %>
+    <%= hidden_field_tag :format, :html %>
+    <%= f.submit "Search", id: 'search', class: "btn btn-default" %>
+    <%= f.submit "Export to CSV", id: 'csv', class: "btn btn-default" %>
     <%= link_to "Reset", admin_orders_path, class: "btn btn-default" %>
   </div>
 <% end %>
