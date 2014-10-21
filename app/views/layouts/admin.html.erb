@@ -44,6 +44,8 @@
 	  <div class="list-group">
 	    <%= link_to "View Orders", admin_orders_path, class: "list-group-item #{active_if_current_page(:orders, :index)}" %>
 	    <%= link_to "Add Order", new_admin_order_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
+	    <%= link_to "Labels", admin_labels_path, class: "list-group-item #{active_if_current_page(:labels, :index)}" %>
+	    <%= link_to "Shipments", admin_shipments_path, class: "list-group-item #{active_if_current_page(:shipments, :index)}" %>
 	  </div>
 	</div>
 	<div class="col-xs-10">

@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'orders#index', as: :root
     resources :orders, except: [:destroy]
+    resources :labels, only: [:index]
+    resources :shipments, only: [:index, :show]
   end
 end

@@ -20,6 +20,7 @@ class Order < ActiveRecord::Base
   scope :id, ->(id) { where(id: id) }
   scope :shipped, ->(shipped) { shipped == 1 ? where.not(shipment_id: nil) : where(shipment_id: nil) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
+  scope :ready_to_ship, -> { shipped(false) }
 
   def ta=(ta)
     super ta.gsub(/district|city/, "").strip

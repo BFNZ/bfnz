@@ -180,6 +180,17 @@ describe Order do
     end
   end
 
+  describe ".ready_to_ship" do
+    subject(:ready_to_ship_scope) { Order.ready_to_ship }
+
+    let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
+    let!(:not_shipped_order) { Order.make! }
+
+    it "returns orders that are not shipped" do
+      expect(ready_to_ship_scope).to eq [not_shipped_order]
+    end
+  end
+
   describe '#ta=' do
     subject(:order) { Order.new }
 
