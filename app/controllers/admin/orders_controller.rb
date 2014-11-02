@@ -25,7 +25,7 @@ class Admin::OrdersController < Admin::BaseController
   def create
     order_service = CreateOrderService.new(request, params)
     if order_service.save
-      redirect_to admin_orders_path, notice: "Order created."
+      redirect_to new_admin_order_path, notice: "Order created successfully."
     else
       @order = order_service.order
       render :new
@@ -39,7 +39,7 @@ class Admin::OrdersController < Admin::BaseController
   def update
     order_service = UpdateOrderService.new(request, params)
     if order_service.save
-      redirect_to admin_orders_path, notice: "Order updated."
+      redirect_to admin_orders_path, notice: "Order updated successfully."
     else
       @order = order_service.order
       render :edit

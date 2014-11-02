@@ -29,7 +29,8 @@ feature 'Managing orders', js: true do
     check "Is the order for a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
     page.first(".image_picker_image").click
-    click_button "Save"
-    expect(page).to have_text("Order created.")
+    click_button "Save and add another"
+    expect(page).to have_text("Order created successfully.")
+    expect(page.current_path).to eq '/admin/orders/new'
   end
 end

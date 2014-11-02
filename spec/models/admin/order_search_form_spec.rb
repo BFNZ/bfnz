@@ -10,7 +10,7 @@ describe Admin::OrderSearchForm do
                         ["The All Inclusive Christ", 2],
                         ["The Glorious Church", 3],
                         ["Basic Elements of the Christian Life", 4],
-                        ["The Economoy of God", 5],
+                        ["The Economy of God", 5],
                         ["The Knowledge of Life", 6]]
     end
   end
