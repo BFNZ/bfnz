@@ -17,6 +17,10 @@ class Admin::OrderPresenter
     order.shipped_at.to_s(:display) if order.shipped?
   end
 
+  def row_class
+    'duplicate' if order.duplicate?
+  end
+
   private
 
   attr_reader :order

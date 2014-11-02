@@ -6,7 +6,7 @@ class Admin::LabelCsvPresenter
   delegate :title, :first_name, :last_name, :address, to: :order
 
   def order_code
-    "#{order.items.map(&:code).join}-#{order.id}"
+    "#{order.item_codes}-#{order.id}"
   end
 
   private

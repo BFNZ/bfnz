@@ -18,7 +18,7 @@
   <tbody>
     <% @orders.each do |order| %>
       <% presenter = Admin::OrderPresenter.new(order) %>
-      <tr>
+      <tr class="<%= presenter.row_class %>">
         <td><%= presenter.id %></td>
         <td><%= presenter.created %></td>
         <td><%= presenter.first_name %></td>

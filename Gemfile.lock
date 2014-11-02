@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    attribute_normalizer (1.2.0)
     authlogic (3.4.2)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
@@ -194,6 +195,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attribute_normalizer
   authlogic
   bcrypt
   better_errors

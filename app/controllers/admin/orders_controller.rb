@@ -45,4 +45,18 @@ class Admin::OrdersController < Admin::BaseController
       render :edit
     end
   end
+
+  def mark_duplicate
+    order_service = Admin::UpdateOrderDuplicateStatus.new(params: params, duplicate: true)
+    order_service.perform
+
+    redirect_to admin_labels_path
+  end
+
+  def unmark_duplicate
+    order_service = Admin::UpdateOrderDuplicateStatus.new(params: params, duplicate: false)
+    order_service.perform
+
+    redirect_to admin_labels_path
+  end
 end

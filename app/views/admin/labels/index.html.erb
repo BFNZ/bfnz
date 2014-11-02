@@ -1,6 +1,10 @@
+<% if @duplicate_presenters.any? %>
+  <%= render 'potential_duplicates' %>
+<% end %>
+
 <h2>Ready to Ship Orders</h2>
 
-<table class="table table-striped">
+<table class="ready-to-ship table table-striped">
   <thead>
     <tr>
       <th>Number of orders</th>

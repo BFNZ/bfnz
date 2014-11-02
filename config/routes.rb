@@ -9,7 +9,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'orders#index', as: :root
-    resources :orders, except: [:destroy]
+    resources :orders, except: [:destroy] do
+      member do
+        put :mark_duplicate
+        put :unmark_duplicate
+      end
+    end
     resources :labels, only: [:index]
     resources :shipments, only: [:index, :show]
     resources :coordinators, except: [:destroy]

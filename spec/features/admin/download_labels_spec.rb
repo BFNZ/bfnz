@@ -12,7 +12,7 @@ feature 'Download labels' do
     click_link "Labels"
     expect(page).to have_text("Ready to Ship Orders")
 
-    within 'table' do
+    within 'table.ready-to-ship' do
       expect(page).to have_text("2")
     end
   end
@@ -20,7 +20,7 @@ feature 'Download labels' do
   scenario "Downloading labels" do
     visit "/admin"
     click_link "Labels"
-    within 'table' do
+    within 'table.ready-to-ship' do
       expect(page).to have_text("2")
       click_link "Download"
     end

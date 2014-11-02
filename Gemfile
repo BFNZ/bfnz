@@ -14,6 +14,7 @@ gem 'authlogic'
 gem 'bcrypt'
 gem 'virtus'
 gem 'kaminari'
+gem 'attribute_normalizer'
 
 gem 'unicorn'
 

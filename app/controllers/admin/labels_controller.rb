@@ -2,6 +2,7 @@ class Admin::LabelsController < Admin::BaseController
 
   def index
     @orders = Order.ready_to_ship.order(:id)
+    @duplicate_presenters = Order.potential_duplicate_ids.map { |id| Admin::DuplicateOrderPresenter.new(id) }
 
     respond_to do |format|
       format.html
