@@ -13,6 +13,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'authlogic'
 gem 'bcrypt'
 gem 'virtus'
+gem 'kaminari'
 
 gem 'unicorn'
 

@@ -2,6 +2,8 @@
 
 <%= render 'search' %>
 
+<div><%= page_entries_info @orders %></div>
+<%= paginate @orders %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -14,20 +16,22 @@
     </tr>
   </thead>
   <tbody>
-    <% @order_presenters.each do |presenter| %>
+    <% @orders.each do |order| %>
+      <% presenter = Admin::OrderPresenter.new(order) %>
       <tr>
-	<td><%= presenter.id %></td>
-	<td><%= presenter.created %></td>
-	<td><%= presenter.first_name %></td>
-	<td><%= presenter.last_name %></td>
-	<td><%= presenter.items %></td>
-	<td><%= presenter.shipped_at %></td>
-	<td>
-	  <div class='btn-group-vertical'>
-	    <%= link_to 'Edit', edit_admin_order_path(presenter.id), class: 'btn btn-default' %>
-	  </div>
-	</td>
+        <td><%= presenter.id %></td>
+        <td><%= presenter.created %></td>
+        <td><%= presenter.first_name %></td>
+        <td><%= presenter.last_name %></td>
+        <td><%= presenter.items %></td>
+        <td><%= presenter.shipped_at %></td>
+        <td>
+          <div class='btn-group-vertical'>
+            <%= link_to 'Edit', edit_admin_order_path(presenter.id), class: 'btn btn-default' %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @orders %>

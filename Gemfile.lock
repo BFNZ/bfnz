@@ -82,6 +82,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -201,6 +204,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   jquery-rails
+  kaminari
   launchy
   machinist
   pg

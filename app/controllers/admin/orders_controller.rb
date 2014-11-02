@@ -8,7 +8,7 @@ class Admin::OrdersController < Admin::BaseController
     params[:format] = 'csv' if params[:csv]
     respond_to do |format|
       format.html do
-        @order_presenters = orders.map { |order| Admin::OrderPresenter.new(order) }
+        @orders = orders.page params[:page]
       end
       format.csv do
         @order_presenters = orders.map { |order| Admin::OrderCsvPresenter.new(order) }

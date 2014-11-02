@@ -3,7 +3,7 @@ require 'csv'
 class Admin::ShipmentsController < Admin::BaseController
 
   def index
-    @shipments = Shipment.order('id desc')
+    @shipments = Shipment.order('id desc').page params[:page]
   end
 
   def show
