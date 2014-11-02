@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  before_filter :require_user
+  before_filter :require_admin
   helper_method :current_user_session, :current_user
   layout 'admin'
 
@@ -15,10 +15,10 @@ class Admin::BaseController < ApplicationController
     @current_user = current_user_session && current_user_session.user
   end
 
-  def require_user
-    unless current_user
+  def require_admin
+    unless current_user && current_user.admin?
       store_location
-      flash[:notice] = "You must be logged in to access this page"
+      flash[:notice] = "Sorry, you don't have access to this page"
       redirect_to login_path
       return false
     end

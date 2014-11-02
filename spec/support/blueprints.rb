@@ -12,6 +12,21 @@ Order.blueprint(:shipped) do
   shipment { Shipment.create }
 end
 
+User.blueprint do
+  name                  { 'Simon Says' }
+  email                 { "simon#{sn}@says.com" }
+  password              { 'secret' }
+  password_confirmation { 'secret' }
+end
+
+User.blueprint(:admin) do
+  admin { true }
+end
+
+User.blueprint(:coordinator) do
+  admin { false }
+end
+
 ## Items are loaded from seed data
 
 ## TerritorialAuthorities are loaded from seed data

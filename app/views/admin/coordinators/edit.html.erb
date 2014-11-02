@@ -1,0 +1,4 @@
+<h2>Edit Coordinator</h2>
+<%= form_for [:admin, @coordinator], as: :coordinator, url: admin_coordinator_path(@coordinator), html: {role: "form", class: "form-horizontal"} do |form| %>
+  <%= render form %>
+<% end %>

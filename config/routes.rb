@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :orders, except: [:destroy]
     resources :labels, only: [:index]
     resources :shipments, only: [:index, :show]
+    resources :coordinators, except: [:destroy]
   end
 end

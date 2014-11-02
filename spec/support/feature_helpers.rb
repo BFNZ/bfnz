@@ -5,9 +5,10 @@ module FeatureHelpers
   end
 
   def login_as_admin
+    admin = User.make!(:admin)
     visit "/admin"
-    fill_in "Email", with: 'shevaun.coker@gmail.com'
-    fill_in "Password", with: 'password'
+    fill_in "Email", with: admin.email
+    fill_in "Password", with: admin.password
     click_button "Log in"
   end
 end

@@ -39,18 +39,19 @@
     <div class="container">
       <%= render partial: "shared/flash_messages", flash: flash %>
       <div class="row">
-	<div class="col-xs-2">
-	  <p>Welcome to the BFNZ Administration Centre. Please select a task from the menu.</p>
-	  <div class="list-group">
-	    <%= link_to "View Orders", admin_orders_path, class: "list-group-item #{active_if_current_page(:orders, :index)}" %>
-	    <%= link_to "Add Order", new_admin_order_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
-	    <%= link_to "Labels", admin_labels_path, class: "list-group-item #{active_if_current_page(:labels, :index)}" %>
-	    <%= link_to "Shipments", admin_shipments_path, class: "list-group-item #{active_if_current_page(:shipments, :index)}" %>
-	  </div>
-	</div>
-	<div class="col-xs-10">
-	  <%= yield %>
-	</div>
+        <div class="col-xs-2">
+          <p>Welcome to the BFNZ Administration Centre. Please select a task from the menu.</p>
+          <div class="list-group">
+            <%= link_to "View Orders", admin_orders_path, class: "list-group-item #{active_if_current_page(:orders, :index)}" %>
+            <%= link_to "Add Order", new_admin_order_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
+            <%= link_to "Labels", admin_labels_path, class: "list-group-item #{active_if_current_page(:labels, :index)}" %>
+            <%= link_to "Shipments", admin_shipments_path, class: "list-group-item #{active_if_current_page(:shipments, :index)}" %>
+            <%= link_to "Coordinators", admin_coordinators_path, class: "list-group-item #{active_if_current_page(:coordinators, :index)}" %>
+          </div>
+        </div>
+        <div class="col-xs-10">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>

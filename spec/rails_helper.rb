@@ -41,8 +41,8 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :transaction
     Rails.application.load_seed
   end
 
@@ -53,6 +53,6 @@ RSpec.configure do |config|
   end
 
   config.before(:all, type: :feature) do
-    DatabaseCleaner.strategy = :truncation, {except: %w{items territorial_authorities users}}
+    DatabaseCleaner.strategy = :truncation, {except: %w{items territorial_authorities}}
   end
 end

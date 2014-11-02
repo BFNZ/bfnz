@@ -22,6 +22,6 @@ class Admin::OrderPresenter
   attr_reader :order
 
   def created_by
-    order.created_by ? order.created_by.email : order.ip_address
+    order.created_by ? order.created_by.name : order.ip_address
   end
 end
