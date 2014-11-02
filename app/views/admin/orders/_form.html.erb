@@ -56,13 +56,19 @@
     </div>
   </div>
   <div class="form-group">
+    <div class="col-xs-8">
+      <%= f.label :admin_notes, "Notes", class: "control-label" %>
+      <%= f.text_area :admin_notes, class: 'form-control', rows: 4 %>
+    </div>
+  </div>
+  <div class="form-group">
     <h4>Item(s)</h4>
     <div class="error_msg"><%= @order.errors[:item_ids].join %></div>
     <%= f.select :item_ids, items_for_select, {}, :multiple => 'multiple' %>
   </div>
   <div class="form-group">
     <div class="col-sm-4">
-      <%= f.submit 'Save and add another', class: "btn btn-default" %>
+      <%= f.submit admin_order_form_save_button, class: "btn btn-default" %>
     </div>
   </div>
 <% end %>

@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Created At</th>
+      <th>Created</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Items</th>
@@ -17,7 +17,7 @@
     <% @order_presenters.each do |presenter| %>
       <tr>
 	<td><%= presenter.id %></td>
-	<td><%= presenter.created_at %></td>
+	<td><%= presenter.created %></td>
 	<td><%= presenter.first_name %></td>
 	<td><%= presenter.last_name %></td>
 	<td><%= presenter.items %></td>

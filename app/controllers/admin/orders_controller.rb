@@ -23,7 +23,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def create
-    order_service = CreateOrderService.new(request, params)
+    order_service = Admin::CreateOrderService.new(current_user, params)
     if order_service.save
       redirect_to new_admin_order_path, notice: "Order created successfully."
     else
@@ -37,7 +37,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def update
-    order_service = UpdateOrderService.new(request, params)
+    order_service = Admin::UpdateOrderService.new(current_user, params)
     if order_service.save
       redirect_to admin_orders_path, notice: "Order updated successfully."
     else

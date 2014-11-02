@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012060814) do
+ActiveRecord::Schema.define(version: 20141102023844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,16 +56,22 @@ ActiveRecord::Schema.define(version: 20141012060814) do
     t.integer  "method_received"
     t.boolean  "tertiary_student",                     default: false
     t.string   "tertiary_institution"
+    t.boolean  "duplicate",                            default: false
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
   end
 
   add_index "orders", ["address"], name: "index_orders_on_address", using: :btree
   add_index "orders", ["city_town"], name: "index_orders_on_city_town", using: :btree
+  add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
+  add_index "orders", ["duplicate"], name: "index_orders_on_duplicate", using: :btree
   add_index "orders", ["email"], name: "index_orders_on_email", using: :btree
   add_index "orders", ["first_name"], name: "index_orders_on_first_name", using: :btree
   add_index "orders", ["last_name"], name: "index_orders_on_last_name", using: :btree
   add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
   add_index "orders", ["suburb"], name: "index_orders_on_suburb", using: :btree
+  add_index "orders", ["updated_by_id"], name: "index_orders_on_updated_by_id", using: :btree
 
   create_table "shipments", force: true do |t|
     t.datetime "created_at"

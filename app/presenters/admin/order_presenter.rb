@@ -5,8 +5,8 @@ class Admin::OrderPresenter
 
   delegate :id, :first_name, :last_name, to: :order
 
-  def created_at
-    order.created_at.to_s(:display)
+  def created
+    "#{order.created_at.to_s(:display)} by #{created_by}"
   end
 
   def items
@@ -20,4 +20,8 @@ class Admin::OrderPresenter
   private
 
   attr_reader :order
+
+  def created_by
+    order.created_by ? order.created_by.email : order.ip_address
+  end
 end
