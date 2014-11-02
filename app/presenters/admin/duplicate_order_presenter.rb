@@ -1,9 +1,9 @@
 class Admin::DuplicateOrderPresenter
-  def initialize(id)
-    @order = Order.find id
+  def initialize(order)
+    @order = order
   end
 
-  delegate :id, :address, :email, :phone, to: :order
+  delegate :id, :address, :email, :phone, :potential_duplicates, to: :order
 
   def created
     "#{order.created_at.to_s(:display)} by #{created_by}"
@@ -19,10 +19,6 @@ class Admin::DuplicateOrderPresenter
 
   def items
     order.item_codes
-  end
-
-  def duplicates
-    order.duplicates
   end
 
   def marked_as_duplicate?

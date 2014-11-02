@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @duplicate_presenters.each do |suspect_order| %>
+    <% @potential_duplicates.each do |suspect_order| %>
       <tr class="pending-duplicate">
         <td><%= suspect_order.id %></td>
         <td><%= suspect_order.created %></td>
@@ -32,7 +32,7 @@
           </div>
         </td>
       </tr>
-      <% suspect_order.duplicates.each do |order| %>
+      <% suspect_order.potential_duplicates.each do |order| %>
         <% duplicate = Admin::DuplicateOrderPresenter.new(order) %>
         <tr>
           <td><%= duplicate.id %>
