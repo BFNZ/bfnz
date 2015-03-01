@@ -16,7 +16,7 @@ class Admin::OrderSearchForm
   attribute :created_at_to, Date
   attribute :shipped_at_from, Date
   attribute :shipped_at_to, Date
-  attribute :duplicate, Virtus::Attribute::Boolean, default: false
+  attribute :include_duplicates, Virtus::Attribute::Boolean, default: false
 
   def created_at_from=(date)
     super parse_date(date)
@@ -51,7 +51,7 @@ class Admin::OrderSearchForm
     attributes_with_equality.each do |key, value|
       orders = orders.public_send(key, value) if value.present?
     end
-    orders = orders.where(duplicate: duplicate)
+    orders = filter_duplicates(orders)
     orders = created_between(orders)
     orders = shipped_between(orders)
     orders
@@ -63,6 +63,14 @@ class Admin::OrderSearchForm
     Date.parse(date)
   rescue ArgumentError
     nil
+  end
+
+  def filter_duplicates(orders)
+    if include_duplicates
+      orders
+    else
+      orders.where(duplicate: false)
+    end
   end
 
   def created_between(orders)
@@ -84,6 +92,6 @@ class Admin::OrderSearchForm
   def attributes_with_equality
     attributes.except(:created_at_from, :created_at_to,
                       :shipped_at_from, :shipped_at_to,
-                      :duplicate)
+                      :include_duplicates)
   end
 end
