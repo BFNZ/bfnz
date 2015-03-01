@@ -1,4 +1,4 @@
-class Admin::DuplicateOrderPresenter
+class Admin::ShippableOrderPresenter
   def initialize(order)
     @order = order
   end
@@ -7,10 +7,6 @@ class Admin::DuplicateOrderPresenter
 
   def created
     "#{order.created_at.to_s(:display)} by #{created_by}"
-  end
-
-  def shipped
-    "Shipped: #{order.shipped_at.to_s(:display)}" if order.shipped?
   end
 
   def name

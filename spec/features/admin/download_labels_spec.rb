@@ -13,17 +13,14 @@ feature 'Download labels' do
     expect(page).to have_text("Ready to Ship Orders")
 
     within 'table.ready-to-ship' do
-      expect(page).to have_text("2")
+      expect(page).to have_text("Name")
     end
   end
 
   scenario "Downloading labels" do
     visit "/admin"
     click_link "Labels"
-    within 'table.ready-to-ship' do
-      expect(page).to have_text("2")
-      click_link "Download"
-    end
+    click_link "Download 2 Labels"
 
     header = page.response_headers['Content-Disposition']
     expect(header).to match /attachment; filename="labels.*"$/

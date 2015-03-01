@@ -1,24 +1,6 @@
-<% if @potential_duplicates.any? %>
-  <%= render 'potential_duplicates' %>
-<% end %>
-
 <h2>Ready to Ship Orders</h2>
 
-<table class="ready-to-ship table table-striped">
-  <thead>
-    <tr>
-      <th>Number of orders</th>
-      <th>Download</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @orders.count %></td>
-      <td>
-        <div class='btn-group-vertical'>
-          <%= link_to 'Download', admin_labels_path(format: :csv), class: 'btn btn-default' if @orders.any? %>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<%= render 'orders', orders: @orders.map { |order| Admin::ShippableOrderPresenter.new(order) } %>
+<div class='btn-group-vertical'>
+  <%= link_to "Download #{pluralize(@orders.count, 'Label')}", admin_labels_path(format: :csv), class: 'btn btn-default' if @orders.any? %>
+</div>

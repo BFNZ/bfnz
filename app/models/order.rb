@@ -27,28 +27,6 @@ class Order < ActiveRecord::Base
   scope :duplicate, ->(duplicate) { where(duplicate: duplicate) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
   scope :ready_to_ship, -> { shipped(false).duplicate(false) }
-  # this scope doesn't take items into account
-  scope :potential_duplicate_ids, -> {
-    Order.select(:id).joins("INNER JOIN orders o2 ON (
-(orders.first_name = o2.first_name AND orders.last_name = o2.last_name)
-OR (orders.email = o2.email AND orders.email IS NOT NULL)
-OR (orders.phone = o2.phone AND orders.phone IS NOT NULL)
-OR (orders.address = o2.address)
-)").where("orders.id > o2.id").ready_to_ship.uniq
-  }
-
-  def self.unshipped_potential_duplicates(&block)
-    potential_duplicate_ids.each do |id|
-      order = Order.find(id)
-      if order.potential_duplicates.any?
-        yield order
-      end
-    end
-  end
-
-  def potential_duplicates
-    @duplicates ||= Order.where("(first_name = :first_name AND last_name = :last_name) OR (email = :email AND email IS NOT NULL) OR (phone = :phone AND phone IS NOT NULL) OR (address = :address AND address IS NOT NULL)", first_name: first_name, last_name: last_name, email: email, phone: phone, address: address).where.not(id: id).item_ids(items.map(&:id))
-  end
 
   def ta=(ta)
     super ta.gsub(/district|city/, "").strip

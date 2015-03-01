@@ -47,7 +47,7 @@
   <div class="form-group">
     <div class="checkbox col-xs-4">
       <label for="order_tertiary_student">
-	<%= f.check_box :tertiary_student %>Is the order for a tertiary student?
+        <%= f.check_box :tertiary_student %>Is the order for a tertiary student?
       </label>
     </div>
     <div id="tertiary_institution" class="col-xs-4">
@@ -69,6 +69,9 @@
   <div class="form-group">
     <div class="col-sm-4">
       <%= f.submit admin_order_form_save_button, class: "btn btn-default" %>
+      <% if @order.duplicate? %>
+        <%= link_to 'Unmark as Duplicate', unmark_duplicate_admin_order_path(@order.id), class: 'btn btn-success', method: :put %>
+      <% end %>
     </div>
   </div>
 <% end %>
