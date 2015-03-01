@@ -33,7 +33,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'selenium-webdriver'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '1.3.0' # TODO investigate why 1.4.0 breaks the tests
   gem 'machinist'
   gem 'timecop'
 end
