@@ -17,6 +17,7 @@ class Admin::OrderSearchForm
   attribute :shipped_at_from, Date
   attribute :shipped_at_to, Date
   attribute :include_duplicates, Virtus::Attribute::Boolean, default: false
+  attribute :further_contact_requested, Virtus::Attribute::Boolean
 
   def created_at_from=(date)
     super parse_date(date)
@@ -42,6 +43,10 @@ class Admin::OrderSearchForm
     [["Yes", 1], ["No", 0]]
   end
 
+  def yes_no_options
+    [["Yes", true], ["No", false]]
+  end
+
   def item_ids=(item_ids)
     super item_ids.map(&:to_i).reject { |id| id.zero? }
   end
@@ -50,6 +55,9 @@ class Admin::OrderSearchForm
     orders = Order.order('created_at desc')
     attributes_with_equality.each do |key, value|
       orders = orders.public_send(key, value) if value.present?
+    end
+    boolean_attributes.each do |key, value|
+      orders = orders.public_send(key, value) if [true, false].include? value
     end
     orders = filter_duplicates(orders)
     orders = created_between(orders)
@@ -92,6 +100,10 @@ class Admin::OrderSearchForm
   def attributes_with_equality
     attributes.except(:created_at_from, :created_at_to,
                       :shipped_at_from, :shipped_at_to,
-                      :include_duplicates)
+                      :include_duplicates, :further_contact_requested)
+  end
+
+  def boolean_attributes
+    attributes.slice(:further_contact_requested)
   end
 end

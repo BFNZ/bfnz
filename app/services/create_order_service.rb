@@ -15,7 +15,7 @@ class CreateOrderService
   private
 
   def order_params
-    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution, :item_ids => [])
+    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution, :further_contact_requested, :item_ids => [])
   end
 
   def ip_address

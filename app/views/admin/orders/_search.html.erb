@@ -75,6 +75,11 @@
       <%= f.select :shipped, @order_search_form.shipped_options, {include_blank: true}, {class: "form-control"} %>
     </div>
 
+    <div class="col-xs-2">
+      <%= f.label :further_contact_requested, "Further Contact?" %>
+      <%= f.select :further_contact_requested, @order_search_form.yes_no_options, {include_blank: true}, {class: "form-control"} %>
+    </div>
+
     <div class="col-xs-4">
       <%= f.label :item_ids, "Items" %>
       <%= f.select :item_ids, @order_search_form.item_ids_options, {}, {class: "form-control", multiple: :multiple} %>

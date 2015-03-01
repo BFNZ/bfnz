@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102034333) do
+ActiveRecord::Schema.define(version: 20150301054228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,18 +47,19 @@ ActiveRecord::Schema.define(version: 20141102034333) do
     t.integer  "method_of_discovery"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",                    limit: 10
-    t.string   "ip_address",               limit: 40
-    t.string   "session_identifier",       limit: 100
-    t.string   "ta",                       limit: 100
-    t.string   "pxid",                     limit: 50
+    t.string   "title",                     limit: 10
+    t.string   "ip_address",                limit: 40
+    t.string   "session_identifier",        limit: 100
+    t.string   "ta",                        limit: 100
+    t.string   "pxid",                      limit: 50
     t.integer  "post_code"
     t.integer  "method_received"
-    t.boolean  "tertiary_student",                     default: false
+    t.boolean  "tertiary_student",                      default: false
     t.string   "tertiary_institution"
-    t.boolean  "duplicate",                            default: false
+    t.boolean  "duplicate",                             default: false
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.boolean  "further_contact_requested",             default: false
   end
 
   add_index "orders", ["address"], name: "index_orders_on_address", using: :btree

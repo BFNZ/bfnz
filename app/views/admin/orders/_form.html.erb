@@ -67,6 +67,14 @@
     <%= f.select :item_ids, items_for_select, {}, :multiple => 'multiple' %>
   </div>
   <div class="form-group">
+    <div class="checkbox col-xs-6">
+      <%= f.label :further_contact_requested do %>
+        <%= f.check_box :further_contact_requested %>This person is interested in receiving further contact.
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-sm-4">
       <%= f.submit admin_order_form_save_button, class: "btn btn-default" %>
       <% if @order.duplicate? %>

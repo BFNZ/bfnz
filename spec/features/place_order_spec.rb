@@ -14,6 +14,7 @@ feature 'Placing an order', js: true do
     check "Are you a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
     page.first(".image_picker_image").click
+    check "I am interested in receiving further contact."
     click_button "Place Order"
     expect(page).to have_text("your order will be shipped as soon as possible")
   end

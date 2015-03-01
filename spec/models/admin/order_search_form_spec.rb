@@ -27,6 +27,7 @@ describe Admin::OrderSearchForm do
     let!(:order) { Order.make! }
     let!(:shipped_order) { Order.make!(:shipped) }
     let!(:jan_order) { Timecop.freeze(Date.new(2014,1,3)) { Order.make! } }
+    let!(:further_contact_order) { Order.make!(:further_contact_requested => true) }
 
     context "when no attrs are passed in" do
       let(:attrs) { {} }
@@ -49,6 +50,14 @@ describe Admin::OrderSearchForm do
 
       it "scopes orders by created_at" do
         expect(filtered_orders).to eq [jan_order]
+      end
+    end
+
+    context " when further_contact_requested is set to true" do
+      let(:attrs) { {further_contact_requested: true} }
+
+      it "scopes orders by further_contact_requested" do
+        expect(filtered_orders).to eq [further_contact_order]
       end
     end
   end

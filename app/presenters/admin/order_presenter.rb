@@ -10,7 +10,7 @@ class Admin::OrderPresenter
   end
 
   def items
-    order.items.map(&:title).join(", ")
+    order.items.map(&:title).join("<br>").html_safe
   end
 
   def shipped_at
@@ -19,6 +19,10 @@ class Admin::OrderPresenter
 
   def row_class
     'duplicate' if order.duplicate?
+  end
+
+  def further_contact_requested
+    order.further_contact_requested? ? "Yes" : "No"
   end
 
   private

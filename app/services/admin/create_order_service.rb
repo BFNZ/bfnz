@@ -18,6 +18,6 @@ class Admin::CreateOrderService
     @params.require(:order).
       permit(:title, :first_name, :last_name, :address, :suburb, :city_town,
              :post_code, :pxid, :ta, :phone, :email, :tertiary_student,
-             :tertiary_institution, :admin_notes, :item_ids => [])
+             :tertiary_institution, :admin_notes, :further_contact_requested, :item_ids => [])
   end
 end

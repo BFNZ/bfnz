@@ -29,6 +29,9 @@ class Order < ActiveRecord::Base
   scope :duplicate, ->(duplicate) { where(duplicate: duplicate) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
   scope :ready_to_ship, -> { shipped(false).duplicate(false) }
+  scope :further_contact_requested, ->(further_contact_requested) {
+    where(further_contact_requested: further_contact_requested)
+  }
 
   def ta=(ta)
     super ta.gsub(/district|city/, "").strip
