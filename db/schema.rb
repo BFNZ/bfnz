@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301054228) do
+ActiveRecord::Schema.define(version: 20150301080116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150301054228) do
   add_index "orders", ["duplicate"], name: "index_orders_on_duplicate", using: :btree
   add_index "orders", ["email"], name: "index_orders_on_email", using: :btree
   add_index "orders", ["first_name"], name: "index_orders_on_first_name", using: :btree
+  add_index "orders", ["further_contact_requested"], name: "index_orders_on_further_contact_requested", using: :btree
   add_index "orders", ["last_name"], name: "index_orders_on_last_name", using: :btree
   add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
