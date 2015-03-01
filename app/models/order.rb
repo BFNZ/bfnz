@@ -4,6 +4,8 @@ class Order < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
 
+  paginates_per 20
+
   enum method_of_discovery: [:unknown, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website]
   enum method_received: [:mail, :phone, :personally_delivered, :internet, :other]
 
