@@ -5,7 +5,7 @@ class CreateOrderService
   end
 
   def save
-    order.save
+    order.save && send_confirmation_email
   end
 
   def order
@@ -20,5 +20,10 @@ class CreateOrderService
 
   def ip_address
     @request.remote_ip
+  end
+
+  def send_confirmation_email
+    OrderMailer.confirmation_email(order).deliver if order.email.present?
+    true
   end
 end
