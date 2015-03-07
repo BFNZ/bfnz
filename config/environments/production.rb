@@ -72,7 +72,7 @@ Rails.application.configure do
     domain:               'biblesfornewzealand.org.nz',
     user_name:            ENV['MANDRILL_USERNAME'],
     password:             ENV['MANDRILL_PASSWORD'],
-    authentication:       'plain',
+    authentication:       'login',
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
