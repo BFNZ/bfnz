@@ -76,9 +76,14 @@
 
   <div class="form-group">
     <div class="col-sm-4">
-      <%= f.submit admin_order_form_save_button, class: "btn btn-default" %>
-      <% if @order.duplicate? %>
-        <%= link_to 'Unmark as Duplicate', unmark_duplicate_admin_order_path(@order.id), class: 'btn btn-success', method: :put %>
+      <%= f.submit admin_order_form_save_button, class: "btn btn-success" %>
+      <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
+      <% if @order.persisted? %>
+        <% if @order.duplicate? %>
+          <%= unmark_duplicate_button(id: @order.id, return_to: :edit) %>
+        <% else %>
+          <%= mark_duplicate_button(@order.id) %>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -10,4 +10,12 @@ module Admin::OrdersHelper
   def admin_order_form_save_button
     @order.new_record? ? 'Save and add another' : 'Update'
   end
+
+  def mark_duplicate_button(id)
+    link_to 'Mark as Duplicate', mark_duplicate_admin_order_path(id), class: 'btn btn-danger', method: :put
+  end
+
+  def unmark_duplicate_button(id:, return_to: :labels)
+    link_to 'Unmark as Duplicate', unmark_duplicate_admin_order_path(id, return_to: return_to), class: 'btn btn-success', method: :put
+  end
 end

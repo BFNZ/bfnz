@@ -45,7 +45,7 @@
           <td>
             <%= duplicate.shipped %>
             <% if duplicate.marked_as_duplicate? %>
-              <%= link_to 'Unmark as Duplicate', unmark_duplicate_admin_order_path(duplicate.id), class: 'btn btn-success', method: :put %>
+              <%= unmark_duplicate_button(id: duplicate.id) %>
             <% end %>
           </td>
         </tr>

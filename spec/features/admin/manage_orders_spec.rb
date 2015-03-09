@@ -2,19 +2,18 @@ require 'rails_helper'
 
 feature 'Managing orders', js: true do
   background do
-    Order.create!(title: 'Mr', first_name: 'Joe', last_name: 'Smith',
+    @order = Order.create!(title: 'Mr', first_name: 'Joe', last_name: 'Smith',
                   address: '123 Sesame Street', city_town: 'Wellington',
                   post_code: '1234', ta: 'wellington', item_ids: [Item.first.id])
     login_as_admin
+    visit "/admin"
   end
 
   scenario "Viewing existing orders" do
-    visit "/admin"
     expect(page).to have_text("Joe Smith")
   end
 
   scenario "Adding a new order" do
-    visit "/admin"
     click_link "Add Order"
     expect(page).to have_text("Create Order")
 
@@ -32,5 +31,13 @@ feature 'Managing orders', js: true do
     click_button "Save and add another"
     expect(page).to have_text("Order created successfully.")
     expect(page.current_path).to eq '/admin/orders/new'
+  end
+
+  scenario "Marking an order as a duplicate" do
+    click_link "Edit"
+    expect(page).to have_text "Update Order"
+    click_link "Mark as Duplicate"
+    expect(page).to have_text "Ready to Ship Orders"
+    expect(page).to have_text "Order ##{@order.id} has been marked as a duplicate and has been removed from the list of labels to download."
   end
 end

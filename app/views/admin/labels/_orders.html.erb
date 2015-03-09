@@ -23,7 +23,7 @@
         <td><%= order.items %></td>
         <td>
           <div class='btn-group-vertical'>
-            <%= link_to 'Mark as Duplicate', mark_duplicate_admin_order_path(order.id), class: 'btn btn-danger', method: :put, 'data-confirm' => 'Marking an order as a dupliate will remove it from the list of labels to download, are you sure?' %>
+            <%= mark_duplicate_button(order.id) %>
             <%= link_to 'Edit', edit_admin_order_path(order.id), class: 'btn btn-default' %>
           </div>
         </td>
