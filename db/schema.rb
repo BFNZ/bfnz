@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301080116) do
+ActiveRecord::Schema.define(version: 20150309100643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,9 @@ ActiveRecord::Schema.define(version: 20150301080116) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.boolean  "further_contact_requested",             default: false
+    t.string   "old_system_address",        limit: 100
+    t.string   "old_system_suburb",         limit: 100
+    t.string   "old_system_city_town",      limit: 100
   end
 
   add_index "orders", ["address"], name: "index_orders_on_address", using: :btree
