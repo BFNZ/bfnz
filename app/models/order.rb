@@ -32,9 +32,13 @@ class Order < ActiveRecord::Base
   scope :further_contact_requested, ->(further_contact_requested) {
     where(further_contact_requested: further_contact_requested)
   }
+  scope :contactable, -> {
+    where(further_contact_requested: true).where(contact_list_id: nil)
+  }
 
   def ta=(ta)
     super ta.gsub(/district|city/, "").strip
+    self.territorial_authority_id = territorial_authority.try(:id)
   end
 
   def territorial_authority

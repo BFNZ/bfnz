@@ -1,4 +1,4 @@
-class Admin::OrderSearchForm
+class Form::Admin::OrderSearch
   include Virtus.model
   include ActiveModel::Model
 

@@ -5,7 +5,13 @@ class Admin::CreateCoordinatorService
 
   def save
     generate_password
-    coordinator.save
+    coordinator.save.tap do |success|
+      @error = coordinator.errors.full_messages.join(", ") unless success
+    end
+  end
+
+  def error_message
+    @error
   end
 
   def coordinator

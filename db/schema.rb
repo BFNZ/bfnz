@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309100643) do
+ActiveRecord::Schema.define(version: 20150315033735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contact_lists", force: true do |t|
+    t.integer  "territorial_authority_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_lists", ["territorial_authority_id"], name: "index_contact_lists_on_territorial_authority_id", using: :btree
 
   create_table "items", force: true do |t|
     t.string   "title",                       null: false
@@ -63,10 +71,13 @@ ActiveRecord::Schema.define(version: 20150309100643) do
     t.string   "old_system_address",        limit: 100
     t.string   "old_system_suburb",         limit: 100
     t.string   "old_system_city_town",      limit: 100
+    t.integer  "contact_list_id"
+    t.integer  "territorial_authority_id"
   end
 
   add_index "orders", ["address"], name: "index_orders_on_address", using: :btree
   add_index "orders", ["city_town"], name: "index_orders_on_city_town", using: :btree
+  add_index "orders", ["contact_list_id"], name: "index_orders_on_contact_list_id", using: :btree
   add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
   add_index "orders", ["duplicate"], name: "index_orders_on_duplicate", using: :btree
   add_index "orders", ["email"], name: "index_orders_on_email", using: :btree
@@ -76,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150309100643) do
   add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
   add_index "orders", ["suburb"], name: "index_orders_on_suburb", using: :btree
+  add_index "orders", ["territorial_authority_id"], name: "index_orders_on_territorial_authority_id", using: :btree
   add_index "orders", ["updated_by_id"], name: "index_orders_on_updated_by_id", using: :btree
 
   create_table "shipments", force: true do |t|

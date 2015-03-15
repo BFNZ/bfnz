@@ -1,0 +1,63 @@
+<%= Admin::CoordinatorPresenter.new(territorial_authority.coordinator).message %>
+
+<% if @orders.any? %>
+  <div><%= page_entries_info @orders %></div>
+  <%= paginate @orders %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Created</th>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% presenter = Admin::ContactPresenter.new(order) %>
+        <tr>
+          <td><%= presenter.id %></td>
+          <td><%= presenter.created %></td>
+          <td><%= presenter.name %></td>
+          <td><%= presenter.address %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @orders %>
+<% else %>
+  <p>
+    <% if territorial_authority %>
+      There are no new contacts for <%= territorial_authority.name %>.
+    <% else %>
+      Please select a District to view the new contacts for it.
+    <% end %>
+  </p>
+<% end %>
+
+<% if @contact_lists.any? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Downloaded at</th>
+        <th>Number of contacts</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @contact_lists.each do |contact_list| %>
+        <tr>
+          <td><%= contact_list.id %></td>
+          <td><%= contact_list.created_at.to_s(:display) %></td>
+          <td><%= contact_list.orders.count %></td>
+          <td>
+            <div class='btn-group-vertical'>
+              <%= link_to 'Download', admin_contact_list_path(contact_list.id, format: :csv), class: 'btn btn-default' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

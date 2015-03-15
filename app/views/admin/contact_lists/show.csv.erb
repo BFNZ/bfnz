@@ -1,0 +1,18 @@
+<%= CSV.generate_line ["Coordinator",
+                       @presenter.coordinator_name,
+                       @presenter.coordinator_email] %>
+
+<%- headers = ["ID",
+               "First name",
+               "Last name",
+               "Address",
+              ]-%>
+
+<%= CSV.generate_line headers %>
+<%- @presenter.orders.each do |order| -%>
+  <%=raw CSV.generate_line([order.id,
+                            order.first_name,
+                            order.last_name,
+                            order.address,
+                           ]) -%>
+<%- end -%>

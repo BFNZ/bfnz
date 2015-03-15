@@ -1,6 +1,6 @@
 <h2>Search Orders</h2>
 
-<%= render 'search' %>
+<%= render 'search', :order_search => @order_search %>
 
 <div><%= page_entries_info @orders %></div>
 <%= paginate @orders %>

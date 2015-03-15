@@ -2,8 +2,8 @@ require 'csv'
 
 class Admin::OrdersController < Admin::BaseController
   def index
-    @order_search_form = Admin::OrderSearchForm.new(params[:admin_order_search_form])
-    orders = @order_search_form.filtered_orders
+    @order_search = Form::Admin::OrderSearch.new(params[:form_admin_order_search])
+    orders = @order_search.filtered_orders
 
     params[:format] = 'csv' if params[:csv]
     respond_to do |format|

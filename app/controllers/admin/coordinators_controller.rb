@@ -14,6 +14,7 @@ class Admin::CoordinatorsController < Admin::BaseController
     if coordinator_service.save
       redirect_to admin_coordinators_path, notice: "Coordinator created successfully."
     else
+      flash[:alert] = coordinator_service.error_message
       @coordinator = coordinator_service.coordinator
       render :new
     end
