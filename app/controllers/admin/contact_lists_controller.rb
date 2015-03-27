@@ -5,7 +5,7 @@ class Admin::ContactListsController < Admin::BaseController
     @contact_search = Form::Admin::ContactListSearch.new(params[:form_admin_contact_list_search])
 
     if @contact_search.selected_ta
-      @orders = @contact_search.contactable_orders.page params[:page]
+      @contacts = @contact_search.contactable_customers.page params[:page]
       @coordinator = @contact_search.selected_ta.coordinator
       @contact_lists = ContactList.for_ta(@contact_search.selected_ta)
     end
@@ -16,7 +16,7 @@ class Admin::ContactListsController < Admin::BaseController
         error = case
                 when @contact_search.selected_ta.nil?
                   "Please select a district first"
-                when @orders.none?
+                when @contacts.none?
                   "There are no contacts to download for this district"
                 when @coordinator.nil?
                   "You need to assign a coordinator to this district first"
@@ -24,7 +24,7 @@ class Admin::ContactListsController < Admin::BaseController
 
         return redirect_to admin_contact_lists_path(form_admin_contact_list_search: params[:form_admin_contact_list_search]), :alert => error if error
 
-        contact_list = ContactList.create_for_orders(@contact_search.selected_ta, @orders)
+        contact_list = ContactList.create_for_ta(@contact_search.selected_ta, @contacts)
         @contact_list_presenter = Admin::ContactListCsvPresenter.new(contact_list)
         headers['Content-Disposition'] = "attachment; filename=\"#{contact_list.filename}\""
         headers['Content-Type'] = 'text/csv'

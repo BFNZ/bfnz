@@ -4,8 +4,8 @@ class Form::Admin::ContactListSearch
 
   attribute :territorial_authority_id, String
 
-  def contactable_orders
-    Order.contactable.where(territorial_authority_id: territorial_authority_id).order('created_at desc')
+  def contactable_customers
+    Customer.contactable.where(territorial_authority_id: territorial_authority_id).order('created_at desc')
   end
 
   def selected_ta

@@ -1,8 +1,8 @@
-<%= form_for [:admin, @order], html: {role: "form", class: "form-horizontal"} do |f| %>
+<%= form_for [:admin, @order_form], url: @order_form.path_for_order, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group">
     <div class="col-xs-2">
       <%= f.required_label :title, class: "control-label"%>
-      <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order.title), {include_blank: true}, class: "form-control"%>
+      <%= f.select :title, titles_for_select(@order_form), {include_blank: true}, class: "form-control"%>
     </div>
     <div class="col-xs-3">
       <%= f.required_label :first_name, class: "control-label" %>
@@ -17,11 +17,11 @@
     <div class="col-xs-8">
       <%= f.required_label :address, label_text: "Postal Address", class: "control-label" %>
       <%= f.text_field :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from" %>
-      <%= f.hidden_field :suburb %>
-      <%= f.hidden_field :city_town %>
-      <%= f.hidden_field :post_code %>
-      <%= f.hidden_field :pxid %>
-      <%= f.hidden_field :ta %>
+      <%= f.hidden_field :suburb, class: "hidden-address suburb" %>
+      <%= f.hidden_field :city_town, class: "hidden-address city_town" %>
+      <%= f.hidden_field :post_code, class: "hidden-address post_code" %>
+      <%= f.hidden_field :pxid, class: "hidden-address pxid" %>
+      <%= f.hidden_field :ta, class: "hidden-address ta" %>
     </div>
   </div>
   <div class="form-group">
@@ -37,18 +37,18 @@
   <div class="form-group">
     <div class="col-xs-4">
       <%= f.label :method_received, class: "control-label"%>
-      <%= f.select :method_received, options_for_select(method_received_options, @order.method_received), {include_blank: true}, class: "form-control"%>
+      <%= f.select :method_received, methods_received_for_select(@order_form), {include_blank: true}, class: "form-control"%>
     </div>
     <div class="col-xs-4">
       <%= f.label :method_of_discovery, class: "control-label"%>
-      <%= f.select :method_of_discovery, options_for_select(method_of_discovery_options, @order.method_of_discovery), {include_blank: true}, class: "form-control"%>
+      <%= f.select :method_of_discovery, discovery_methods_for_select(@order_form), {include_blank: true}, class: "form-control"%>
     </div>
   </div>
   <div class="form-group">
     <div class="checkbox col-xs-4">
-      <label for="order_tertiary_student">
-        <%= f.check_box :tertiary_student %>Is the order for a tertiary student?
-      </label>
+      <%= f.label :tertiary_student do %>
+        <%= f.check_box :tertiary_student, class: 'tertiary-institution-toggle' %>Is the order for a tertiary student?
+      <% end %>
     </div>
     <div id="tertiary_institution" class="col-xs-4">
       <%= f.label :tertiary_institution, class: "control-label" %>
@@ -63,8 +63,8 @@
   </div>
   <div class="form-group">
     <h4>Item(s)</h4>
-    <div class="error_msg"><%= @order.errors[:item_ids].join %></div>
-    <%= f.select :item_ids, items_for_select, {}, :multiple => 'multiple' %>
+    <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
+    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple' %>
   </div>
   <div class="form-group">
     <div class="checkbox col-xs-6">
@@ -74,16 +74,18 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="col-sm-4">
-      <%= f.submit admin_order_form_save_button, class: "btn btn-success" %>
+  <div class="btn-toolbar">
+    <div class="col-sm-8">
+      <%= f.submit admin_order_form_save_button(@order_form), class: "btn btn-primary" %>
       <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-      <% if @order.persisted? %>
-        <% if @order.duplicate? %>
-          <%= unmark_duplicate_button(id: @order.id, return_to: :edit) %>
-        <% else %>
-          <%= mark_duplicate_button(@order.id) %>
-        <% end %>
+      <% if @order_form.persisted? %>
+        <span class="extra-action">
+          <% if @order_form.duplicate? %>
+            <%= unmark_duplicate_button(id: @order_form.id, return_to: :edit) %>
+          <% else %>
+            <%= mark_duplicate_button(@order_form.id) %>
+          <% end %>
+        </span>
       <% end %>
     </div>
   </div>

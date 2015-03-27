@@ -1,15 +1,21 @@
 class OrdersController < ApplicationController
+  before_filter :setup_order_form
+
   def new
-    @order = Order.new
   end
 
   def create
-    order_service = CreateOrderService.new(request, params)
+    order_service = CreateOrderService.new(request, @order_form)
     if order_service.save
       redirect_to root_path, notice: "Thanks, your order will be shipped as soon as possible"
     else
-      @order = order_service.order
       render :new
     end
+  end
+
+  private
+
+  def setup_order_form
+    @order_form ||= Form::Order.new(params[:form_order] || {})
   end
 end

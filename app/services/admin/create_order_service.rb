@@ -1,23 +1,23 @@
 class Admin::CreateOrderService
-  def initialize(current_user, params)
+  def initialize(current_user, form)
     @user = current_user
-    @params = params
+    @form = form
   end
 
   def save
-    order.save
+    if @form.valid?
+      customer.save!
+      order.save!
+    else
+      false
+    end
   end
 
   def order
-    @order ||= Order.new(order_params.merge(:created_by => @user))
+    @order ||= customer.orders.build(@form.order_attributes.merge(:created_by => @user))
   end
 
-  private
-
-  def order_params
-    @params.require(:order).
-      permit(:title, :first_name, :last_name, :address, :suburb, :city_town,
-             :post_code, :pxid, :ta, :phone, :email, :tertiary_student,
-             :tertiary_institution, :admin_notes, :further_contact_requested, :item_ids => [])
+  def customer
+    @customer ||= Customer.new(@form.customer_attributes)
   end
 end

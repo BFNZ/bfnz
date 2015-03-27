@@ -9,11 +9,11 @@ Please note that Bibles for New Zealand can only service requests for Recovery V
 <p>
 Please allow 4-6 weeks for delivery.
 </p>
-<%= form_for @order, html: {role: "form", class: "form-horizontal"} do |f| %>
+<%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group">
     <div class="col-xs-2">
       <%= f.required_label :title, class: "control-label"%>
-      <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order.title), {include_blank: true}, class: "form-control"%>
+      <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order_form.title), {include_blank: true}, class: "form-control"%>
     </div>
     <div class="col-xs-3">
       <%= f.required_label :first_name, class: "control-label" %>
@@ -28,11 +28,11 @@ Please allow 4-6 weeks for delivery.
     <div class="col-xs-8">
       <%= f.required_label :address, label_text: "Postal Address", class: "control-label" %>
       <%= f.text_field :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from" %>
-      <%= f.hidden_field :suburb %>
-      <%= f.hidden_field :city_town %>
-      <%= f.hidden_field :post_code %>
-      <%= f.hidden_field :pxid %>
-      <%= f.hidden_field :ta %>
+      <%= f.hidden_field :suburb, class: "hidden-address suburb" %>
+      <%= f.hidden_field :city_town, class: "hidden-address city_town" %>
+      <%= f.hidden_field :post_code, class: "hidden-address post_code" %>
+      <%= f.hidden_field :pxid, class: "hidden-address pxid" %>
+      <%= f.hidden_field :ta, class: "hidden-address ta" %>
     </div>
   </div>
   <div class="form-group">
@@ -47,9 +47,9 @@ Please allow 4-6 weeks for delivery.
   </div>
   <div class="form-group">
     <div class="checkbox col-xs-4">
-      <label for="order_tertiary_student">
-        <%= f.check_box :tertiary_student %>Are you a tertiary student?
-      </label>
+      <%= f.label :tertiary_student do %>
+        <%= f.check_box :tertiary_student, class: 'tertiary-institution-toggle' %>Are you a tertiary student?
+      <% end %>
     </div>
     <div id="tertiary_institution" class="col-xs-4">
       <%= f.label :tertiary_institution, class: "control-label" %>
@@ -58,8 +58,8 @@ Please allow 4-6 weeks for delivery.
   </div>
   <div class="form-group">
     <h4>Select the item(s) you would like to receive</h4>
-    <div class="error_msg"><%= @order.errors[:item_ids].join %></div>
-    <%= f.select :item_ids, items_for_select, {}, :multiple => 'multiple' %>
+    <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
+    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple' %>
   </div>
   <div class="form-group">
     <div class="checkbox col-xs-6">

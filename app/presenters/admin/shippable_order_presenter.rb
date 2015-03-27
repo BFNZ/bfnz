@@ -3,14 +3,11 @@ class Admin::ShippableOrderPresenter
     @order = order
   end
 
-  delegate :id, :address, :email, :phone, :potential_duplicates, to: :order
+  delegate :id, :potential_duplicates, to: :order
+  delegate :full_name, :address, :email, :phone, to: :customer
 
   def created
     "#{order.created_at.to_s(:display)} by #{created_by}"
-  end
-
-  def name
-    "#{order.first_name} #{order.last_name}"
   end
 
   def items
@@ -24,6 +21,10 @@ class Admin::ShippableOrderPresenter
   private
 
   attr_reader :order
+
+  def customer
+    order.customer
+  end
 
   def created_by
     order.created_by ? order.created_by.name : order.ip_address

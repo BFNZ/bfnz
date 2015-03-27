@@ -1,11 +1,15 @@
 require 'machinist/active_record'
 
 Order.blueprint do
+  customer
+  items      { [Item.first] }
+end
+
+Customer.blueprint do
   first_name { "Charlie" }
   last_name  { "Brown" }
   title      { "Mr" }
   address    { "Hennepin County, Minnesota" }
-  items      { [Item.first] }
 end
 
 Order.blueprint(:shipped) do

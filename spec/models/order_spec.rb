@@ -1,90 +1,6 @@
 require 'rails_helper'
 
 describe Order do
-  describe ".first_name" do
-    subject(:first_name_scope) { Order.first_name("den") }
-
-    let!(:dennis) { Order.make!(first_name: 'Dennis') }
-    let!(:ayden)  { Order.make!(first_name: 'Ayden') }
-    let!(:dean)   { Order.make!(first_name: 'Dean') }
-
-    it "returns order that match on first name" do
-      expect(first_name_scope).to match_array [dennis, ayden]
-    end
-  end
-
-  describe ".last_name" do
-    subject(:last_name_scope) { Order.last_name("den") }
-
-    let!(:dennis) { Order.make!(last_name: 'Dennis') }
-    let!(:ayden)  { Order.make!(last_name: 'Ayden') }
-    let!(:dean)   { Order.make!(last_name: 'Dean') }
-
-    it "returns order that match on last name" do
-      expect(last_name_scope).to match_array [dennis, ayden]
-    end
-  end
-
-  describe ".email" do
-    subject(:email_scope) { Order.email("user@abc") }
-
-    let!(:upcase)     { Order.make!(email: 'USER@abc.def') }
-    let!(:like_match) { Order.make!(email: 'newuser@abc.com') }
-    let!(:no_match)   { Order.make!(email: 'user@gmail.com') }
-
-    it "returns orders that fuzzy match on email" do
-      expect(email_scope).to match_array [upcase, like_match]
-    end
-  end
-
-  describe ".phone" do
-    subject(:phone_scope) { Order.phone("855 970") }
-
-    let!(:match1) { Order.make!(phone: '(07) 855 9709') }
-    let!(:match2) { Order.make!(phone: '(04) 8559 705') }
-    let!(:nope)   { Order.make!(phone: '(04) 986 5970') }
-
-    it "returns orders that match on the specific phone numbers" do
-      expect(phone_scope).to match_array [match1, match2]
-    end
-  end
-
-  describe ".address" do
-    subject(:address_scope) { Order.address("Flower St") }
-
-    let!(:match1) { Order.make!(address: '4 Flower Street') }
-    let!(:match2) { Order.make!(address: '6 Flower st') }
-    let!(:nope)   { Order.make!(address: '7 Flowerbed St') }
-
-    it "returns order that match on last name" do
-      expect(address_scope).to match_array [match1, match2]
-    end
-  end
-
-  describe ".suburb" do
-    subject(:suburb_scope) { Order.suburb("town") }
-
-    let!(:match1) { Order.make!(suburb: 'Townville') }
-    let!(:match2) { Order.make!(suburb: 'Sunnytown') }
-    let!(:nope)   { Order.make!(suburb: 'Hamilton') }
-
-    it "returns order that match on suburb" do
-      expect(suburb_scope).to match_array [match1, match2]
-    end
-  end
-
-  describe ".city_town" do
-    subject(:city_town_scope) { Order.city_town("town") }
-
-    let!(:match1) { Order.make!(city_town: 'Townville') }
-    let!(:match2) { Order.make!(city_town: 'Sunnytown') }
-    let!(:nope)   { Order.make!(city_town: 'Hamilton') }
-
-    it "returns order that match on city_town" do
-      expect(city_town_scope).to match_array [match1, match2]
-    end
-  end
-
   describe ".id" do
     subject(:id_scope) { Order.id("6") }
 
@@ -188,22 +104,6 @@ describe Order do
 
     it "returns orders that are not shipped" do
       expect(ready_to_ship_scope).to eq [not_shipped_order]
-    end
-  end
-
-  describe '#ta=' do
-    subject(:order) { Order.new }
-
-    before do
-      order.ta = ta
-    end
-
-    context "when it contains the word 'city'" do
-      let(:ta) { 'hamilton city' }
-
-      it 'strips city' do
-        expect(order.ta).to eq 'hamilton'
-      end
     end
   end
 end

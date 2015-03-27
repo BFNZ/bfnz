@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315033735) do
+ActiveRecord::Schema.define(version: 20150327062549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,48 @@ ActiveRecord::Schema.define(version: 20150315033735) do
   end
 
   add_index "contact_lists", ["territorial_authority_id"], name: "index_contact_lists_on_territorial_authority_id", using: :btree
+
+  create_table "customers", force: true do |t|
+    t.integer  "territorial_authority_id"
+    t.integer  "contact_list_id"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "suburb"
+    t.string   "city_town"
+    t.string   "post_code"
+    t.string   "ta"
+    t.string   "pxid"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "title"
+    t.boolean  "tertiary_student"
+    t.string   "tertiary_institution"
+    t.text     "admin_notes"
+    t.text     "coordinator_notes"
+    t.boolean  "further_contact_requested"
+    t.integer  "old_subscriber_id"
+    t.string   "old_system_address"
+    t.string   "old_system_suburb"
+    t.string   "old_system_city_town"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["address"], name: "index_customers_on_address", using: :btree
+  add_index "customers", ["city_town"], name: "index_customers_on_city_town", using: :btree
+  add_index "customers", ["contact_list_id"], name: "index_customers_on_contact_list_id", using: :btree
+  add_index "customers", ["created_by_id"], name: "index_customers_on_created_by_id", using: :btree
+  add_index "customers", ["email"], name: "index_customers_on_email", using: :btree
+  add_index "customers", ["first_name"], name: "index_customers_on_first_name", using: :btree
+  add_index "customers", ["further_contact_requested"], name: "index_customers_on_further_contact_requested", using: :btree
+  add_index "customers", ["last_name"], name: "index_customers_on_last_name", using: :btree
+  add_index "customers", ["phone"], name: "index_customers_on_phone", using: :btree
+  add_index "customers", ["suburb"], name: "index_customers_on_suburb", using: :btree
+  add_index "customers", ["territorial_authority_id"], name: "index_customers_on_territorial_authority_id", using: :btree
+  add_index "customers", ["updated_by_id"], name: "index_customers_on_updated_by_id", using: :btree
 
   create_table "items", force: true do |t|
     t.string   "title",                       null: false
@@ -41,54 +83,24 @@ ActiveRecord::Schema.define(version: 20150315033735) do
   end
 
   create_table "orders", force: true do |t|
-    t.integer  "historical_subscriber_id"
     t.integer  "shipment_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "address"
-    t.string   "suburb"
-    t.string   "city_town"
-    t.string   "phone"
-    t.string   "email"
-    t.text     "admin_notes"
-    t.text     "coordinator_notes"
     t.integer  "method_of_discovery"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",                     limit: 10
-    t.string   "ip_address",                limit: 40
-    t.string   "session_identifier",        limit: 100
-    t.string   "ta",                        limit: 100
-    t.string   "pxid",                      limit: 50
-    t.integer  "post_code"
+    t.string   "ip_address",          limit: 40
+    t.string   "session_identifier",  limit: 100
     t.integer  "method_received"
-    t.boolean  "tertiary_student",                      default: false
-    t.string   "tertiary_institution"
-    t.boolean  "duplicate",                             default: false
+    t.boolean  "duplicate",                       default: false
+    t.integer  "customer_id"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.boolean  "further_contact_requested",             default: false
-    t.string   "old_system_address",        limit: 100
-    t.string   "old_system_suburb",         limit: 100
-    t.string   "old_system_city_town",      limit: 100
-    t.integer  "contact_list_id"
-    t.integer  "territorial_authority_id"
+    t.text     "admin_notes"
+    t.text     "coordinator_notes"
   end
 
-  add_index "orders", ["address"], name: "index_orders_on_address", using: :btree
-  add_index "orders", ["city_town"], name: "index_orders_on_city_town", using: :btree
-  add_index "orders", ["contact_list_id"], name: "index_orders_on_contact_list_id", using: :btree
-  add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
   add_index "orders", ["duplicate"], name: "index_orders_on_duplicate", using: :btree
-  add_index "orders", ["email"], name: "index_orders_on_email", using: :btree
-  add_index "orders", ["first_name"], name: "index_orders_on_first_name", using: :btree
-  add_index "orders", ["further_contact_requested"], name: "index_orders_on_further_contact_requested", using: :btree
-  add_index "orders", ["last_name"], name: "index_orders_on_last_name", using: :btree
-  add_index "orders", ["phone"], name: "index_orders_on_phone", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
-  add_index "orders", ["suburb"], name: "index_orders_on_suburb", using: :btree
-  add_index "orders", ["territorial_authority_id"], name: "index_orders_on_territorial_authority_id", using: :btree
-  add_index "orders", ["updated_by_id"], name: "index_orders_on_updated_by_id", using: :btree
 
   create_table "shipments", force: true do |t|
     t.datetime "created_at"

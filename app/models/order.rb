@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   has_and_belongs_to_many :items
   belongs_to :shipment
+  belongs_to :customer
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
 
@@ -9,19 +10,6 @@ class Order < ActiveRecord::Base
   enum method_of_discovery: [:unknown, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website]
   enum method_received: [:mail, :phone, :personally_delivered, :internet, :other]
 
-  validates :title, :first_name, :last_name, :address, presence: true
-  validate :contains_at_least_one_item
-
-  normalize_attributes :first_name, :last_name, :email, :address
-  normalize_attribute :phone, with: :phone
-
-  scope :first_name, ->(first_name) { where("lower(first_name) LIKE ?", "%#{first_name.downcase}%") }
-  scope :last_name, ->(last_name) { where("lower(last_name) LIKE ?", "%#{last_name.downcase}%") }
-  scope :email, ->(email) { where("lower(email) LIKE ?", "%#{email.downcase}%") }
-  scope :phone, ->(phone) { where("phone LIKE ?", "%#{strip_non_numeric(phone)}%") }
-  scope :address, ->(address) { where("lower(address) LIKE ?", "%#{address.downcase}%") }
-  scope :suburb, ->(suburb) { where("lower(suburb) LIKE ?", "%#{suburb.downcase}%") }
-  scope :city_town, ->(city_town) { where("lower(city_town) LIKE ?", "%#{city_town.downcase}%") }
   scope :created_between, ->(from, to) { where("orders.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
@@ -29,21 +17,6 @@ class Order < ActiveRecord::Base
   scope :duplicate, ->(duplicate) { where(duplicate: duplicate) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
   scope :ready_to_ship, -> { shipped(false).duplicate(false) }
-  scope :further_contact_requested, ->(further_contact_requested) {
-    where(further_contact_requested: further_contact_requested)
-  }
-  scope :contactable, -> {
-    where(further_contact_requested: true).where(contact_list_id: nil)
-  }
-
-  def ta=(ta)
-    super ta.gsub(/district|city/, "").strip
-    self.territorial_authority_id = territorial_authority.try(:id)
-  end
-
-  def territorial_authority
-    @territorial_authority ||= TerritorialAuthority.find_by_addressfinder_name(ta)
-  end
 
   def shipped?
     shipment_id.present?
@@ -55,15 +28,5 @@ class Order < ActiveRecord::Base
 
   def item_codes
     items.map(&:code).join
-  end
-
-  def self.strip_non_numeric(string)
-    string.gsub(/\D/, '')
-  end
-
-  private
-
-  def contains_at_least_one_item
-    errors.add(:item_ids, "You must select at least one item") if item_ids.none?
   end
 end

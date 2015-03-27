@@ -5,7 +5,8 @@ RSpec.describe OrderMailer do
   describe "#confirmation_email" do
     subject(:email) { described_class.confirmation_email(order).deliver }
 
-    let(:order) { Order.new(email: 'myemail@gmail.com', first_name: 'Jane', last_name: 'Doe') }
+    let(:customer) { Customer.new(email: 'myemail@gmail.com', first_name: 'Jane', last_name: 'Doe') }
+    let(:order) { Order.new(customer: customer) }
 
     it { expect(email.from).to eq ["info@biblesfornewzealand.org.nz"] }
     it { expect(email.to).to eq ['myemail@gmail.com'] }

@@ -36,6 +36,7 @@ group :test do
   gem 'database_cleaner', '1.3.0' # TODO investigate why 1.4.0 breaks the tests
   gem 'machinist'
   gem 'timecop'
+  gem 'webmock'
 end
 
 # Use Capistrano for deployment

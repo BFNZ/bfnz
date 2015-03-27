@@ -1,12 +1,12 @@
 class Admin::ContactPresenter
-  def initialize(order)
-    @order = order
+  def initialize(customer)
+    @customer = customer
   end
 
-  delegate :id, :first_name, :last_name, :address, to: :order
+  delegate :id, :title, :first_name, :last_name, :address, to: :customer
 
   def created
-    "#{order.created_at.to_s(:display)}"
+    "#{customer.created_at.to_s(:display)}"
   end
 
   def name
@@ -15,6 +15,6 @@ class Admin::ContactPresenter
 
   private
 
-  attr_reader :order
+  attr_reader :customer
 
 end

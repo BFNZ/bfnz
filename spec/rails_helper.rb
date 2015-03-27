@@ -4,6 +4,7 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
+require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -44,6 +45,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
     Rails.application.load_seed
+
+    WebMock.disable_net_connect!(:allow_localhost => true)
+    # stub_request(:any, 'api.addressfinder.nz').
+    #   to_return(%Q{/**/reqwest_1427708603773({"completions":[{"a":"5 Oxford Avenue, Kamo, Whangarei 0112","pxid":"2-.9.2U.4.1Z.5","v":1},{"a":"5 Oxford Court, Paraparaumu 5032","pxid":"2-.F.w.5.1Z.3","v":1},{"a":"5 Oxford Crescent, Ebdentown, Upper Hutt 5018","pxid":"2-.F.1P.8.M.q","v":1},{"a":"5 Oxford Road, Manurewa, Auckland 2102","pxid":"2-.1.6.1E.2X.C","v":1},{"a":"5 Oxford Road, Rangiora 7400","pxid":"2-.3.3L.2.4k.D","v":1},{"a":"5 Oxford Road, Springvale, Wanganui 4501","pxid":"2-.6.2F.C.V.4","v":1},{"a":"5 Oxford Street, Balclutha 9230","pxid":"2-.A.E.1.2n.8","v":1},{"a":"5 Oxford Street, Fairfield, Hamilton 3214","pxid":"2-.E.Y.C.d.V","v":1},{"a":"5 Oxford Street, Hampstead, Ashburton 7700","pxid":"2-.3.D.4.Q.19","v":1},{"a":"5 Oxford Street, Hokowhitu, Palmerston North 4410","pxid":"2-.6.1I.7.10.a","v":1}], "paid":false})})
   end
 
   config.around(:each) do |example|

@@ -3,7 +3,7 @@ class Admin::LabelCsvPresenter
     @order = order
   end
 
-  delegate :title, :first_name, :last_name, :address, to: :order
+  delegate :title, :first_name, :last_name, :address, to: :customer
 
   def order_code
     "#{order.item_codes}-#{order.id}"
@@ -12,4 +12,8 @@ class Admin::LabelCsvPresenter
   private
 
   attr_reader :order
+
+  def customer
+    order.customer
+  end
 end

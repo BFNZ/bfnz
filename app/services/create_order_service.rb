@@ -1,29 +1,35 @@
 class CreateOrderService
-  def initialize(request, params)
+  def initialize(request, form)
     @request = request
-    @params = params
+    @form = form
   end
 
   def save
-    order.save && send_confirmation_email
+    if @form.valid?
+      customer.save!
+      order.save!
+      send_confirmation_email
+      true
+    else
+      false
+    end
   end
 
   def order
-    @order ||= Order.new(order_params.merge(ip_address: ip_address))
+    @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address))
+  end
+
+  def customer
+    @customer ||= Customer.new(@form.customer_attributes)
   end
 
   private
-
-  def order_params
-    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :tertiary_student, :tertiary_institution, :further_contact_requested, :item_ids => [])
-  end
 
   def ip_address
     @request.remote_ip
   end
 
   def send_confirmation_email
-    OrderMailer.confirmation_email(order).deliver if order.email.present?
-    true
+    OrderMailer.confirmation_email(order).deliver if customer.has_email?
   end
 end

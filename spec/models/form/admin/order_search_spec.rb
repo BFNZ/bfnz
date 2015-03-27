@@ -27,7 +27,7 @@ describe Form::Admin::OrderSearch do
     let!(:order) { Order.make! }
     let!(:shipped_order) { Order.make!(:shipped) }
     let!(:jan_order) { Timecop.freeze(Date.new(2014,1,3)) { Order.make! } }
-    let!(:further_contact_order) { Order.make!(:further_contact_requested => true) }
+    let!(:further_contact_order) { Order.make!(customer: Customer.make!(further_contact_requested: true)) }
 
     context "when no attrs are passed in" do
       let(:attrs) { {} }

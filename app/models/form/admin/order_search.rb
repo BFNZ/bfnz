@@ -52,13 +52,16 @@ class Form::Admin::OrderSearch
   end
 
   def filtered_orders
-    orders = Order.order('created_at desc')
-    attributes_with_equality.each do |key, value|
+    orders = ::Order.includes(:customer).joins(:customer).order('orders.created_at desc')
+
+    customer_attributes.each do |key, value|
+      orders = orders.merge(Customer.public_send(key, value)) if value.present?
+    end
+
+    order_attributes.each do |key, value|
       orders = orders.public_send(key, value) if value.present?
     end
-    boolean_attributes.each do |key, value|
-      orders = orders.public_send(key, value) if [true, false].include? value
-    end
+    orders = further_contact_flag(orders)
     orders = filter_duplicates(orders)
     orders = created_between(orders)
     orders = shipped_between(orders)
@@ -66,6 +69,14 @@ class Form::Admin::OrderSearch
   end
 
   private
+
+  def further_contact_flag(scope)
+    if [true, false].include?(further_contact_requested)
+      scope.merge(Customer.further_contact_requested(further_contact_requested))
+    else
+      scope
+    end
+  end
 
   def parse_date(date)
     Date.parse(date)
@@ -97,13 +108,11 @@ class Form::Admin::OrderSearch
     end
   end
 
-  def attributes_with_equality
-    attributes.except(:created_at_from, :created_at_to,
-                      :shipped_at_from, :shipped_at_to,
-                      :include_duplicates, :further_contact_requested)
+  def customer_attributes
+    attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city)
   end
 
-  def boolean_attributes
-    attributes.slice(:further_contact_requested)
+  def order_attributes
+    attributes.slice(:item_ids, :shipped, :id)
   end
 end

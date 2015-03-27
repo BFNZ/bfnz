@@ -1,23 +1,23 @@
 class Admin::UpdateOrderService
-  attr_reader :order
 
-  def initialize(current_user, params)
+  def initialize(current_user, form)
     @user = current_user
-    @params = params
-    @order = Order.find(params[:id])
+    @form = form
+    @order = form.order
+    @customer = @order.customer
   end
 
   def save
-    order.update(order_params.merge(:updated_by => @user))
+    save_customer && save_order
   end
 
   private
 
-  def order_params
-    @params.require(:order).
-      permit(:title, :first_name, :last_name, :address, :suburb, :city_town,
-             :post_code, :pxid, :ta, :phone, :email, :method_received,
-             :method_of_discovery, :tertiary_student, :tertiary_institution,
-             :admin_notes, :further_contact_requested, :item_ids => [])
+  def save_customer
+    @customer.update(@form.customer_attributes.merge(:updated_by => @user))
+  end
+
+  def save_order
+    @order.update(@form.order_attributes.merge(:updated_by => @user))
   end
 end

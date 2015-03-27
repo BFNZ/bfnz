@@ -1,6 +1,6 @@
 class ContactList < ActiveRecord::Base
   belongs_to :territorial_authority
-  has_many :orders
+  has_many :customers
 
   scope :for_ta, ->(territorial_authority) {
     if territorial_authority.nil?
@@ -10,10 +10,10 @@ class ContactList < ActiveRecord::Base
     end
   }
 
-  def self.create_for_orders(territorial_authority, orders)
+  def self.create_for_ta(territorial_authority, customers)
     self.transaction do
       contact_list = self.create!(territorial_authority: territorial_authority)
-      orders.update_all(contact_list_id: contact_list.id)
+      customers.update_all(contact_list_id: contact_list.id)
     end
   end
 

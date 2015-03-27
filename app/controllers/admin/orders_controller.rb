@@ -1,6 +1,8 @@
 require 'csv'
 
 class Admin::OrdersController < Admin::BaseController
+  before_filter :setup_order_form, only: [:new, :create, :edit, :update]
+
   def index
     @order_search = Form::Admin::OrderSearch.new(params[:form_admin_order_search])
     orders = @order_search.filtered_orders
@@ -19,29 +21,25 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def new
-    @order = Order.new
   end
 
   def create
-    order_service = Admin::CreateOrderService.new(current_user, params)
+    order_service = Admin::CreateOrderService.new(current_user, @order_form)
     if order_service.save
       redirect_to new_admin_order_path, notice: "Order created successfully."
     else
-      @order = order_service.order
       render :new
     end
   end
 
   def edit
-    @order = Order.find(params[:id])
   end
 
   def update
-    order_service = Admin::UpdateOrderService.new(current_user, params)
+    order_service = Admin::UpdateOrderService.new(current_user, @order_form)
     if order_service.save
       redirect_to admin_orders_path, notice: "Order updated successfully."
     else
-      @order = order_service.order
       render :edit
     end
   end
@@ -67,5 +65,16 @@ class Admin::OrdersController < Admin::BaseController
                 else
                   admin_orders_path
                 end
+  end
+
+  private
+
+  def setup_order_form
+    @order_form = Form::Admin::Order.new(order: order,
+                                         form_params: params[:form_admin_order])
+  end
+
+  def order
+    @order ||= Order.find_by_id(params[:id]) || Order.new
   end
 end

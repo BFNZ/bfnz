@@ -3,7 +3,8 @@ class Admin::OrderPresenter
     @order = order
   end
 
-  delegate :id, :first_name, :last_name, to: :order
+  delegate :id, :customer, to: :order
+  delegate :first_name, :last_name, to: :customer
 
   def created
     "#{order.created_at.to_s(:display)} by #{created_by}"
@@ -22,7 +23,7 @@ class Admin::OrderPresenter
   end
 
   def further_contact_requested
-    order.further_contact_requested? ? "Yes" : "No"
+    customer.further_contact_requested? ? "Yes" : "No"
   end
 
   private

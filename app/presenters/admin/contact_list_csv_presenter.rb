@@ -11,8 +11,8 @@ class Admin::ContactListCsvPresenter
     coordinator.email
   end
 
-  def orders
-    contact_list.orders.map { |order| Admin::ContactPresenter.new(order) }
+  def contacts
+    contact_list.customers.map { |customer| Admin::ContactPresenter.new(customer) }
   end
 
   private

@@ -1,8 +1,8 @@
 <%= Admin::CoordinatorPresenter.new(territorial_authority.coordinator).message %>
 
-<% if @orders.any? %>
-  <div><%= page_entries_info @orders %></div>
-  <%= paginate @orders %>
+<% if @contacts.any? %>
+  <div><%= page_entries_info @contacts %></div>
+  <%= paginate @contacts %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,8 +13,8 @@
       </tr>
     </thead>
     <tbody>
-      <% @orders.each do |order| %>
-        <% presenter = Admin::ContactPresenter.new(order) %>
+      <% @contacts.each do |contact| %>
+        <% presenter = Admin::ContactPresenter.new(contact) %>
         <tr>
           <td><%= presenter.id %></td>
           <td><%= presenter.created %></td>
@@ -24,7 +24,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= paginate @orders %>
+  <%= paginate @contacts %>
 <% else %>
   <p>
     <% if territorial_authority %>
@@ -50,7 +50,7 @@
         <tr>
           <td><%= contact_list.id %></td>
           <td><%= contact_list.created_at.to_s(:display) %></td>
-          <td><%= contact_list.orders.count %></td>
+          <td><%= contact_list.contacts.count %></td>
           <td>
             <div class='btn-group-vertical'>
               <%= link_to 'Download', admin_contact_list_path(contact_list.id, format: :csv), class: 'btn btn-default' %>
