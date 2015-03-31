@@ -26,15 +26,24 @@ class Form::Order
   validates :title, :first_name, :last_name, :address, presence: true
   validate :contains_at_least_one_item
 
-  ORDER_ATTRIBUTES = %w{item_ids}
-  CUSTOMER_ATTRIBUTES = %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested}
+  def order_attr_keys
+    %w{item_ids}
+  end
+
+  def customer_attr_keys
+    %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested}
+  end
 
   def order_attributes
-    attributes.stringify_keys.slice(*ORDER_ATTRIBUTES)
+    attributes.stringify_keys.slice(*order_attr_keys)
   end
 
   def customer_attributes
-    attributes.stringify_keys.slice(*CUSTOMER_ATTRIBUTES)
+    attributes.stringify_keys.slice(*customer_attr_keys)
+  end
+
+  def item_ids=(item_ids)
+    super item_ids.reject(&:blank?)
   end
 
   private
