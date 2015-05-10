@@ -2,8 +2,8 @@
 
 <%= render 'search', :order_search => @order_search %>
 
-<div><%= page_entries_info @orders %></div>
-<%= paginate @orders %>
+<div><%= page_entries_info @orders_presenter.orders_for_current_page %></div>
+<%= paginate @orders_presenter.orders_for_current_page %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,10 +17,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @orders.each do |order| %>
-      <% presenter = Admin::OrderPresenter.new(order) %>
+    <% @orders_presenter.order_presenters do |presenter| %>
       <tr class="<%= presenter.row_class %>">
-        <td><%= presenter.id %></td>
+        <td><%= presenter.order_number %></td>
         <td><%= presenter.created %></td>
         <td><%= presenter.first_name %></td>
         <td><%= presenter.last_name %></td>
@@ -29,11 +28,11 @@
         <td><%= presenter.shipped_at %></td>
         <td>
           <div class='btn-group-vertical'>
-            <%= link_to 'Edit', edit_admin_order_path(presenter.id), class: 'btn btn-default' %>
+            <%= link_to 'Edit', edit_admin_customer_path(presenter.customer_id), class: 'btn btn-default' %>
           </div>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= paginate @orders %>
+<%= paginate @orders_presenter.orders_for_current_page %>

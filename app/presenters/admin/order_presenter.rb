@@ -3,8 +3,13 @@ class Admin::OrderPresenter
     @order = order
   end
 
-  delegate :id, :customer, to: :order
+  delegate :id, to: :order, prefix: true
+  delegate :customer, :customer_id, to: :order
   delegate :first_name, :last_name, to: :customer
+
+  def order_number
+    "##{order_id}.#{customer.id}"
+  end
 
   def created
     "#{order.created_at.to_s(:display)} by #{created_by}"

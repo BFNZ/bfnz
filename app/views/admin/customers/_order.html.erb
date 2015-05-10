@@ -1,0 +1,32 @@
+<div class="col-md-12">
+  Order <%= presenter.id %>
+</div>
+
+<div class="col-md-6">
+  <div>
+    Date ordered:
+    <%= presenter.date_ordered %>
+  </div>
+  <div>
+  <% if presenter.order_shipped? %>
+    Date shipped:
+    <%= presenter.date_shipped %>
+  <% else %>
+    Titles requested:
+    <%= select_tag :item_ids, items_for_select(presenter), class: 'imagepicker', multiple: 'multiple' %>
+  <% end %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <% if presenter.order_shipped? %>
+    Titles ordered:
+    <%= presenter.titles_ordered.join("<br>") %>
+  <% end %>
+</div>
+
+<div class="col-md-12">
+  <% unless presenter.order_shipped? %>
+    <%= link_to "Cancel order", "#", class: 'btn btn-default' %>
+  <% end %>
+</div>
