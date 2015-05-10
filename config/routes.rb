@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :user_sessions, only: [:create]
 
   namespace :admin do
-    get '/' => 'orders#index', as: :root
+    get '/' => 'home#index', as: :root
     resources :orders, except: [:destroy] do
       member do
         put :mark_duplicate
