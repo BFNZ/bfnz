@@ -1,5 +1,7 @@
 module Admin
   class CustomerPresenter
+    attr_reader :customer
+
     def initialize(customer)
       @customer = customer
     end
@@ -16,7 +18,7 @@ module Admin
 
     private
 
-    attr_reader :order_id, :customer
+    attr_reader :order_id
 
     class OrderPresenter
       def initialize(order)

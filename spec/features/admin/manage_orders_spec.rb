@@ -15,9 +15,9 @@ feature 'Managing orders', js: true do
     expect(page).to have_text("Joe Smith")
   end
 
-  scenario "Adding a new order" do
-    click_link "Add Order"
-    expect(page).to have_text("Create Order")
+  scenario "Adding a new customer" do
+    click_link "New Customer"
+    expect(page).to have_text("Add a new customer")
 
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
@@ -32,7 +32,7 @@ feature 'Managing orders', js: true do
     page.first(".image_picker_image").click
     click_button "Save and add another"
     expect(page).to have_text("Order created successfully.")
-    expect(page.current_path).to eq '/admin/orders/new'
+    expect(page.current_path).to eq '/admin/customers/new'
   end
 
   scenario "Editing an order" do

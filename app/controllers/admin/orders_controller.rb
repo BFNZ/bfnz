@@ -1,7 +1,7 @@
 require 'csv'
 module Admin
   class OrdersController < BaseController
-    before_filter :setup_order_form, only: [:new, :create, :edit, :update]
+    before_filter :setup_order_form, only: [:edit, :update]
 
     def index
       @order_search = Form::Admin::OrderSearch.new(params[:form_admin_order_search])
@@ -24,12 +24,6 @@ module Admin
     end
 
     def create
-      order_service = CreateOrderService.new(current_user, @order_form)
-      if order_service.save
-        redirect_to new_admin_order_path, notice: "Order created successfully."
-      else
-        render :new
-      end
     end
 
     def edit

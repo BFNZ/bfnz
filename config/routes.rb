@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'home#index', as: :root
 
-    resources :customers, only: [:edit, :update]
+    resources :customers, only: [:new, :create, :edit, :update] do
+      resources :orders, only: [:new, :create]
+    end
     resources :orders, except: [:destroy] do
       member do
         put :mark_duplicate

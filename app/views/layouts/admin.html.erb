@@ -40,7 +40,7 @@
       <div class="row">
         <div class="col-sm-2">
           <div class="list-group">
-            <%= link_to "New Customer", new_admin_order_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
+            <%= link_to "New Customer", new_admin_customer_path, class: "list-group-item #{active_if_current_page(:orders, :new)}" %>
             <%= link_to "View Orders", admin_orders_path, class: "list-group-item #{active_if_current_page(:orders, :index)}" %>
             <%= link_to "Prepare Labels", admin_labels_path, class: "list-group-item #{active_if_current_page(:labels, :index)}" %>
             <%= link_to "View Shipments", admin_shipments_path, class: "list-group-item #{active_if_current_page(:shipments, :index)}" %>
