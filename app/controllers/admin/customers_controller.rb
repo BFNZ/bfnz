@@ -22,6 +22,7 @@ module Admin
     end
 
     def update
+      #TODO implement with ajax
     end
 
     private

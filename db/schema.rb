@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327062549) do
+ActiveRecord::Schema.define(version: 20150517081923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cancelled_order_events", force: true do |t|
+    t.integer  "cancelled_by_id"
+    t.integer  "customer_id"
+    t.text     "order_details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contact_lists", force: true do |t|
     t.integer  "territorial_authority_id", null: false

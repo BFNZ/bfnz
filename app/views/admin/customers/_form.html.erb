@@ -1,4 +1,4 @@
-<%= form_for [:admin, @customer_form], url: admin_customer_path(@customer_form.customer), html: {role: "form", class: "form-horizontal"} do |f| %>
+<%= form_for [:admin, @customer_form], url: admin_customer_path(@customer_form.customer), method: :patch, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="col-sm-8">
     <div class="form-group">
       <div class="col-sm-4">

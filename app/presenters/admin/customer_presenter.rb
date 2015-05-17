@@ -25,7 +25,7 @@ module Admin
         @order = order
       end
 
-      def id
+      def order_identifier
         "##{customer_id}.#{order_id}"
       end
 
@@ -49,10 +49,6 @@ module Admin
         order.item_ids
       end
 
-      private
-
-      attr_reader :order
-
       def customer_id
         order.customer_id
       end
@@ -60,6 +56,11 @@ module Admin
       def order_id
         order.id
       end
+
+      private
+
+      attr_reader :order
+
     end
   end
 end

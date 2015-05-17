@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get '/' => 'home#index', as: :root
 
     resources :customers, only: [:new, :create, :edit, :update] do
-      resources :orders, only: [:new, :create]
+      resources :orders, only: [:new, :create, :destroy]
     end
     resources :orders, except: [:destroy] do
       member do

@@ -68,15 +68,26 @@ module Admin
       redirect_to compare_admin_order_path(@order.id, other_order_id)
     end
 
+    def destroy
+      cancel_order = CancelOrder.new(order: order, user: current_user)
+      cancel_order.perform
+
+      redirect_to edit_admin_customer_path(customer)
+    end
+
     private
 
     def setup_order_form
-      @order_form = Form::Admin::Order.new(order: order,
-                                           form_params: params[:form_admin_order])
+      @order_form = Admin::OrderForm.new(order: order,
+                                         form_params: params[:form_admin_order])
     end
 
     def order
-      @order ||= Order.find_by_id(params[:id]) || Order.new
+      @order ||= customer.orders.find(params[:id])
+    end
+
+    def customer
+      @customer ||= Customer.find(params[:customer_id])
     end
   end
 end
