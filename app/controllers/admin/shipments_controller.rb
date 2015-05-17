@@ -10,7 +10,7 @@ class Admin::ShipmentsController < Admin::BaseController
     shipment = Shipment.find(params[:id])
     respond_to do |format|
       format.csv do
-        @label_presenters = Admin::LabelPresenter.for_shipment(shipment)
+        @label_presenter = Admin::LabelPresenter.new(shipment)
         headers['Content-Disposition'] = "attachment; filename=\"#{shipment.filename}\""
         headers['Content-Type'] = 'text/csv'
       end

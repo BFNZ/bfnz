@@ -46,6 +46,12 @@
         <%= f.text_field :tertiary_institution, class: "form-control" %>
       </div>
     </div>
+    <div class="col-sm-6">
+      <dl>
+        <dt><%= f.label 'Date customer record created' %></dt>
+        <dd><%= @customer_form.date_created %></dd>
+      </dl>
+    </div>
   </div>
 
   <div class="col-sm-4">

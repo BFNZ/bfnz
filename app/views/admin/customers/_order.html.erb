@@ -1,32 +1,33 @@
-<div class="col-md-12">
-  Order <%= presenter.id %>
+<h4>Order <%= presenter.id %></h4>
+
+<div class="col-md-4">
+  <dl>
+    <dt>Date ordered:</dt>
+    <dd><%= presenter.date_ordered %></dd>
+  </dl>
+
+  <dl>
+    <% if presenter.order_shipped? %>
+      <dt>Date shipped:</dt>
+      <dd><%= presenter.date_shipped %></dd>
+    <% else %>
+      <dt>Titles requested:</dt>
+      <dd><%= select_tag :item_ids, items_for_select(presenter), multiple: 'multiple', size: 6 %></dd>
+    <% end %>
+  </dl>
 </div>
 
-<div class="col-md-6">
-  <div>
-    Date ordered:
-    <%= presenter.date_ordered %>
-  </div>
-  <div>
+<div class="col-md-4">
+  <dl>
   <% if presenter.order_shipped? %>
-    Date shipped:
-    <%= presenter.date_shipped %>
-  <% else %>
-    Titles requested:
-    <%= select_tag :item_ids, items_for_select(presenter), class: 'imagepicker', multiple: 'multiple' %>
+    <dt>Titles shipped:</dt>
+    <dd><%= presenter.titles_ordered.join("<br>").html_safe %></dd>
   <% end %>
-  </div>
-</div>
-
-<div class="col-md-6">
-  <% if presenter.order_shipped? %>
-    Titles ordered:
-    <%= presenter.titles_ordered.join("<br>") %>
-  <% end %>
+  </dl>
 </div>
 
 <div class="col-md-12">
   <% unless presenter.order_shipped? %>
-    <%= link_to "Cancel order", "#", class: 'btn btn-default' %>
+    <%= link_to "Cancel order", "#", class: 'btn btn-warning' %>
   <% end %>
 </div>

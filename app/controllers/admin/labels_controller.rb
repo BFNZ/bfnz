@@ -9,7 +9,7 @@ class Admin::LabelsController < Admin::BaseController
         return redirect_to admin_labels_path if @orders.empty?
 
         shipment = Shipment.create_for_orders(@orders)
-        @label_presenters = Admin::LabelPresenter.for_shipment(shipment)
+        @label_presenter = Admin::LabelPresenter.new(shipment)
         headers['Content-Disposition'] = "attachment; filename=\"#{shipment.filename}\""
         headers['Content-Type'] = 'text/csv'
 

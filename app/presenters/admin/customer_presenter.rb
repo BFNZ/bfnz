@@ -31,6 +31,10 @@ module Admin
         order.created_at.to_date.to_s(:display)
       end
 
+      def date_shipped
+        order.shipped_at.to_date.to_s(:display)
+      end
+
       def order_shipped?
         order.shipped?
       end

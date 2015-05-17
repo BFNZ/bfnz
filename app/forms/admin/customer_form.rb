@@ -30,5 +30,8 @@ module Admin
       self.attributes = form_params || customer.attributes
     end
 
+    def date_created
+      @customer.created_at.to_date.to_s(:display)
+    end
   end
 end

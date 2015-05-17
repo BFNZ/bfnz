@@ -1,16 +1,6 @@
-<%- headers = ["Code",
-	       "Title",
-	       "First name",
-	       "Last name",
-	       "Address",
-	      ]-%>
-
-<%= CSV.generate_line headers %>
-<%- @label_presenters.each do |label| -%>
-  <%=raw CSV.generate_line([label.order_code,
-			    label.title,
-			    label.first_name,
-			    label.last_name,
-			    label.address,
-			   ]) -%>
+<% require 'csv' %>
+<%= CSV.generate_line @label_presenter.headers %>
+<%- @label_presenter.each_label do |label| -%>
+  <%=raw CSV.generate_line [label.order_code, label.title, label.first_name,
+                            label.last_name, label.address] -%>
 <%- end -%>
