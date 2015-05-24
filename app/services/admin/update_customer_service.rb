@@ -7,7 +7,9 @@ class Admin::UpdateCustomerService
   end
 
   def perform
-    save_customer
+    if @form.valid?
+      save_customer
+    end
     self
   end
 

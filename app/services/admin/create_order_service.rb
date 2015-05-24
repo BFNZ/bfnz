@@ -1,23 +1,30 @@
 class Admin::CreateOrderService
-  def initialize(current_user, form)
-    @user = current_user
+  def initialize(user:, form:)
+    @user = user
     @form = form
+    @customer = form.customer
   end
 
-  def save
+  def perform
     if @form.valid?
-      customer.save!
-      order.save!
-    else
-      false
+      save_order
     end
+    self
   end
 
   def order
-    @order ||= customer.orders.build(@form.order_attributes.merge(:created_by => @user))
+    @order ||= customer.orders.build(form.attributes.merge(:created_by => user))
   end
 
-  def customer
-    @customer ||= Customer.new(@form.customer_attributes)
+  def success?
+    @success
+  end
+
+  private
+
+  attr_reader :customer, :form, :user
+
+  def save_order
+    @success = order.save
   end
 end

@@ -21,9 +21,15 @@ module Admin
     end
 
     def new
+      @order_form = OrderForm.new(customer: customer)
     end
 
     def create
+      @order_form = OrderForm.new(customer: customer,
+                                  form_params: params[:admin_order_form])
+      @create_order = CreateOrderService.new(user: current_user,
+                                             form: @order_form).perform
+      @customer_presenter = CustomerPresenter.new(customer)
     end
 
     def edit
@@ -78,8 +84,8 @@ module Admin
     private
 
     def setup_order_form
-      @order_form = Admin::OrderForm.new(order: order,
-                                         form_params: params[:form_admin_order])
+      @order_form = OrderForm.new(order: order,
+                                  form_params: params[:form_admin_order])
     end
 
     def order

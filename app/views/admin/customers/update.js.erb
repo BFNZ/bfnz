@@ -1,9 +1,17 @@
+flash = $(".customer .flash")
+flash.hide()
+flash.removeClass("bg-success bg-danger")
+
 <% if @update_customer.success? %>
-  flash = $(".flash")
-  flash.hide()
-  flash.addClass("bg-success")
-  flash.html("Customer details updated successfully")
-  flash.fadeIn()
+  flash_background = "bg-success"
+  flash_text = "Customer details updated successfully"
 <% else %>
+  flash_background = "bg-danger"
+  flash_text = "Please fix the errors below"
+
   $("#customer-form").html("<%= escape_javascript(render 'form') %>")
 <% end %>
+
+flash.addClass(flash_background)
+flash.html(flash_text)
+flash.fadeIn()

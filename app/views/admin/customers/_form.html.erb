@@ -46,6 +46,13 @@
         <%= f.text_field :tertiary_institution, class: "form-control" %>
       </div>
     </div>
+    <div class="checkbox col-sm-6">
+      <div class="form-group">
+        <%= f.label :further_contact_requested do %>
+          <%= f.check_box :further_contact_requested %>This person is interested in receiving further contact.
+        <% end %>
+      </div>
+    </div>
     <div class="col-sm-6">
       <dl>
         <dt><%= f.label 'Date customer record created' %></dt>
@@ -60,7 +67,6 @@
       <%= f.text_area :admin_notes, class: 'form-control', rows: 10 %>
     </div>
   </div>
-
   <div class="btn-toolbar">
     <div class="col-sm-8">
       <%= f.submit "Update Customer", class: "btn btn-primary" %>

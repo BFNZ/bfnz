@@ -1,0 +1,17 @@
+flash = $(".orders .flash")
+flash.hide()
+flash.removeClass("bg-success bg-danger")
+
+<% if @create_order.success? %>
+  flash_background = "bg-success"
+  flash_text = "Order created successfully"
+  $("#orders").html("<%= escape_javascript(render 'admin/customers/orders', presenter: @customer_presenter) %>")
+<% else %>
+  flash_background = "bg-danger"
+  flash_text = "Please fix the errors below"
+  $("#order-form").html("<%= escape_javascript(render 'form') %>")
+<% end %>
+
+flash.addClass(flash_background)
+flash.html(flash_text)
+flash.fadeIn()

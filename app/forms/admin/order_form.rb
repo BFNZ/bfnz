@@ -1,20 +1,26 @@
 module Admin
-  class OrderForm < Form::Order
+  class OrderForm < BaseForm
     attribute :method_received, String
     attribute :method_of_discovery, String
+    attribute :item_ids, Array[Integer]
 
-    attribute :admin_notes, String
+    validate :contains_at_least_one_item
 
-    def initialize(form_params: nil)
+    attr_reader :customer
+
+    def initialize(customer:, form_params: nil)
+      @customer = customer
       super form_params
     end
 
-    def order_attr_keys
-      super + %w{method_received method_of_discovery}
+    def item_ids=(item_ids)
+      super item_ids.reject(&:blank?)
     end
 
-    def customer_attr_keys
-      super + %w{admin_notes}
+    private
+
+    def contains_at_least_one_item
+      errors.add(:item_ids, "You must select at least one item") if item_ids.none?
     end
   end
 end
