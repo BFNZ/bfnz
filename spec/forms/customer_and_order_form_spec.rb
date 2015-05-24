@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Form::Order do
-  subject(:form) { Form::Order.new(attrs) }
+RSpec.describe CustomerAndOrderForm do
+  subject(:form) { described_class.new(attrs) }
 
   describe "validation" do
     context "when item_ids is empty" do

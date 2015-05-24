@@ -16,6 +16,6 @@ class OrdersController < ApplicationController
   private
 
   def setup_order_form
-    @order_form ||= Form::Order.new(params[:form_order] || {})
+    @order_form ||= CustomerAndOrderForm.new(params[:customer_and_order_form] || {})
   end
 end

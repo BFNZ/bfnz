@@ -1,7 +1,4 @@
-class Form::Order
-  include Virtus.model
-  include ActiveModel::Model
-
+class CustomerAndOrderForm < BaseForm
   attribute :title, String
   attribute :first_name, String
   attribute :last_name, String
