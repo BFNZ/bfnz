@@ -18,11 +18,12 @@ module Admin
 
     def edit
       @customer_presenter = CustomerPresenter.new(customer)
-      @customer_form = CustomerForm.new(customer: customer, form_params: params[:admin_customer])
+      @customer_form = CustomerForm.new(customer: customer, form_params: params[:admin_customer_form])
     end
 
     def update
-      #TODO implement with ajax
+      @customer_form = CustomerForm.new(customer: customer, form_params: params[:admin_customer_form])
+      @update_customer = UpdateCustomerService.new(current_user, @customer_form).perform
     end
 
     private

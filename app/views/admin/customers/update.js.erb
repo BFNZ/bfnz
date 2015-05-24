@@ -1,0 +1,9 @@
+<% if @update_customer.success? %>
+  flash = $(".flash")
+  flash.hide()
+  flash.addClass("bg-success")
+  flash.html("Customer details updated successfully")
+  flash.fadeIn()
+<% else %>
+  $("#customer-form").html("<%= escape_javascript(render 'form') %>")
+<% end %>

@@ -60,6 +60,7 @@ feature 'Managing customers', js: true do
     fill_in "First Name", with: "Josephine"
     click_button "Update Customer"
 
-    expect(page).to have_text "Mrs Josephine Smith"
+    expect(page).to have_text "Customer details updated successfully"
+    expect(page).to have_field("First Name", with: "Josephine")
   end
 end
