@@ -1,5 +1,5 @@
 module Admin
-  class OrderForm < BaseForm
+  class NewOrderForm < BaseForm
     attribute :method_received, String
     attribute :method_of_discovery, String
     attribute :item_ids, Array[Integer]

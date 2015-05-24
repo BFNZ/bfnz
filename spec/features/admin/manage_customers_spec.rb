@@ -27,7 +27,7 @@ feature 'Managing customers', js: true do
     fill_in "Tertiary institution", with: "AUT"
     page.first(".image_picker_image").click
     click_button "Save and add another"
-    expect(page).to have_text("Order created successfully.")
+    expect(page).to have_text("Customer created successfully.")
     expect(page.current_path).to eq '/admin/customers/new'
   end
 
