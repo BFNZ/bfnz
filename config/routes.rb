@@ -9,16 +9,19 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'home#index', as: :root
+    get '/orders' => 'search#index'
 
     resources :customers, only: [:new, :create, :edit, :update] do
-      resources :orders, only: [:new, :create, :destroy]
+      resources :orders, only: [:new, :create, :destroy, :update]
     end
-    resources :orders, except: [:destroy] do
+
+    resources :orders, only: [] do
       member do
         put :mark_duplicate
         put :unmark_duplicate
       end
     end
+
     resources :labels, only: [:index]
     resources :shipments, only: [:index, :show]
     resources :contact_lists, only: [:index, :show]

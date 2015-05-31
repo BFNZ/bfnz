@@ -1,25 +1,5 @@
-require 'csv'
 module Admin
   class OrdersController < BaseController
-    before_filter :setup_order_form, only: [:edit, :update]
-
-    def index
-      @order_search = Form::Admin::OrderSearch.new(params[:form_admin_order_search])
-      orders = @order_search.filtered_orders
-
-      params[:format] = 'csv' if params[:csv]
-      respond_to do |format|
-        format.html do
-          @orders_presenter = OrdersPresenter.new(orders, params[:page])
-        end
-        format.csv do
-          @order_presenters = orders.map { |order| OrderCsvPresenter.new(order) }
-          headers['Content-Disposition'] = "attachment; filename=\"orders\""
-          headers['Content-Type'] = 'text/csv'
-        end
-      end
-    end
-
     def new
       @order_form = OrderForm.new(customer: customer)
     end
@@ -30,9 +10,6 @@ module Admin
       @create_order = CreateOrderService.new(user: current_user,
                                              form: @order_form).perform
       @customer_presenter = CustomerPresenter.new(customer)
-    end
-
-    def edit
     end
 
     def update
@@ -82,11 +59,6 @@ module Admin
     end
 
     private
-
-    def setup_order_form
-      @order_form = OrderForm.new(order: order,
-                                  form_params: params[:form_admin_order])
-    end
 
     def order
       @order ||= customer.orders.find(params[:id])

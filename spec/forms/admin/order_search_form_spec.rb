@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Form::Admin::OrderSearch do
+describe Admin::OrderSearchForm do
   describe "#item_ids_options" do
     subject(:item_ids_options) { described_class.new.item_ids_options }
 
