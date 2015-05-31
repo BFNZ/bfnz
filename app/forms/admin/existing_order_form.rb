@@ -1,17 +1,8 @@
 module Admin
-  class NewOrderForm < BaseForm
-    attribute :method_received, String
-    attribute :method_of_discovery, String
+  class ExistingOrderForm < BaseForm
     attribute :item_ids, Array[Integer]
 
     validate :contains_at_least_one_item
-
-    attr_reader :customer
-
-    def initialize(customer:, form_params: nil)
-      @customer = customer
-      super form_params
-    end
 
     def item_ids=(item_ids)
       super item_ids.reject(&:blank?)

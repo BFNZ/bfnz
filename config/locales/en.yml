@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    attributes:
+      item_ids:
+        cant_be_empty: "You must select at least one item"

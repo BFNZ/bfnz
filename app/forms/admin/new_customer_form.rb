@@ -49,7 +49,7 @@ module Admin
     private
 
     def contains_at_least_one_item
-      errors.add(:item_ids, "You must select at least one item") if item_ids.none?
+      errors.add(:item_ids, :cant_be_empty) if item_ids.none?
     end
   end
 end
