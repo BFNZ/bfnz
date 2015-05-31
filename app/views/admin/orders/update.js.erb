@@ -1,0 +1,17 @@
+flash = $(".orders .flash")
+flash.hide()
+flash.removeClass("bg-success bg-danger")
+
+<% if @update_order.success? %>
+  flash_background = "bg-success"
+  flash_text = "Order <%= @order_view_model.order_identifier %> updated"
+<% else %>
+  flash_background = "bg-danger"
+  flash_text = "Please fix the errors below"
+
+  $("#<%= @order_view_model.form_id %>").html("<%= escape_javascript(render 'admin/customers/editable_order', presenter: @order_view_model) %>")
+<% end %>
+
+flash.addClass(flash_background)
+flash.html(flash_text)
+flash.fadeIn()

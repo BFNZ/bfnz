@@ -10,6 +10,7 @@ feature 'Managing orders', js: true do
   let(:ordered_item) { Item.first }
   let(:another_item) { Item.last }
   let!(:order) { Order.create!(customer: customer, item_ids: [ordered_item.id]) }
+  let(:items_select) { 'admin_existing_order_form_item_ids' }
 
   background do
     login_as_admin
@@ -24,7 +25,7 @@ feature 'Managing orders', js: true do
   scenario "Cancel an order" do
     click_link "Edit"
     expect(page).to have_text "Order ##{customer.id}.#{order.id}"
-    expect(page).to have_select('item_ids', selected: "#{ordered_item.title}")
+    expect(page).to have_select(items_select, selected: ordered_item.title)
     click_link "Cancel order"
     expect(page).not_to have_text "Order ##{customer.id}.#{order.id}"
   end
@@ -32,9 +33,11 @@ feature 'Managing orders', js: true do
   scenario "Editing an order" do
     click_link "Edit"
     expect(page).to have_text "Order ##{customer.id}.#{order.id}"
-    expect(page).to have_select('item_ids', selected: "#{ordered_item.title}")
-    select another_item.title, from: "item_ids"
-    # TODO update the order
+    expect(page).to have_select(items_select, selected: ordered_item.title)
+    select another_item.title, from: items_select
+    click_button "Update order"
+    expect(page).to have_text "Order ##{customer.id}.#{order.id} updated"
+    expect(page).to have_select(items_select, selected: [ordered_item.title, another_item.title])
   end
 
   #TODO fix

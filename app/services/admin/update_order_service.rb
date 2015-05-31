@@ -1,23 +1,25 @@
 class Admin::UpdateOrderService
 
-  def initialize(current_user, form)
+  def initialize(current_user:, order:, form:)
     @user = current_user
+    @order = order
     @form = form
-    @order = form.order
-    @customer = @order.customer
   end
 
-  def save
-    save_customer && save_order
+  def perform
+    if @form.valid?
+      save_order
+    end
+    self
+  end
+
+  def success?
+    @success
   end
 
   private
 
-  def save_customer
-    @customer.update(@form.customer_attributes.merge(:updated_by => @user))
-  end
-
   def save_order
-    @order.update(@form.order_attributes.merge(:updated_by => @user))
+    @success = @order.update(@form.attributes.merge(:updated_by => @user))
   end
 end

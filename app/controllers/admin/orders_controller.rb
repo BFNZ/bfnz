@@ -13,12 +13,11 @@ module Admin
     end
 
     def update
-      order_service = UpdateOrderService.new(current_user, @order_form)
-      if order_service.save
-        redirect_to admin_orders_path, notice: "Order updated successfully."
-      else
-        render :edit
-      end
+      order_form = ExistingOrderForm.new(params[:admin_existing_order_form])
+      @update_order = UpdateOrderService.new(current_user: current_user,
+                                             order: order,
+                                             form: order_form).perform
+      @order_view_model = Orders::EditView.new(order, order_form)
     end
 
     def mark_duplicate
@@ -52,10 +51,8 @@ module Admin
     end
 
     def destroy
-      cancel_order = CancelOrder.new(order: order, user: current_user)
-      cancel_order.perform
-
-      redirect_to edit_admin_customer_path(customer)
+      @cancel_order = CancelOrder.new(order: order, user: current_user).perform
+      @customer_presenter = CustomerPresenter.new(customer)
     end
 
     private
