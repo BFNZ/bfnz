@@ -12,19 +12,19 @@
     </tr>
   </thead>
   <tbody>
-    <% orders.each do |order| %>
+    <% view_model.each_order do |order_view| %>
       <tr class="">
-        <td><%= order.id %></td>
-        <td><%= order.created %></td>
-        <td><%= order.full_name %></td>
-        <td><%= order.address %></td>
-        <td><%= order.email %></td>
-        <td><%= order.phone %></td>
-        <td><%= order.items %></td>
+        <td><%= order_view.order_id %></td>
+        <td><%= order_view.created %></td>
+        <td><%= order_view.full_name %></td>
+        <td><%= order_view.address %></td>
+        <td><%= order_view.email %></td>
+        <td><%= order_view.phone %></td>
+        <td><%= order_view.items %></td>
         <td>
           <div class='btn-group-vertical'>
-            <%= mark_duplicate_button(order.id) %>
-            <%= link_to 'Edit', edit_admin_order_path(order.id), class: 'btn btn-default' %>
+            <%= mark_duplicate_button(order_view.order_id) %>
+            <%= link_to 'Edit', edit_admin_customer_path(order_view.customer_id), class: 'btn btn-default' %>
           </div>
         </td>
       </tr>
