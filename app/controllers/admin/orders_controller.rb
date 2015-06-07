@@ -52,7 +52,7 @@ module Admin
 
     def destroy
       @cancel_order = CancelOrder.new(order: order, user: current_user).perform
-      @customer_presenter = CustomerPresenter.new(customer)
+      @edit_customer_view = Customers::EditView.new(customer)
     end
 
     private

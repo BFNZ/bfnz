@@ -17,7 +17,7 @@ module Admin
     end
 
     def edit
-      @customer_presenter = CustomerPresenter.new(customer)
+      @edit_view_model = Customers::EditView.new(customer)
       @customer_form = ExistingCustomerForm.new(customer: customer, form_params: params[:admin_existing_customer_form])
     end
 

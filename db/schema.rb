@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517081923) do
+ActiveRecord::Schema.define(version: 20150607111116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150517081923) do
     t.string   "old_system_city_town"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
   end
 
   add_index "customers", ["address"], name: "index_customers_on_address", using: :btree
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150517081923) do
   add_index "customers", ["first_name"], name: "index_customers_on_first_name", using: :btree
   add_index "customers", ["further_contact_requested"], name: "index_customers_on_further_contact_requested", using: :btree
   add_index "customers", ["last_name"], name: "index_customers_on_last_name", using: :btree
+  add_index "customers", ["parent_id"], name: "index_customers_on_parent_id", using: :btree
   add_index "customers", ["phone"], name: "index_customers_on_phone", using: :btree
   add_index "customers", ["suburb"], name: "index_customers_on_suburb", using: :btree
   add_index "customers", ["territorial_authority_id"], name: "index_customers_on_territorial_authority_id", using: :btree

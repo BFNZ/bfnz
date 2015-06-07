@@ -24,7 +24,7 @@ module Admin
 
     attr_reader :customer
 
-    CUSTOMER_ATTRS = %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested}
+    CUSTOMER_ATTRS = %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
 
     def initialize(customer:, form_params: nil)
       @customer = customer

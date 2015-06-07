@@ -2,6 +2,7 @@ class Customer < ActiveRecord::Base
   has_many :orders
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
+  has_many :merged_customers, class_name: 'Customer', foreign_key: 'parent_id'
 
   validates :title, :first_name, :last_name, :address, presence: true
 
@@ -29,6 +30,10 @@ class Customer < ActiveRecord::Base
   def ta=(ta)
     super ta.gsub(/district|city/, "").strip
     self.territorial_authority_id = territorial_authority.try(:id)
+  end
+
+  def identifier
+    "##{id}"
   end
 
   def territorial_authority

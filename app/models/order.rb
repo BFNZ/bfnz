@@ -26,6 +26,10 @@ class Order < ActiveRecord::Base
     shipment.created_at
   end
 
+  def identifier
+    "##{customer_id}.#{id}"
+  end
+
   def item_codes
     items.map(&:code).join
   end

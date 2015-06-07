@@ -1,0 +1,14 @@
+<% view_models.each do |merged_customer_view| %>
+  <div class="row">
+    <%= render 'merged_customer', view_model: merged_customer_view %>
+  </div>
+<% end %>
+<div class="row">
+  <%= link_to "Merge another customer into this one", '#', class: 'btn btn-default', remote: true %>
+  <div id="order-form"></div>
+</div>
+<%#= form_tag merge_customer_admin_order_path(@order_form.id), id: 'merge-customer-form' do |f| %>
+  <%#= label_tag :other_order_id, 'Order ID' %>
+  <%#= text_field_tag :other_order_id %>
+  <%#= submit_tag 'View Order' %>
+<%# end %>

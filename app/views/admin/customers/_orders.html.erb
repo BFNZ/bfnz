@@ -1,10 +1,10 @@
-<% presenter.each_order do |order_view| %>
+<% view_model.order_views.each do |order_view| %>
   <div class="row">
     <h4>Order <%= order_view.order_identifier %></h4>
     <%= render order_view.partial, view_model: order_view %>
   </div>
 <% end %>
 <div class="row">
-  <%= link_to "Add new order", new_admin_customer_order_path(presenter.customer), class: 'btn btn-default', remote: true %>
+  <%= link_to "Add new order", new_admin_customer_order_path(view_model.customer), class: 'btn btn-default', remote: true %>
   <div id="order-form"></div>
 </div>

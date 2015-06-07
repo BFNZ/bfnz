@@ -5,12 +5,12 @@ flash.removeClass("bg-success bg-danger")
 <% if @cancel_order.success? %>
   flash_background = "bg-success"
   flash_text = "Order cancelled"
-  $("#orders").html("<%= escape_javascript(render 'admin/customers/orders', presenter: @customer_presenter) %>")
 <% else %>
   flash_background = "bg-danger"
   flash_text = "Sorry, that didn't work"
-  $("#orders").html("<%= escape_javascript(render 'admin/customers/orders', presenter: @customer_presenter) %>")
 <% end %>
+
+$("#orders").html("<%= escape_javascript(render 'admin/customers/orders', view_model: @edit_customer_view) %>")
 
 flash.addClass(flash_background)
 flash.html(flash_text)

@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 feature 'Managing customers', js: true do
+  let(:customer) {
+    Customer.create!(title: 'Mr', first_name: 'Joe',
+                     last_name: 'Smith', address: '123 Sesame Street',
+                     city_town: 'Wellington', post_code: '1234',
+                     ta: 'wellington')
+  }
+  let!(:order) { Order.create!(customer: customer, item_ids: [Item.first.id]) }
+
   background do
-    @customer = Customer.create!(title: 'Mr', first_name: 'Joe',
-                                last_name: 'Smith', address: '123 Sesame Street',
-                                city_town: 'Wellington', post_code: '1234',
-                                ta: 'wellington')
-    @order = Order.create!(customer: @customer, item_ids: [Item.first.id])
     login_as_admin
     visit "/admin"
   end
@@ -32,30 +35,30 @@ feature 'Managing customers', js: true do
   end
 
   scenario "Viewing an existing customer" do
-    click_link "View Orders"
-    click_link "Edit"
-    expect(page).to have_text "Customer ##{@customer.id}"
+    ViewOrdersPage.new.edit("Joe")
+
+    expect(page).to have_text "Customer #{customer.identifier}"
     expect(page).to have_select('Title', selected: 'Mr')
     expect(page).to have_field('First Name', with: 'Joe')
     expect(page).to have_field('Last Name', with: 'Smith')
     expect(page).to have_field('Address', with: '123 Sesame Street')
 
-    expect(page).to have_text "Order ##{@customer.id}.#{@order.id}"
+    expect(page).to have_text "Order #{order.identifier}"
   end
 
   scenario "Cancelling an order" do
-    click_link "View Orders"
-    click_link "Edit"
-    expect(page).to have_text "Customer ##{@customer.id}"
-    expect(page).to have_text "Order ##{@customer.id}.#{@order.id}"
+    ViewOrdersPage.new.edit("Joe")
+
+    expect(page).to have_text "Customer #{customer.identifier}"
+    expect(page).to have_text "Order #{order.identifier}"
     click_link "Cancel order"
-    expect(page).not_to have_text "Order ##{@customer.id}.#{@order.id}"
+    expect(page).not_to have_text "Order #{order.identifier}"
   end
 
   scenario "Updating an existing cusomter" do
-    click_link "View Orders"
-    click_link "Edit"
-    expect(page).to have_text "Customer ##{@customer.id}"
+    ViewOrdersPage.new.edit("Joe")
+
+    expect(page).to have_text "Customer #{customer.identifier}"
     select "Mrs", from: "Title"
     fill_in "First Name", with: "Josephine"
     click_button "Update Customer"
