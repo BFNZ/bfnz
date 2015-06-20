@@ -1,17 +1,9 @@
-flash = $(".orders .flash")
-flash.hide()
-flash.removeClass("bg-success bg-danger")
-
 <% if @cancel_order.success? %>
-  flash_background = "bg-success"
-  flash_text = "Order cancelled"
+  <% flash_type = :success %>
 <% else %>
-  flash_background = "bg-danger"
-  flash_text = "Sorry, that didn't work"
+  <% flash_type = :error %>
 <% end %>
 
 $("#orders").html("<%= escape_javascript(render 'admin/customers/orders', view_model: @edit_customer_view) %>")
 
-flash.addClass(flash_background)
-flash.html(flash_text)
-flash.fadeIn()
+<%= render 'shared/flash_messages', header_class: 'orders', text: @cancel_order.message, type: flash_type %>

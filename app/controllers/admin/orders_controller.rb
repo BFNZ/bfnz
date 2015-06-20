@@ -51,7 +51,8 @@ module Admin
     end
 
     def destroy
-      @cancel_order = CancelOrder.new(order: order, user: current_user).perform
+      @cancel_order = CancelOrderService.new(order: order,
+                                             user: current_user).perform
       @edit_customer_view = Customers::EditView.new(customer)
     end
 

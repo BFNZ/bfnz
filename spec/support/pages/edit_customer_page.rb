@@ -1,13 +1,9 @@
 class EditCustomerPage < CapybaraPage
   attr_reader :customer
 
-  def initialize(customer)
+  def initialize(customer, &block)
     @customer = customer
-    fail unless title_is_correct?
-  end
-
-  def title_is_correct?
-    has_text? "Customer ##{customer.id}"
+    super &block
   end
 
   def has_order?(order)
@@ -34,4 +30,15 @@ class EditCustomerPage < CapybaraPage
     expect(customer.reload.orders.count).to eq 2
     expect(customer.orders.last).to eq order_for_duplicate_customer
   end
+
+  private
+
+  def assert_correct_page
+    fail unless title_is_correct?
+  end
+
+  def title_is_correct?
+    has_text? "Customer ##{customer.id}"
+  end
+
 end

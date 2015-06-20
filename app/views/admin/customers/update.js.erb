@@ -1,17 +1,8 @@
-flash = $(".customer .flash")
-flash.hide()
-flash.removeClass("bg-success bg-danger")
-
 <% if @update_customer.success? %>
-  flash_background = "bg-success"
-  flash_text = "Customer details updated successfully"
+  <% flash_type = :success %>
 <% else %>
-  flash_background = "bg-danger"
-  flash_text = "Please fix the errors below"
-
+  <% flash_type = :error %>
   $("#customer-form").html("<%= escape_javascript(render 'form') %>")
 <% end %>
 
-flash.addClass(flash_background)
-flash.html(flash_text)
-flash.fadeIn()
+<%= render 'shared/flash_messages', header_class: 'customer', text: @update_customer.message, type: flash_type %>

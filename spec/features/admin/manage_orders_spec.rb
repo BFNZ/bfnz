@@ -54,10 +54,9 @@ feature 'Managing orders', js: true do
   scenario "Merging a duplicate customer" do
     ViewOrdersPage.new.edit("Joe")
 
-    edit_customer_page = EditCustomerPage.new(customer)
-
-    # TODO from here
-#    edit_customer_page.merge_customer(duplicate_customer)
+    EditCustomerPage.new(customer) do |page|
+      # WIP page.merge_customer(duplicate_customer)
+    end
   end
 
   # TODO - do we need this functionality still?
