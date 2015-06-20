@@ -26,6 +26,10 @@ module Admin
       @update_customer = UpdateCustomerService.new(current_user, @customer_form).perform
     end
 
+    def find
+      @merge_view = Customers::MergePreviewView.new(Customer.find_by_id(params[:customer_id]))
+    end
+
     private
 
     def customer

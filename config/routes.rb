@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     get '/orders' => 'search#index'
 
     resources :customers, only: [:new, :create, :edit, :update] do
+      collection do
+        get 'find'
+      end
       resources :orders, only: [:new, :create, :destroy, :update]
     end
 

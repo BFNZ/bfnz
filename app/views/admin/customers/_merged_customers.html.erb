@@ -4,11 +4,11 @@
   </div>
 <% end %>
 <div class="row">
-  <%= link_to "Merge another customer into this one", '#', class: 'btn btn-default', remote: true %>
-  <div id="order-form"></div>
+  <%= link_to "Merge another customer into this one", '#', class: 'btn btn-default', id: 'find-customer-to-merge' %>
+  <%= form_tag(find_admin_customers_path, method: :get, id: "find-customer-form", remote: true) do %>
+    <%= label_tag :customer_id, 'Customer #' %>
+    <%= text_field_tag :customer_id %>
+    <%= submit_tag "Look up customer", class: 'btn btn-default' %>
+  <% end %>
+  <div id="merge-preview"></div>
 </div>
-<%#= form_tag merge_customer_admin_order_path(@order_form.id), id: 'merge-customer-form' do |f| %>
-  <%#= label_tag :other_order_id, 'Order ID' %>
-  <%#= text_field_tag :other_order_id %>
-  <%#= submit_tag 'View Order' %>
-<%# end %>
