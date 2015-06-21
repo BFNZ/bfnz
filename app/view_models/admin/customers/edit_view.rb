@@ -12,7 +12,7 @@ module Admin
           if order.shipped?
             Orders::ShowView.new(order)
           else
-            Orders::EditView.new(order, ExistingOrderForm.new(item_ids: order.item_ids))
+            Orders::EditView.new(order, ExistingOrderForm.new(order: order))
           end
         end
       end

@@ -39,11 +39,11 @@
     <div class="form-group">
       <div class="col-sm-6">
         <%= f.label :method_received, class: "control-label"%>
-        <%= f.select :method_received, methods_received_for_select(@new_customer_form), {include_blank: true}, class: "form-control"%>
+        <%= f.select :method_received, methods_received_for_select(@new_customer_form), {include_blank: true}, class: "form-control" %>
       </div>
       <div class="col-sm-6">
         <%= f.label :method_of_discovery, class: "control-label"%>
-        <%= f.select :method_of_discovery, discovery_methods_for_select(@new_customer_form), {include_blank: true}, class: "form-control"%>
+        <%= f.select :method_of_discovery, discovery_methods_for_select(@new_customer_form), {include_blank: true}, class: "form-control" %>
       </div>
     </div>
     <div class="form-group">

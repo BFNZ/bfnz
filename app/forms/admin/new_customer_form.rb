@@ -26,14 +26,6 @@ module Admin
     validates :title, :first_name, :last_name, :address, presence: true
     validate :contains_at_least_one_item
 
-    def order_attr_keys
-      %w{item_ids}
-    end
-
-    def customer_attr_keys
-      %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested}
-    end
-
     def order_attributes
       attributes.stringify_keys.slice(*order_attr_keys)
     end
@@ -47,6 +39,14 @@ module Admin
     end
 
     private
+
+    def order_attr_keys
+      %w{item_ids method_received method_of_discovery}
+    end
+
+    def customer_attr_keys
+      %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
+    end
 
     def contains_at_least_one_item
       errors.add(:item_ids, :cant_be_empty) if item_ids.none?

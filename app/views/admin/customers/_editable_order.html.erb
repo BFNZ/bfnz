@@ -7,12 +7,21 @@
       <dd><%= view_model.date_ordered %></dd>
     </dl>
     <dl>
-      <dt>Titles requested:</dt>
-      <dd class="error_msg"><%= form.errors[:item_ids].join %></dd>
-      <dd><%= f.select :item_ids, items_for_select(view_model), {}, multiple: 'multiple', size: 6 %></dd>
+      <dt>Method received:</dt>
+      <dd><%= f.select :method_received, methods_received_for_select(form), {}, class: "form-control" %></dd>
+    </dl>
+    <dl>
+      <dt>How heard:</dt>
+      <dd><%= f.select :method_of_discovery, discovery_methods_for_select(form), {}, class: "form-control" %></dd>
     </dl>
   </div>
-
+  <div class="col-md-8">
+    <dl>
+      <dt>Titles requested:</dt>
+      <dd class="error_msg"><%= form.errors[:item_ids].join %></dd>
+      <dd><%= f.select :item_ids, items_for_select(view_model), {}, multiple: 'multiple', size: 6, class: "form-control" %></dd>
+    </dl>
+  </div>
   <div class="col-md-12">
     <%= f.submit "Update order", class: 'btn btn-success' %>
     <%= link_to "Cancel order", admin_customer_order_path(view_model.customer_id, view_model.order_id), method: :delete, remote: true, class: 'btn btn-warning' %>

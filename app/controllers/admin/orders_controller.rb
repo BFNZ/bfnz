@@ -13,7 +13,7 @@ module Admin
     end
 
     def update
-      order_form = ExistingOrderForm.new(params[:admin_existing_order_form])
+      order_form = ExistingOrderForm.new(order: order, form_params: params[:admin_existing_order_form])
       @update_order = UpdateOrderService.new(current_user: current_user,
                                              order: order,
                                              form: order_form).perform
