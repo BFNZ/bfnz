@@ -1,8 +1,6 @@
 module Admin
   module Customers
     class MergeView
-      attr_reader :customer
-
       def initialize(original:, duplicate:)
         @original = original
         @duplicate = duplicate
@@ -24,20 +22,8 @@ module Admin
         original.id
       end
 
-      def able_to_merge?
-       duplicate.present? && !same_customer_record?
-      end
-
       def show_view_model
         ShowView.new(duplicate)
-      end
-
-      def error_message
-        if duplicate.nil?
-          "Could not find a customer with that ID"
-        elsif same_customer_record?
-          "Can't merge the same record into itself"
-        end
       end
 
       def order_view_models
@@ -50,9 +36,6 @@ module Admin
 
       attr_reader :duplicate, :original
 
-      def same_customer_record?
-        duplicate == original
-      end
     end
   end
 end

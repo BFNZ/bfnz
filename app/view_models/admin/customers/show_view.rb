@@ -14,7 +14,7 @@ module Admin
       end
 
       def address
-        [customer.address, customer.suburb, "#{customer.city_town} #{customer.post_code}"].join("<br>").html_safe
+        customer.address.split(", ").join("<br>").html_safe
       end
 
       def phone

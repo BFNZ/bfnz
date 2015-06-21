@@ -1,8 +1,0 @@
-<%= render 'customer', view_model: view_model.show_view_model %>
-<h3>Orders</h3>
-<% view_model.order_view_models.each do |order_view| %>
-  <%= render 'order', view_model: order_view %>
-<% end %>
-<p>Note: this is an irreversible operation. Customer <%= view_model.duplicate_identifier %> will be merged into Customer <%= view_model.original_identifier %>. Customer <%= view_model.original_identifier %> address and contact details will remain, Customer <%= view_model.duplicate_identifier %>'s details will be removed. All of Customer <%= view_model.duplicate_identifier %>'s orders will be added to Customer <%= view_model.original_identifier %>.</p>
-<%= link_to "Merge Customer #{view_model.duplicate_identifier} into Customer #{view_model.original_identifier}", merge_admin_customer_path(id: view_model.original_id, duplicate_id: view_model.duplicate_id), class: 'btn btn-default', method: :post, remote: true %>
-<%= link_to 'Cancel', edit_admin_customer_path(view_model.original_id), class: 'btn btn-default', id: 'cancel-merge' %>

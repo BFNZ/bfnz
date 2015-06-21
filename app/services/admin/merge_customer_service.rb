@@ -1,14 +1,15 @@
 module Admin
   class MergeCustomerService
 
-    def initialize(user:, original:, duplicate:)
+    def initialize(user:, form:)
       @user = user
-      @original = original
-      @duplicate = duplicate
+      @form = form
+      @original = form.original
+      @duplicate = form.duplicate
     end
 
     def perform
-      if able_to_merge?
+      if form.valid?
         @success = merge_customer
       end
       self
@@ -24,9 +25,7 @@ module Admin
 
     private
 
-    def able_to_merge?
-      @duplicate.present? && @duplicate != @original
-    end
+    attr_reader :form
 
     def merge_customer
       Customer.transaction do

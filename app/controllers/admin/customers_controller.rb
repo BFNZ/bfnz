@@ -27,11 +27,13 @@ module Admin
     end
 
     def find_duplicate
-      @merge_view = Customers::MergeView.new(original: customer, duplicate: Customer.find_by_id(params[:customer_id]))
+      @merge_form = MergeCustomerForm.new(original: customer, duplicate_id: params[:customer_id])
+      @merge_view = Customers::MergeView.new(original: @merge_form.original, duplicate: @merge_form.duplicate)
     end
 
     def merge
-      @merge_customer = MergeCustomerService.new(user: current_user, original: customer, duplicate: Customer.find_by_id(params[:duplicate_id])).perform
+      merge_form = MergeCustomerForm.new(original: customer, duplicate_id: params[:duplicate_id])
+      @merge_customer = MergeCustomerService.new(user: current_user, form: merge_form).perform
       @edit_view_model = Customers::EditView.new(customer.reload)
     end
 
