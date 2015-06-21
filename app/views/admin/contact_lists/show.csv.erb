@@ -1,6 +1,6 @@
 <%= CSV.generate_line ["Coordinator",
-                       @presenter.coordinator_name,
-                       @presenter.coordinator_email] %>
+                       @csv_view.coordinator_name,
+                       @csv_view.coordinator_email] %>
 
 <%- headers = ["Customer ID",
                "Title",
@@ -10,7 +10,7 @@
               ]-%>
 
 <%= CSV.generate_line headers %>
-<%- @presenter.contacts.each do |contact| -%>
+<%- @csv_view.contacts.each do |contact| -%>
   <%=raw CSV.generate_line([contact.id,
                             contact.title,
                             contact.first_name,

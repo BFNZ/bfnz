@@ -14,6 +14,6 @@
   </div>
 <% end %>
 
-<% if @contact_search.selected_ta %>
-  <%= render 'contact_list_info', :territorial_authority => @contact_search.selected_ta %>
+<% if @search_view_model.selected_ta %>
+  <%= render 'contact_list_info', view_model: @search_view_model %>
 <% end %>

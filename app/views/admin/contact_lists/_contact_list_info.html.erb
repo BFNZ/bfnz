@@ -1,8 +1,8 @@
-<%= Admin::CoordinatorPresenter.new(territorial_authority.coordinator).message %>
+<%= view_model.current_coordinator %>
 
-<% if @contacts.any? %>
-  <div><%= page_entries_info @contacts %></div>
-  <%= paginate @contacts %>
+<% if view_model.contacts.any? %>
+  <div><%= page_entries_info view_model.contacts %></div>
+  <%= paginate view_model.contacts %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,8 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @contacts.each do |contact| %>
-        <% presenter = Admin::ContactPresenter.new(contact) %>
+      <% view_model.contact_presenters.each do |presenter| %>
         <tr>
           <td><%= presenter.id %></td>
           <td><%= presenter.created %></td>
@@ -24,18 +23,18 @@
       <% end %>
     </tbody>
   </table>
-  <%= paginate @contacts %>
+  <%= paginate view_model.contacts %>
 <% else %>
   <p>
-    <% if territorial_authority %>
-      There are no new contacts for <%= territorial_authority.name %>.
+    <% if view_model.selected_ta %>
+      There are no new contacts for <%= view_model.selected_ta.name %>.
     <% else %>
       Please select a District to view the new contacts for it.
     <% end %>
   </p>
 <% end %>
 
-<% if @contact_lists.any? %>
+<% if view_model.contact_lists.any? %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -46,11 +45,11 @@
       </tr>
     </thead>
     <tbody>
-      <% @contact_lists.each do |contact_list| %>
+      <% view_model.contact_lists.each do |contact_list| %>
         <tr>
           <td><%= contact_list.id %></td>
           <td><%= contact_list.created_at.to_s(:display) %></td>
-          <td><%= contact_list.contacts.count %></td>
+          <td><%= contact_list.customers.count %></td>
           <td>
             <div class='btn-group-vertical'>
               <%= link_to 'Download', admin_contact_list_path(contact_list.id, format: :csv), class: 'btn btn-default' %>
