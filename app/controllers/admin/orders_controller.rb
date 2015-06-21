@@ -43,13 +43,6 @@ module Admin
                   end
     end
 
-    def find_order_to_compare
-      other_order_id = params[:other_order_id]
-
-      #check they belong to different customers
-      redirect_to compare_admin_order_path(@order.id, other_order_id)
-    end
-
     def destroy
       @cancel_order = CancelOrderService.new(order: order,
                                              user: current_user).perform

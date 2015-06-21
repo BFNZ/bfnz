@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607111116) do
+ActiveRecord::Schema.define(version: 20150621105242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20150607111116) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "cancelled_order_events", ["cancelled_by_id"], name: "index_cancelled_order_events_on_cancelled_by_id", using: :btree
+  add_index "cancelled_order_events", ["customer_id"], name: "index_cancelled_order_events_on_customer_id", using: :btree
 
   create_table "contact_lists", force: true do |t|
     t.integer  "territorial_authority_id", null: false
@@ -92,6 +95,9 @@ ActiveRecord::Schema.define(version: 20150607111116) do
     t.integer "order_id"
   end
 
+  add_index "items_orders", ["item_id"], name: "index_items_orders_on_item_id", using: :btree
+  add_index "items_orders", ["order_id"], name: "index_items_orders_on_order_id", using: :btree
+
   create_table "orders", force: true do |t|
     t.integer  "shipment_id"
     t.integer  "method_of_discovery"
@@ -108,9 +114,11 @@ ActiveRecord::Schema.define(version: 20150607111116) do
     t.text     "coordinator_notes"
   end
 
+  add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
   add_index "orders", ["duplicate"], name: "index_orders_on_duplicate", using: :btree
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
+  add_index "orders", ["updated_by_id"], name: "index_orders_on_updated_by_id", using: :btree
 
   create_table "shipments", force: true do |t|
     t.datetime "created_at"

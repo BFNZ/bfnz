@@ -1,6 +1,6 @@
 <h2 class="customer">Customer <%= @edit_view_model.customer_identifier %><span class="flash"></span></h2>
 <div id="customer-form" class="row">
-  <%= render 'form' %>
+  <%= render 'form', customer_form: @customer_form %>
 </div>
 
 <div class="row">

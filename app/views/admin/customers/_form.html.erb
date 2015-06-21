@@ -1,9 +1,9 @@
-<%= form_for [:admin, @customer_form], url: admin_customer_path(@customer_form.customer), method: :patch, remote: true, html: {role: "form", class: "form-horizontal"} do |f| %>
+<%= form_for [:admin, customer_form], url: admin_customer_path(customer_form.customer), method: :patch, remote: true, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="col-sm-8">
     <div class="form-group">
       <div class="col-sm-4">
         <%= f.required_label :title, class: "control-label"%>
-        <%= f.select :title, titles_for_select(@customer_form), {include_blank: true}, class: "form-control"%>
+        <%= f.select :title, titles_for_select(customer_form), {include_blank: true}, class: "form-control"%>
       </div>
       <div class="col-sm-4">
         <%= f.required_label :first_name, class: "control-label" %>
@@ -56,7 +56,7 @@
     <div class="col-sm-6">
       <dl>
         <dt><%= f.label 'Date customer record created' %></dt>
-        <dd><%= @customer_form.date_created %></dd>
+        <dd><%= customer_form.date_created %></dd>
       </dl>
     </div>
   </div>
