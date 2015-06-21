@@ -46,6 +46,14 @@ feature 'Managing orders', js: true do
     end
   end
 
+  scenario "Create a new order" do
+    ViewOrdersPage.new.edit("Joe")
+
+    EditCustomerPage.new(customer) do |page|
+      page.create_order(another_item)
+    end
+  end
+
   scenario "Merging a duplicate customer" do
     ViewOrdersPage.new.edit("Joe")
 

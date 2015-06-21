@@ -1,15 +1,15 @@
 module Admin
   class OrdersController < BaseController
     def new
-      @order_form = OrderForm.new(customer: customer)
+      @order_form = NewOrderForm.new(customer: customer)
     end
 
     def create
-      @order_form = OrderForm.new(customer: customer,
-                                  form_params: params[:admin_order_form])
+      @order_form = NewOrderForm.new(customer: customer,
+                                  form_params: params[:admin_new_order_form])
       @create_order = CreateOrderService.new(user: current_user,
                                              form: @order_form).perform
-      @customer_presenter = CustomerPresenter.new(customer)
+      @edit_customer_view = Customers::EditView.new(customer)
     end
 
     def update

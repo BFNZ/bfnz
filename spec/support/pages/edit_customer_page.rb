@@ -35,7 +35,19 @@ class EditCustomerPage < CapybaraPage
 
     expect(page).to have_text "Order #{order.identifier} updated"
     expect(page).to have_select(items_select, selected: (selected_titles << item.title))
+  end
 
+  def create_order(item)
+    click_link "Add new order"
+    within "#new_admin_new_order_form" do
+      select "Internet", from: "Method received"
+      select "Website", from: "Method of discovery"
+      select item.title, from:     'admin_new_order_form_item_ids'
+      click_button "Create Order"
+    end
+
+    expect(page).to have_text "Order created successfully"
+    expect(page).to have_select(items_select, selected: item.title)
   end
 
   def merge_customer(other_customer)

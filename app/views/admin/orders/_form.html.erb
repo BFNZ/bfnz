@@ -1,23 +1,21 @@
 <%= form_for [:admin, @order_form], url: admin_customer_orders_path(@order_form.customer), remote: true, html: {role: "form", class: "form-horizontal"} do |f| %>
-  <div class="col-sm-8">
-    <div class="form-group">
-      <div class="col-sm-6">
-        <%= f.label :method_received, class: "control-label"%>
-        <%= f.select :method_received, methods_received_for_select(@order_form), {include_blank: true}, class: "form-control"%>
-      </div>
-      <div class="col-sm-6">
-        <%= f.label :method_of_discovery, class: "control-label"%>
-        <%= f.select :method_of_discovery, discovery_methods_for_select(@order_form), {include_blank: true}, class: "form-control"%>
-      </div>
-    </div>
+  <div class="col-md-4">
+    <dl>
+      <dt><%= f.label :method_received, class: "control-label"%></dt>
+      <dd><%= f.select :method_received, methods_received_for_select(@order_form), {include_blank: true}, class: "form-control" %></dd>
+    </dl>
+    <dl>
+      <dt><%= f.label :method_of_discovery, class: "control-label"%></dt>
+      <dd><%= f.select :method_of_discovery, discovery_methods_for_select(@order_form), {include_blank: true}, class: "form-control" %></dd>
+    </dl>
   </div>
 
-  <div class="col-sm-12">
-    <div class="form-group">
-      <h4>Titles requested</h4>
+  <div class="col-md-8">
+    <dl>
+      <dt><%= f.label :item_ids, "Titles requested", class: "control-label" %></dt>
       <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
-      <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple' %>
-    </div>
+      <dd><%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple', size: 6, class: "form-control" %></dd>
+    </dl>
   </div>
 
   <div class="btn-toolbar">
