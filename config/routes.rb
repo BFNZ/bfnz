@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     get '/orders' => 'search#index'
 
     resources :customers, only: [:new, :create, :edit, :update] do
-      collection do
-        get 'find'
+      member do
+        get 'find_duplicate'
+        post 'merge'
       end
       resources :orders, only: [:new, :create, :destroy, :update]
     end

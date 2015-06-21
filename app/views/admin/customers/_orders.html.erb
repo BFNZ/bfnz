@@ -1,6 +1,5 @@
 <% view_model.order_views.each do |order_view| %>
   <div class="row">
-    <h4>Order <%= order_view.order_identifier %></h4>
     <%= render order_view.partial, view_model: order_view %>
   </div>
 <% end %>

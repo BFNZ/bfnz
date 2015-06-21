@@ -1,3 +1,4 @@
+<h4>Order <%= view_model.order_identifier %></h4>
 <% form = view_model.form %>
 <%= form_for [:admin, form], url: admin_customer_order_path(view_model.customer_id, view_model.order_id), method: :put, html: {id: view_model.form_id, remote: true, role: 'form'} do |f| %>
   <div class="col-md-4">

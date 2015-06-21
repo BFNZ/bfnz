@@ -1,0 +1,9 @@
+<% if @merge_customer.success? %>
+  <% flash_type = :success %>
+  $("#merged-customers").html("<%= escape_javascript(render 'merged_customers', view_model: @edit_view_model) %>")
+  $("#orders").html("<%= escape_javascript(render 'orders', view_model: @edit_view_model) %>")
+<% else %>
+  <% flash_type = :error %>
+<% end %>
+
+<%= render 'shared/flash_messages', header_class: 'merged-customer-records', text: @merge_customer.message, type: flash_type %>

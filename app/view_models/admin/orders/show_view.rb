@@ -6,11 +6,11 @@ module Admin
       end
 
       def partial
-        'admin/customers/shipped_order'
+        'admin/customers/order'
       end
 
       def order_identifier
-        "##{customer_id}.#{order_id}"
+        order.identifier
       end
 
       def date_ordered
@@ -18,7 +18,11 @@ module Admin
       end
 
       def date_shipped
-        order.shipped_at.to_date.to_s(:display)
+        if order.shipped?
+          order.shipped_at.to_date.to_s(:display)
+        else
+          "Not yet shipped"
+        end
       end
 
       def titles_ordered

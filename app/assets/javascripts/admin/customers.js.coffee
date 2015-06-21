@@ -7,3 +7,7 @@ $(document).ready ->
     event.preventDefault()
     $('#find-customer-to-merge').hide()
     $('#find-customer-form').show()
+
+  $('.merged-customers').on 'click', '#cancel-merge', (event)->
+    event.preventDefault()
+    $('#merge-preview').html("")

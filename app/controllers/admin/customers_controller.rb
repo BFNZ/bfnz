@@ -26,8 +26,13 @@ module Admin
       @update_customer = UpdateCustomerService.new(current_user, @customer_form).perform
     end
 
-    def find
-      @merge_view = Customers::MergePreviewView.new(Customer.find_by_id(params[:customer_id]))
+    def find_duplicate
+      @merge_view = Customers::MergeView.new(original: customer, duplicate: Customer.find_by_id(params[:customer_id]))
+    end
+
+    def merge
+      @merge_customer = MergeCustomerService.new(user: current_user, original: customer, duplicate: Customer.find_by_id(params[:duplicate_id])).perform
+      @edit_view_model = Customers::EditView.new(customer.reload)
     end
 
     private

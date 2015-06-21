@@ -10,7 +10,6 @@ feature 'Managing orders', js: true do
   let(:ordered_item) { Item.first }
   let(:another_item) { Item.last }
   let!(:order) { Order.create!(customer: customer, item_ids: [ordered_item.id]) }
-  let(:items_select) { 'admin_existing_order_form_item_ids' }
 
   let(:duplicate_customer) do
     Customer.create!(title: 'Mr', first_name: 'Joseph',
@@ -34,28 +33,24 @@ feature 'Managing orders', js: true do
   scenario "Cancel an order" do
     ViewOrdersPage.new.edit("Joe")
 
-    expect(page).to have_text "Order ##{customer.id}.#{order.id}"
-    expect(page).to have_select(items_select, selected: ordered_item.title)
-    click_link "Cancel order"
-    expect(page).not_to have_text "Order ##{customer.id}.#{order.id}"
+    EditCustomerPage.new(customer) do |page|
+      page.cancel_order(order)
+    end
   end
 
   scenario "Editing an order" do
     ViewOrdersPage.new.edit("Joe")
 
-    expect(page).to have_text "Order ##{customer.id}.#{order.id}"
-    expect(page).to have_select(items_select, selected: ordered_item.title)
-    select another_item.title, from: items_select
-    click_button "Update order"
-    expect(page).to have_text "Order ##{customer.id}.#{order.id} updated"
-    expect(page).to have_select(items_select, selected: [ordered_item.title, another_item.title])
+    EditCustomerPage.new(customer) do |page|
+      page.add_item_to_order(another_item, order)
+    end
   end
 
   scenario "Merging a duplicate customer" do
     ViewOrdersPage.new.edit("Joe")
 
     EditCustomerPage.new(customer) do |page|
-      # WIP page.merge_customer(duplicate_customer)
+      page.merge_customer(duplicate_customer)
     end
   end
 
