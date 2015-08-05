@@ -100,6 +100,8 @@ ActiveRecord::Schema.define(version: 20150621105242) do
 
   create_table "orders", force: true do |t|
     t.integer  "shipment_id"
+    t.text     "admin_notes"
+    t.text     "coordinator_notes"
     t.integer  "method_of_discovery"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -107,11 +109,9 @@ ActiveRecord::Schema.define(version: 20150621105242) do
     t.string   "session_identifier",  limit: 100
     t.integer  "method_received"
     t.boolean  "duplicate",                       default: false
-    t.integer  "customer_id"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.text     "admin_notes"
-    t.text     "coordinator_notes"
+    t.integer  "customer_id"
   end
 
   add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
