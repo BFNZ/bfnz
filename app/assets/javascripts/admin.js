@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require image-picker.min
+//= require bootstrap.min
 //= require bootstrap-datepicker/core
 //= require_tree ./admin
