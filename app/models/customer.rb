@@ -4,8 +4,6 @@ class Customer < ActiveRecord::Base
   belongs_to :updated_by, class_name: 'User'
   has_many :merged_customers, class_name: 'Customer', foreign_key: 'parent_id'
 
-  validates :title, :first_name, :last_name, :address, presence: true
-
   normalize_attributes :first_name, :last_name, :email, :address
   normalize_attribute :phone, with: :phone
 

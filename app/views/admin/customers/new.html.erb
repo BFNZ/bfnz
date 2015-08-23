@@ -4,7 +4,7 @@
     <div class="form-group">
       <div class="col-sm-4">
         <%= f.required_label :title, class: "control-label"%>
-        <%= f.select :title, titles_for_select(@new_customer_form), {include_blank: true}, class: "form-control"%>
+        <%= f.select :title, titles_for_select(@new_customer_form), {include_blank: 'Unknown'}, class: "form-control"%>
       </div>
       <div class="col-sm-4">
         <%= f.required_label :first_name, class: "control-label" %>
