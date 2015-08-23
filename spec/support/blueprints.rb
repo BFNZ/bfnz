@@ -9,7 +9,9 @@ Customer.blueprint do
   first_name { "Charlie" }
   last_name  { "Brown" }
   title      { "Mr" }
-  address    { "Hennepin County, Minnesota" }
+  address    { "123 Sesame Street, Wellington" }
+  suburb     { "Ngaio" }
+  city_town  { "Wellington" }
 end
 
 Order.blueprint(:shipped) do

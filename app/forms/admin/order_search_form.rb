@@ -9,7 +9,7 @@ module Admin
     attribute :email, String
     attribute :address, String
     attribute :suburb, String
-    attribute :city, String
+    attribute :city_town, String
     attribute :created_at_from, Date
     attribute :created_at_to, Date
     attribute :shipped_at_from, Date
@@ -97,7 +97,7 @@ module Admin
     end
 
     def customer_attributes
-      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city)
+      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city_town)
     end
 
     def order_attributes

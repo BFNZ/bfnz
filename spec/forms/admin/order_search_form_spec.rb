@@ -24,10 +24,7 @@ describe Admin::OrderSearchForm do
   describe "#filtered_orders" do
     subject(:filtered_orders) { described_class.new(attrs).filtered_orders }
 
-    let!(:order) { Order.make! }
-    let!(:shipped_order) { Order.make!(:shipped) }
-    let!(:jan_order) { Timecop.freeze(Date.new(2014,1,3)) { Order.make! } }
-    let!(:further_contact_order) { Order.make!(customer: Customer.make!(further_contact_requested: true)) }
+    let!(:generic_order) { Order.make! }
 
     context "when no attrs are passed in" do
       let(:attrs) { {} }
@@ -40,27 +37,66 @@ describe Admin::OrderSearchForm do
     context "when shipped is passed in" do
       let(:attrs) { {shipped: 1} }
 
+      let!(:order) { Order.make!(:shipped) }
+
       it "scopes orders by shipped" do
-        expect(filtered_orders).to eq [shipped_order]
+        expect(filtered_orders).to eq [order]
       end
     end
 
     context "when created_at from and to are passed in" do
       let(:attrs) { {created_at_from: '2014-01-01', created_at_to: '2014-01-31'} }
 
+      let!(:order) { Timecop.freeze(Date.new(2014,1,3)) { Order.make! } }
+
       it "scopes orders by created_at" do
-        expect(filtered_orders).to eq [jan_order]
+        expect(filtered_orders).to eq [order]
       end
     end
 
-    context " when further_contact_requested is set to true" do
+    context "when further_contact_requested is set to true" do
       let(:attrs) { {further_contact_requested: true} }
 
+      let!(:order) { Order.make!(customer: Customer.make!(further_contact_requested: true)) }
+
       it "scopes orders by further_contact_requested" do
-        expect(filtered_orders).to eq [further_contact_order]
+        expect(filtered_orders).to eq [order]
       end
     end
-  end
+
+    context "when address is passed in" do
+      let(:attrs) { {address: "some st"} }
+
+      let!(:order) { Order.make!(customer: Customer.make!(address: "50 Some Street, Ngaio, Wellington")) }
+
+
+      it "scopes orders by address" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
+
+    context "when suburb is passed in" do
+      let(:attrs) { {suburb: "Kamo"} }
+
+      let!(:order) { Order.make!(customer: Customer.make!(suburb: "Kamo")) }
+
+
+      it "scopes orders by suburb" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
+
+      context "when city_town is passed in" do
+      let(:attrs) { {city_town: "Hamilton"} }
+
+      let!(:order) { Order.make!(customer: Customer.make!(city_town: "Hamilton")) }
+
+
+      it "scopes orders by city" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
+end
 
   describe "#item_ids" do
     subject(:order_search_form) {
