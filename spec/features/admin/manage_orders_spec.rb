@@ -21,7 +21,7 @@ feature 'Managing orders', js: true do
 
   background do
     login_as_admin
-    visit "/admin"
+    visit admin_orders_path
   end
 
   scenario "Viewing existing orders" do

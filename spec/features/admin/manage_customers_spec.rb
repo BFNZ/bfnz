@@ -11,7 +11,7 @@ feature 'Managing customers', js: true do
 
   background do
     login_as_admin
-    visit "/admin"
+    visit admin_orders_path
   end
 
   scenario "Adding a new customer" do

@@ -12,8 +12,8 @@ module Admin
           @orders_presenter = OrdersPresenter.new(orders, params[:page])
         end
         format.csv do
-          @order_presenters = orders.map { |order| OrderCsvPresenter.new(order) }
-          headers['Content-Disposition'] = "attachment; filename=\"orders\""
+          @order_view_models = orders.map { |order| Admin::Orders::CsvView.new(order) }
+          headers['Content-Disposition'] = "attachment; filename=\"orders.csv\""
           headers['Content-Type'] = 'text/csv'
         end
       end
