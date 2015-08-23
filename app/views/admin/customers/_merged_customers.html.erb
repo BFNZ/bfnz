@@ -1,5 +1,4 @@
 <div class="col-md-6">
-    <%= link_to "Merge another customer into this one", '#', class: 'btn btn-default', id: 'find-customer-to-merge' %>
     <%= form_tag(find_duplicate_admin_customer_path(view_model.customer_id), method: :get, id: "find-customer-form", remote: true) do %>
       <%= label_tag :customer_id, 'Customer #' %>
       <%= text_field_tag :customer_id %>
@@ -10,5 +9,6 @@
         <%= render 'customer', view_model: merged_customer_view %>
       </div>
     <% end %>
+    <%= link_to "Merge another customer into this one", '#', class: 'btn btn-default', id: 'find-customer-to-merge' %>
   </div>
   <div id="merge-preview" class="col-md-6"></div>

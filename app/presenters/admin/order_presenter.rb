@@ -8,7 +8,7 @@ class Admin::OrderPresenter
   delegate :first_name, :last_name, to: :customer
 
   def order_number
-    "##{order_id}.#{customer.id}"
+    "##{customer_id}.#{order.id}"
   end
 
   def created
