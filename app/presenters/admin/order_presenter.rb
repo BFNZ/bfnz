@@ -23,10 +23,6 @@ class Admin::OrderPresenter
     order.shipped_at.to_s(:display) if order.shipped?
   end
 
-  def row_class
-    'duplicate' if order.duplicate?
-  end
-
   def further_contact_requested
     customer.further_contact_requested? ? "Yes" : "No"
   end

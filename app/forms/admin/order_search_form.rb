@@ -14,7 +14,6 @@ module Admin
     attribute :created_at_to, Date
     attribute :shipped_at_from, Date
     attribute :shipped_at_to, Date
-    attribute :include_duplicates, Virtus::Attribute::Boolean, default: false
     attribute :further_contact_requested, Virtus::Attribute::Boolean
 
     def created_at_from=(date)
@@ -60,7 +59,6 @@ module Admin
         orders = orders.public_send(key, value) if value.present?
       end
       orders = further_contact_flag(orders)
-      orders = filter_duplicates(orders)
       orders = created_between(orders)
       orders = shipped_between(orders)
       orders
@@ -80,14 +78,6 @@ module Admin
       Date.parse(date)
     rescue ArgumentError
       nil
-    end
-
-    def filter_duplicates(orders)
-      if include_duplicates
-        orders
-      else
-        orders.where(duplicate: false)
-      end
     end
 
     def created_between(orders)

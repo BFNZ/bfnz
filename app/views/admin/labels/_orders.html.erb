@@ -23,7 +23,6 @@
         <td><%= order_view.items %></td>
         <td>
           <div class='btn-group-vertical'>
-            <%= mark_duplicate_button(order_view.order_id) %>
             <%= link_to 'Edit', edit_admin_customer_path(order_view.customer_id), class: 'btn btn-default' %>
           </div>
         </td>

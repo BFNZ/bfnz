@@ -19,13 +19,6 @@ Rails.application.routes.draw do
       resources :orders, only: [:new, :create, :destroy, :update]
     end
 
-    resources :orders, only: [] do
-      member do
-        put :mark_duplicate
-        put :unmark_duplicate
-      end
-    end
-
     resources :labels, only: [:index]
     resources :shipments, only: [:index, :show]
     resources :contact_lists, only: [:index, :show]

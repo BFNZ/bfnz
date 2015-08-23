@@ -86,15 +86,6 @@
     <div class="col-sm-8">
       <%= f.submit "Save and add another", class: "btn btn-primary" %>
       <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-      <% if @new_customer_form.persisted? %>
-        <span class="extra-action">
-          <% if @new_customer_form.duplicate? %>
-            <%= unmark_duplicate_button(id: @new_customer_form.id, return_to: :edit) %>
-          <% else %>
-            <%= mark_duplicate_button(@new_customer_form.id) %>
-          <% end %>
-        </span>
-      <% end %>
     </div>
   </div>
 <% end %>

@@ -14,9 +14,8 @@ class Order < ActiveRecord::Base
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
   scope :shipped, ->(shipped) { shipped == 1 ? where.not(shipment_id: nil) : where(shipment_id: nil) }
-  scope :duplicate, ->(duplicate) { where(duplicate: duplicate) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
-  scope :ready_to_ship, -> { shipped(false).duplicate(false) }
+  scope :ready_to_ship, -> { shipped(false) }
 
   def shipped?
     shipment_id.present?

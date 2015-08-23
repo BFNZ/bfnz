@@ -24,7 +24,6 @@ module Admin
           @order = order
         end
 
-        delegate :potential_duplicates, to: :order
         delegate :full_name, :address, :email, :phone, to: :customer
 
         def order_id
@@ -37,10 +36,6 @@ module Admin
 
         def items
           order.item_codes
-        end
-
-        def marked_as_duplicate?
-          order.duplicate?
         end
 
         def customer_id

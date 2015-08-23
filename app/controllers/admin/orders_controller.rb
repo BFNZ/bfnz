@@ -20,29 +20,6 @@ module Admin
       @order_view_model = Orders::EditView.new(order, order_form)
     end
 
-    def mark_duplicate
-      order_service = UpdateOrderDuplicateStatus.new(params: params, duplicate: true)
-      order_service.perform
-
-      flash[:alert] = "<a href='#{edit_admin_order_path(params[:id])}'>Order ##{params[:id]}</a> has been marked as a duplicate and has been removed from the list of labels to download."
-      redirect_to admin_labels_path
-    end
-
-    def unmark_duplicate
-      order_service = UpdateOrderDuplicateStatus.new(params: params, duplicate: false)
-      order_service.perform
-
-      redirect_to case params[:return_to]
-                  when 'labels'
-                    admin_labels_path
-                  when 'edit'
-                    flash[:success] = "This order has been unmarked as a duplicate and can be shipped."
-                    edit_admin_order_path(params[:id])
-                  else
-                    admin_orders_path
-                  end
-    end
-
     def destroy
       @cancel_order = CancelOrderService.new(order: order,
                                              user: current_user).perform

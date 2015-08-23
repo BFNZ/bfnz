@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @orders_presenter.order_presenters do |presenter| %>
-      <tr class="<%= presenter.row_class %>">
+      <tr>
         <td><%= presenter.order_number %></td>
         <td><%= presenter.created %></td>
         <td><%= presenter.first_name %></td>

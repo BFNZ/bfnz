@@ -61,13 +61,4 @@ feature 'Managing orders', js: true do
       page.merge_customer(duplicate_customer)
     end
   end
-
-  # TODO - do we need this functionality still?
-  # scenario "Marking an order as a duplicate" do
-  #   click_link "Edit"
-  #   expect(page).to have_text "Order ##{customer.id}.#{order.id}"
-  #   click_link "Mark as Duplicate"
-  #   expect(page).to have_text "Ready to Ship Orders"
-  #   expect(page).to have_text "Order ##{@order.id} has been marked as a duplicate and has been removed from the list of labels to download."
-  # end
 end

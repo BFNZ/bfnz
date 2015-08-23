@@ -14,7 +14,7 @@
     <dl>
       <dt><%= f.label :item_ids, "Titles requested", class: "control-label" %></dt>
       <div class="error_msg"><%= order_form.errors[:item_ids].join %></div>
-      <dd><%= f.select :item_ids, items_for_select(order_form), {}, class: 'imagepicker', multiple: 'multiple', size: 6, class: "form-control" %></dd>
+      <dd><%= f.select :item_ids, items_for_select(order_form), {}, multiple: 'multiple', size: 6, class: "form-control imagepicker" %></dd>
     </dl>
   </div>
 

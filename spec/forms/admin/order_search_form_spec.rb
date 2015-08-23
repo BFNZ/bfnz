@@ -32,8 +32,8 @@ describe Admin::OrderSearchForm do
     context "when no attrs are passed in" do
       let(:attrs) { {} }
 
-      it "returns all orders excepts duplicates" do
-        expect(filtered_orders).to match_array Order.where(duplicate: false)
+      it "returns all orders" do
+        expect(filtered_orders).to match_array Order.all
       end
     end
 
