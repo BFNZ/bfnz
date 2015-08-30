@@ -15,14 +15,17 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-12">
-        <%= f.required_label :address, label_text: "Postal Address", class: "control-label" %>
+      <div class="col-sm-8">
+        <%= f.label :address, "Postal Address", class: "control-label" %>
         <%= f.text_field :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from" %>
         <%= f.hidden_field :suburb, class: "hidden-address suburb" %>
         <%= f.hidden_field :city_town, class: "hidden-address city_town" %>
         <%= f.hidden_field :post_code, class: "hidden-address post_code" %>
         <%= f.hidden_field :pxid, class: "hidden-address pxid" %>
-        <%= f.hidden_field :ta, class: "hidden-address ta" %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.required_label :ta, label_text: "District", class: "control-label" %>
+        <%= f.select :ta, territorial_authorities_for_select(customer_form), {include_blank: true}, class: "form-control hidden-address ta" %>
       </div>
     </div>
     <div class="form-group">

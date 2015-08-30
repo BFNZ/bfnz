@@ -10,7 +10,7 @@ $(document).ready ->
       $(".hidden-address.city_town").val(item.city || '')
       $(".hidden-address.post_code").val(item.postcode || '')
       $(".hidden-address.pxid").val(item.pxid || '')
-      $(".hidden-address.ta").val(item.ta.toLowerCase()) if item.ta?
+      $(".hidden-address.ta").val(item.ta)
 
     $(this).on "change", ->
       clear_hidden_values()

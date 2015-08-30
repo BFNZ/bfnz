@@ -20,7 +20,7 @@ module Admin
     attribute :admin_notes, String
     attribute :further_contact_requested, Virtus::Attribute::Boolean
 
-    validates :title, :first_name, :last_name, :address, presence: true
+    validates :first_name, :last_name, :ta, presence: true
 
     attr_reader :customer
 

@@ -1,4 +1,8 @@
 module Admin::OrdersHelper
+  def territorial_authorities_for_select(form)
+    options_for_select(TerritorialAuthority.all.map { |ta| [ta.name, ta.name] }, form.ta)
+  end
+
   def method_of_discovery_options
     Order.method_of_discoveries.map { |k,v| [k.humanize,k] }
   end

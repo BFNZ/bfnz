@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   has_many :orders
+  belongs_to :territorial_authority
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
   has_many :merged_customers, class_name: 'Customer', foreign_key: 'parent_id'
@@ -25,17 +26,14 @@ class Customer < ActiveRecord::Base
     string.gsub(/\D/, '')
   end
 
-  def ta=(ta)
-    super ta.gsub(/district|city/, "").strip
-    self.territorial_authority_id = territorial_authority.try(:id)
+  # when ta name is set, also set the TA association
+  def ta=(name)
+    super
+    self.territorial_authority = TerritorialAuthority.find_by_addressfinder_name(ta_key)
   end
 
   def identifier
     "##{id}"
-  end
-
-  def territorial_authority
-    @territorial_authority ||= TerritorialAuthority.find_by_addressfinder_name(ta)
   end
 
   def full_name
@@ -44,6 +42,12 @@ class Customer < ActiveRecord::Base
 
   def has_email?
     email.present?
+  end
+
+  private
+
+  def ta_key
+    ta.downcase.gsub(/district|city/, "").strip
   end
 
 end

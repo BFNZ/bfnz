@@ -5,8 +5,9 @@ feature 'Managing customers', js: true do
     Customer.create!(title: 'Mr', first_name: 'Joe',
                      last_name: 'Smith', address: '123 Sesame Street',
                      city_town: 'Wellington', post_code: '1234',
-                     ta: 'wellington')
+                     ta: wellington.name)
   }
+  let(:wellington) { TerritorialAuthority.find_by_code("047") }
   let!(:order) { Order.create!(customer: customer, item_ids: [Item.first.id]) }
 
   background do

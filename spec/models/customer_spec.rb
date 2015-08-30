@@ -88,16 +88,19 @@ describe Customer do
   describe '#ta=' do
     subject(:customer) { Customer.new }
 
+    let(:hamilton) { TerritorialAuthority.find_by_code("016") }
+    let(:ta) { hamilton.name }
+
     before do
       customer.ta = ta
     end
 
-    context "when it contains the word 'city'" do
-      let(:ta) { 'hamilton city' }
+    it 'sets the ta field' do
+      expect(customer.ta).to eq 'Hamilton City'
+    end
 
-      it 'strips city' do
-        expect(customer.ta).to eq 'hamilton'
-      end
+    it "sets the TerritorialAuthority association" do
+      expect(customer.territorial_authority).to eq hamilton
     end
   end
 end
