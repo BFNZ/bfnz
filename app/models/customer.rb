@@ -29,7 +29,7 @@ class Customer < ActiveRecord::Base
   # when ta name is set, also set the TA association
   def ta=(name)
     super
-    self.territorial_authority = TerritorialAuthority.find_by_addressfinder_name(ta_key)
+    self.territorial_authority = TerritorialAuthority.find_by_name(name)
   end
 
   def identifier
@@ -43,11 +43,4 @@ class Customer < ActiveRecord::Base
   def has_email?
     email.present?
   end
-
-  private
-
-  def ta_key
-    ta.downcase.gsub(/district|city/, "").strip
-  end
-
 end
