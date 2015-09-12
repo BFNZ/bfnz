@@ -15,7 +15,7 @@ module Admin
       end
 
       def contacts
-        contact_list.customers.map { |customer| Admin::ContactPresenter.new(customer) }
+        contact_list.customers.map { |customer| Admin::ContactLists::ContactView.new(customer) }
       end
 
       def filename

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     resources :labels, only: [:index]
     resources :shipments, only: [:index, :show]
-    resources :contact_lists, only: [:index, :show]
+    resources :contact_lists, only: [:index, :show, :create]
     resources :coordinators, except: [:show, :destroy]
   end
 end

@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   }
 
   validates :name, :email, presence: true
+
+  def new_contacts
+    Customer.contactable.for_districts(territorial_authorities.pluck(:id))
+  end
 end

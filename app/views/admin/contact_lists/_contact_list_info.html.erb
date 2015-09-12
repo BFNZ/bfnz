@@ -1,58 +1,35 @@
-<%= view_model.current_coordinator %>
-
-<% if view_model.contacts.any? %>
-  <div><%= page_entries_info view_model.contacts %></div>
-  <%= paginate view_model.contacts %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Created</th>
-        <th>Name</th>
-        <th>Address</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% view_model.contact_presenters.each do |presenter| %>
-        <tr>
-          <td><%= presenter.id %></td>
-          <td><%= presenter.created %></td>
-          <td><%= presenter.name %></td>
-          <td><%= presenter.address %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate view_model.contacts %>
+<% if view_model.new_contacts_count > 0 %>
+  <% view_model.district_views.each do |district_view| %>
+    <%= render 'new_contacts_for_district', :district_view => district_view %>
+  <% end %>
 <% else %>
   <p>
-    <% if view_model.selected_ta %>
-      There are no new contacts for <%= view_model.selected_ta.name %>.
-    <% else %>
-      Please select a District to view the new contacts for it.
-    <% end %>
+    There are no new contacts for <%= view_model.coordinator.name %>.
   </p>
 <% end %>
-
-<% if view_model.contact_lists.any? %>
+<br><br>
+<% if view_model.has_contact_lists? %>
+  <h4>Previously Downloaded Contact Lists</h4>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>Contact List ID</th>
+        <th>District</th>
         <th>Downloaded at</th>
         <th>Number of contacts</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <% view_model.contact_lists.each do |contact_list| %>
+      <% view_model.contact_list_views.each do |contact_list_view| %>
         <tr>
-          <td><%= contact_list.id %></td>
-          <td><%= contact_list.created_at.to_s(:display) %></td>
-          <td><%= contact_list.customers.count %></td>
+          <td><%= contact_list_view.id %></td>
+          <td><%= contact_list_view.district_name %></td>
+          <td><%= contact_list_view.first_downloaded %></td>
+          <td><%= contact_list_view.customer_count %></td>
           <td>
             <div class='btn-group-vertical'>
-              <%= link_to 'Download', admin_contact_list_path(contact_list.id, format: :csv), class: 'btn btn-default' %>
+              <%= link_to 'Download', admin_contact_list_path(contact_list_view.id, format: :csv), class: 'btn btn-default' %>
             </div>
           </td>
         </tr>

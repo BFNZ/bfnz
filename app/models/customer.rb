@@ -21,6 +21,9 @@ class Customer < ActiveRecord::Base
   scope :contactable, -> {
     where(further_contact_requested: true).where(contact_list_id: nil)
   }
+  scope :for_districts, ->(ids) {
+    where(territorial_authority_id: ids)
+  }
 
   def self.strip_non_numeric(string)
     string.gsub(/\D/, '')

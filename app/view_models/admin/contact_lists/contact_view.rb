@@ -1,4 +1,4 @@
-class Admin::ContactPresenter
+class Admin::ContactLists::ContactView
   def initialize(customer)
     @customer = customer
   end

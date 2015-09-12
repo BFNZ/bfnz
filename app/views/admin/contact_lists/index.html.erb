@@ -1,19 +1,14 @@
 <h2>Contacts for Co-ordinators</h2>
 
-<%= form_for @contact_search, url: admin_contact_lists_path, html: {class: "form-horizontal", role: "form", method: :get} do |f| %>
+<%= form_tag admin_contact_lists_path, {class: "form-inline", role: "form", method: :get} do |f| %>
   <div class="form-group">
-    <div class="col-xs-6">
-      <%= f.label :territorial_authority_id, 'District' %>
-      <%= f.select :territorial_authority_id, @contact_search.territorial_authorities, {include_blank: true}, {class: "form-control"} %>
-    </div>
+    <%= label_tag :coordinator_id, 'Co-ordinator' %>
+    <%= select_tag :coordinator_id, options_for_select(@view_model.coordinators_for_select, params[:coordinator_id]), {class: "form-control"} %>
   </div>
-
-  <div class="form-group">
-    <%= f.submit "Search", class: "btn btn-default" %>
-    <%= f.button "Download to CSV", name: 'format', value: 'csv', class: "btn btn-default" %>
-  </div>
+  <%= submit_tag "Search", class: "btn btn-default" %>
 <% end %>
 
-<% if @search_view_model.selected_ta %>
-  <%= render 'contact_list_info', view_model: @search_view_model %>
+<% if @view_model.coordinator %>
+  <br><br>
+  <%= render 'contact_list_info', view_model: @view_model %>
 <% end %>

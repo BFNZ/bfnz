@@ -2,18 +2,19 @@ class ContactList < ActiveRecord::Base
   belongs_to :territorial_authority
   has_many :customers
 
-  scope :for_ta, ->(territorial_authority) {
-    if territorial_authority.nil?
+  scope :for_districts, ->(territorial_authority_ids) {
+    if territorial_authority_ids.blank?
       none
     else
-      where(territorial_authority_id: territorial_authority.id)
+      where(territorial_authority_id: territorial_authority_ids)
     end
   }
 
-  def self.create_for_ta(territorial_authority, customers)
+  def self.create_for_district(district_id, contacts)
     self.transaction do
-      contact_list = self.create!(territorial_authority: territorial_authority)
-      customers.update_all(contact_list_id: contact_list.id)
+      contact_list = self.create!(territorial_authority_id: district_id)
+      contacts.update_all(contact_list_id: contact_list.id)
+      contact_list
     end
   end
 
