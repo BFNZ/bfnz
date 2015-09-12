@@ -35,6 +35,22 @@ feature 'Managing customers', js: true do
     expect(page.current_path).to eq '/admin/customers/new'
   end
 
+  scenario "Adding a new customer whose order has already been delivered" do
+    click_link "New Customer"
+    expect(page).to have_text("Add a new customer")
+
+    select "Mr", from: "Title"
+    fill_in "First Name", with: "John"
+    fill_in "Last Name", with: "Doe"
+    select_address("1 Short Street")
+    page.first(".image_picker_image").click
+    check "This order has already been delivered."
+    click_button "Save and add another"
+
+    expect(page).to have_text("Customer created successfully.")
+    expect(Order.last).to be_shipped
+  end
+
   scenario "Viewing an existing customer" do
     ViewOrdersPage.new.edit("Joe")
 

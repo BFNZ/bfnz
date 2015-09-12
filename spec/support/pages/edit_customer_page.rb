@@ -37,17 +37,25 @@ class EditCustomerPage < CapybaraPage
     expect(page).to have_select(items_select, selected: (selected_titles << item.title))
   end
 
-  def create_order(item)
+  def create_order(item, received_in_person: false)
     click_link "Add new order"
     within "#new_admin_new_order_form" do
       select "Internet", from: "Method received"
       select "Website", from: "Method of discovery"
-      select item.title, from:     'admin_new_order_form_item_ids'
+      select item.title, from: 'admin_new_order_form_item_ids'
+      check "This order has already been delivered." if received_in_person
       click_button "Create Order"
     end
 
     expect(page).to have_text "Order created successfully"
-    expect(page).to have_select(items_select, selected: item.title)
+
+    within "#orders" do
+      if received_in_person
+        expect(page).to have_text "Date shipped:"
+      else
+        expect(page).to have_select(items_select, selected: item.title)
+      end
+    end
   end
 
   def merge_customer(other_customer)

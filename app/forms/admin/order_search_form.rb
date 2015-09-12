@@ -36,10 +36,6 @@ module Admin
       Item.all.map { |item| [item.title, item.id] }
     end
 
-    def shipped_options
-      [["Yes", 1], ["No", 0]]
-    end
-
     def yes_no_options
       [["Yes", true], ["No", false]]
     end
@@ -59,6 +55,7 @@ module Admin
         orders = orders.public_send(key, value) if value.present?
       end
       orders = further_contact_flag(orders)
+      orders = shipped_flag(orders)
       orders = created_between(orders)
       orders = shipped_between(orders)
       orders
@@ -69,6 +66,14 @@ module Admin
     def further_contact_flag(scope)
       if [true, false].include?(further_contact_requested)
         scope.merge(Customer.further_contact_requested(further_contact_requested))
+      else
+        scope
+      end
+    end
+
+    def shipped_flag(scope)
+      if [true, false].include?(shipped)
+        scope.merge(shipped ? Order.shipped : Order.ready_to_ship)
       else
         scope
       end
@@ -101,7 +106,7 @@ module Admin
     end
 
     def order_attributes
-      attributes.slice(:item_ids, :shipped, :id)
+      attributes.slice(:item_ids, :id)
     end
   end
 end

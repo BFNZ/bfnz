@@ -54,6 +54,14 @@ feature 'Managing orders', js: true do
     end
   end
 
+  scenario "Create an order that has been delivered" do
+    ViewOrdersPage.new.edit("Joe")
+
+    EditCustomerPage.new(customer) do |page|
+      page.create_order(another_item, received_in_person: true)
+    end
+  end
+
   scenario "Merging a duplicate customer" do
     ViewOrdersPage.new.edit("Joe")
 

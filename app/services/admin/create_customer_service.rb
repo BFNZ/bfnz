@@ -7,7 +7,7 @@ module Admin
 
     def perform
       if @form.valid?
-        @success = (save_customer && save_order)
+        @success = (save_customer && save_order && create_shipment)
       end
       self
     end
@@ -34,6 +34,13 @@ module Admin
 
     def save_order
       order.save
+    end
+
+    def create_shipment
+      if order.received_in_person?
+        Shipment.create_for_orders(Order.where(id: order.id))
+      end
+      true
     end
   end
 end

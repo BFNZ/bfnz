@@ -74,25 +74,13 @@ describe Order do
   end
 
   describe ".shipped" do
-    subject(:shipped_scope) { Order.shipped(shipped) }
+    subject(:shipped_scope) { Order.shipped }
 
     let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
     let!(:not_shipped_order) { Order.make! }
 
-    context "when shipped is 1" do
-      let(:shipped) { 1 }
-
-      it "returns orders that are shipped" do
-        expect(shipped_scope).to match_array [shipped_order]
-      end
-    end
-
-    context "when shipped is 0" do
-      let(:shipped) { 0 }
-
-      it "returns orders that are not shipped" do
-        expect(shipped_scope).to match_array [not_shipped_order]
-      end
+    it "returns orders that are shipped" do
+      expect(shipped_scope).to match_array [shipped_order]
     end
   end
 

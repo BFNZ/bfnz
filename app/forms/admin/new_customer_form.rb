@@ -17,6 +17,7 @@ module Admin
     attribute :tertiary_student, Virtus::Attribute::Boolean
     attribute :tertiary_institution, String
     attribute :further_contact_requested, Virtus::Attribute::Boolean
+    attribute :received_in_person, Virtus::Attribute::Boolean
     attribute :admin_notes, String
 
     attribute :method_received, String
@@ -41,7 +42,7 @@ module Admin
     private
 
     def order_attr_keys
-      %w{item_ids method_received method_of_discovery}
+      %w{item_ids method_received method_of_discovery received_in_person}
     end
 
     def customer_attr_keys

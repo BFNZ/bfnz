@@ -15,10 +15,10 @@ describe Admin::OrderSearchForm do
     end
   end
 
-  describe "#shipped_options" do
-    subject(:shipped_options) { described_class.new.shipped_options }
+  describe "#yes_no_options" do
+    subject(:yes_no_options) { described_class.new.yes_no_options }
 
-    it { expect(shipped_options).to match_array [["Yes", 1], ["No", 0]] }
+    it { expect(yes_no_options).to match_array [["Yes", true], ["No", false]] }
   end
 
   describe "#filtered_orders" do
@@ -35,7 +35,7 @@ describe Admin::OrderSearchForm do
     end
 
     context "when shipped is passed in" do
-      let(:attrs) { {shipped: 1} }
+      let(:attrs) { {shipped: true} }
 
       let!(:order) { Order.make!(:shipped) }
 

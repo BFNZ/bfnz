@@ -16,6 +16,12 @@
       <div class="error_msg"><%= order_form.errors[:item_ids].join %></div>
       <dd><%= f.select :item_ids, items_for_select(order_form), {}, multiple: 'multiple', size: 6, class: "form-control imagepicker" %></dd>
     </dl>
+
+    <div class="checkbox">
+      <%= f.label :received_in_person do %>
+        <%= f.check_box :received_in_person %>This order has already been delivered.
+      <% end %>
+    </div>
   </div>
 
   <div class="btn-toolbar">

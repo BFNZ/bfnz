@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <% @territorial_authorities.each do |ta| %>
-      <tr>
+      <tr class="<%= ta.addressfinder_name %>">
         <td><%= ta.name %></td>
         <%= render 'coordinator', coordinator: ta.coordinator %>
       </tr>

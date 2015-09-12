@@ -6,15 +6,14 @@ feature 'Managing coordinators' do
   background do
     User.make!(:coordinator, name: "Sam Smith", territorial_authorities: [hamilton])
     login_as_admin
+    visit admin_coordinators_path
   end
 
   scenario "Viewing existing coordinators" do
-    visit "/admin/coordinators"
     expect(page).to have_text("Hamilton City Sam Smith")
   end
 
   scenario "Adding a coordinator" do
-    visit "/admin/coordinators"
     click_link "Add Coordinator"
     expect(page).to have_text("Add Coordinator")
 
@@ -27,10 +26,11 @@ feature 'Managing coordinators' do
   end
 
   scenario "Editing a coordinator" do
-    visit "/admin/coordinators"
     expect(page).to have_text "Sam Smith"
 
-    click_link "Edit"
+    within ".hamilton" do
+      click_link "Edit"
+    end
     expect(page).to have_text "Edit Coordinator"
 
     uncheck "Hamilton City"

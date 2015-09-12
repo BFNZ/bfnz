@@ -13,9 +13,15 @@ class Order < ActiveRecord::Base
   scope :created_between, ->(from, to) { where("orders.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
-  scope :shipped, ->(shipped) { shipped == 1 ? where.not(shipment_id: nil) : where(shipment_id: nil) }
+  scope :shipped, -> { where.not(shipment_id: nil) }
+  scope :ready_to_ship, -> { where(shipment_id: nil) }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
-  scope :ready_to_ship, -> { shipped(false) }
+
+  attr_writer :received_in_person
+
+  def received_in_person?
+    @received_in_person
+  end
 
   def shipped?
     shipment_id.present?
