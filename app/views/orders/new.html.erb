@@ -1,14 +1,20 @@
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    
+<div class="padded faq">
 <h1>Free Order</h1>
 
 <p>
-To order your free copy of the New Testament Recovery Version simply fill out the order form below.
+To order your free books simply fill out the order form below.  Please note that Bibles
 </p>
 <p>
-Please note that Bibles for New Zealand can only service requests for Recovery Versions from New Zealand.
+ for New Zealand can only service requests for the listed free books from New Zealand.
 </p>
 <p>
 Please allow 4-6 weeks for delivery.
 </p>
+
+<div class="container-fluid">
 <%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group">
     <div class="col-xs-2">
@@ -71,7 +77,10 @@ Please allow 4-6 weeks for delivery.
   <div class="form-group">
     <div class="col-sm-4">
       <%= f.submit 'Place Order', class: "btn btn-primary" %>
-      <%= link_to 'Cancel', root_path, class: "btn btn-default" %>
+       <%= link_to 'Cancel', root_path, class: "btn btn-default" %>
+
     </div>
   </div>
+   </div>
+   </div>
 <% end %>

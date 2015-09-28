@@ -1,5 +1,23 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  get 'staticpages/AboutTheBible',:as => 'aboutthebible_page'
+
+  get 'staticpages/FAQ',:as => 'FAQ_page'
+
+  get 'staticpages/Links',:as => 'Links_page'
+
+  get 'staticpages/BibleTranslation',:as => 'bibletranslation_page'
+
+  get 'staticpages/QuickRef',:as => 'quickref_page'
+
+  get 'staticpages/Sample',:as => 'sample_page'
+
+  get 'staticpages/Subject',:as => 'subject_page'
+
+  get 'staticpages/Gospel',:as => 'gospel_page'
+
+  get 'staticpages/Books',:as => 'books_page'
+
+   root 'home#index'
 
   resources :orders, only: [:new, :create]
 
