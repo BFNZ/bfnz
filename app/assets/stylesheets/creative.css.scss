@@ -69,21 +69,19 @@ p {
 }
 
 
-.carousel-indicators {
-  background-color: #ffffff;
-  border: 1px solid #000000;
+#bookFeatures .carousel-indicators {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  z-index: 15;
+  width: auto;
+  margin: 20px auto;
+  text-align: center;
+  list-style: none;
 }
 
-.carousel-indicators li {
-  background-color: #ffffff;
-  border: 1px solid #000000;
-}
-
-.carousel-indicators .active {
-  background-color: #000000;
-  border: 1px solid #fffccc;
-}
- 
+#bookFeatures .carousel-indicators li { border: 1px solid #000; }
+#bookFeatures .carousel-indicators .active { background-color: #000; } 
 
 .text-faded {
     color:  #000000 ;text-align: justify; 
