@@ -81,11 +81,9 @@ end
 
 [
  ['R', "The New Testament Recovery Version", nil, "the_new_testament.jpg", "The New Testament Recovery Version is a comprehensive study Bible accurately translated from the original Greek text into modern English. It features extensive notes emphasizing the revelation of the truth, outlines of each book, cross-references, charts and maps, and more."],
- ['A', "The All Inclusive Christ", "Witness Lee", "the_all_inclusive_christ.jpg", "Lee shows that the good land in all its aspects is actually a type of Christ in His all-inclusiveness. In this book, the riches of the good land are explained and applied to our experience of Christ today."],
- ['G', "The Glorious Church", "Watchman Nee", "the_glorious_church.jpg", "What is the the church and what is its purpose? Watchman Nee uses types of the church from throughout the Bible to show us the church's origin, purpose, and destiny."],
+ ['A', "The Christian Experience Set", "Witness Lee", "christian_experience.jpg", "Lee shows that the good land in all its aspects is actually a type of Christ in His all-inclusiveness. In this book, the riches of the good land are explained and applied to our experience of Christ today."],
+ ['G', "The Church Set", "Watchman Nee & Witness Lee", "church_set.jpg", "What is the the church and what is its purpose? Watchman Nee uses types of the church from throughout the Bible to show us the church's origin, purpose, and destiny."],
  ['B', "Basic Elements of the Christian Life", "Watchman Nee and Witness Lee", "basic_elements.jpg", "This series details the basic yet crucial elements of the life of a Christian, showing how each provides the foundation for a rich and meaningful Christian life."],
-['E', "The Economy of God", "Witness Lee", "the_economy_of_god.jpg", "TODO"],
-['K', "The Knowledge of Life", "Witness Lee", "the_knowledge_of_life.jpg", "TODO"]
 ].each do |code, title, author, image_path, description|
    Item.create!(code: code, title: title, author: author, image_path: image_path, description: description) unless Item.find_by_code(code)
  end
