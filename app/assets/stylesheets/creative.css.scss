@@ -54,7 +54,8 @@ p {
 
 
 .bg-primary {
-  background-color:  #C0C0C0  ;color:  #000000;
+  background-color:  #FFFFFF  ;color:  #383838;
+  padding-bottom: 250px;
 }
 
 .bg-primary2 {
@@ -68,7 +69,18 @@ p {
   background-color: #222;
 }
 
-.carousel-​indicators { border: 1px solid #000; }
+.bg-light {
+  color: #fff;
+  background-color: #fff;
+}
+.bg-foot {
+  color: #fff;
+  background-color: #C0C0C0;
+}
+
+.list-style{
+  display: inline;
+}
 
 #bookFeatures .carousel-indicators {
 

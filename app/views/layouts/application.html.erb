@@ -75,7 +75,7 @@
                       <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About BFNZ <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li><a class="page-scroll" href="/#about">About the Bible</a></li>
-                        <li><a class="page-scroll" href="/#services">The Highest book</a></li>
+                        <li><a class="page-scroll" href="/#freebooks">Free Books</a></li>
                         <li><a class="page-scroll" href="/#faith">Statement of faith</a></li>
                         <li role="separator" class="divider"></li>
                         <li><%= link_to 'FAQ', FAQ_page_path('FAQ')%></li>
@@ -84,7 +84,7 @@
                       </ul>
                     </li>
 
-                    <li><a class="page-scroll" href="/#portfolio">Free Books</a>
+                    <li><a class="page-scroll" href="/#freebooks">Free Books</a>
                     </li>                 
                      
                      <li>
@@ -103,47 +103,19 @@
       <%= yield %>
   </body>
 
-<footer>
-    
-    <section id="contact">
+<footer>      
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <br><br><br><br><br><br>
-                    <!--<img src="banner.png" alt="BFNZ Banner">-->
-                    <br><br>
-                    <h2 class="section-heading">Contact us at Bibles for New Zealand</h2>
-                    <hr class="primary">
-                    <h2 class="primary">
-                        <img src="/BFNZ.jpg" alt="BFNZ Banner">
-                        <br><hr>
-                        Bibles for New Zealand<br>PO Box 302746
-                    <br>North Harbour<br>Auckland 0751<br>New Zealand<br><br></hr><br><br>
-
-
-                </div>
-                <div class="col-lg-4 col-lg-offset-2 text-center">
-                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
-                    <p>0800 404080</p>
-                      <hr>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <i class="icon-envelope-alt"></i>
-                    <p><a href="mailto:info@biblesfornewzealand.org.nz">info@biblesfornewzealand.org.nz</a></p>
-              
-                <hr class="primary">
-                <br><br>
-               
-                    
-                
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+                <div class="col-lg-10 col-lg-offset-1 faq text-center"style=padding-top:80px;padding-bottom:20px;>
+                    <a href="/#contact">Contact Us&nbsp&nbsp</a>  
+                    <a href="/#faith">Our Faith&nbsp&nbsp</a> 
+                    <a href="/FAQ">FAQs&nbsp&nbsp</a> 
+                    <%= link_to 'Free Order', new_order_path%><br>
+                    © 2015 Bibles for New Zealand. All rights reserved. <br><a href="/terms-of-use">Terms of Use&nbsp&nbsp</a> <a href="/privacy-policy">Privacy Policy</a>
                 </div>
             </div>
         </div>
-    </section>
+   
 </footer>
 
 </html>
