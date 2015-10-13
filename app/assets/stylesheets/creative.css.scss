@@ -14,6 +14,40 @@ body {
   font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
 }
 
+.bfnzposition{
+position: relative;
+bottom:   0;
+}
+
+.videowrapper {
+    float: none;
+    clear: both;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#featureNav > li > a {
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 18px;
+  color: #0A2E4C;
+}
+#featureNav > li > a:hover { color: #549ACA; }
+
 hr {
   max-width: 50px;
   border-color: #f05f40;
