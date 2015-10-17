@@ -70,6 +70,13 @@ a {
   transition: all .35s;
 }
 
+.bordersolid {
+     border-style: solid;
+     border-width: 1px;
+     border-color:#000000;
+ }
+
+
 a:hover,
 a:focus {
   color: #eb3812;
