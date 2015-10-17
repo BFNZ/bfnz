@@ -1,7 +1,8 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
  <div class="container">   
-<div class="padded faq">
+<div class="faq">
+  <br><br>
 <h1>Free Order</h1>
 
 <p>
@@ -16,22 +17,28 @@ Please allow 4-6 weeks for delivery.
 
 
 <%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
-  <div class="form-group">
-    <div class="col-xs-2">
+  <div class="form-group row">
+ 
+    <div class="col-sm-1">
       <%= f.required_label :title, class: "control-label"%>
       <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order_form.title), {include_blank: true}, class: "form-control"%>
     </div>
-    <div class="col-xs-3">
+  </div>
+    <div class="form-group row">
+    <div class="col-sm-8">
       <%= f.required_label :first_name, class: "control-label" %>
       <%= f.text_field :first_name, class: "form-control" %>
-    </div>
-    <div class="col-xs-3">
+    </div></div>
+  <div class="form-group row">
+   
+    <div class="col-sm-8">
       <%= f.required_label :last_name, class: "control-label" %>
       <%= f.text_field :last_name, class: "form-control" %>
-    </div>
+ 
+  </div>
   </div>
   <div class="form-group">
-    <div class="col-xs-8">
+    <div class="col-sm-8">
       <%= f.required_label :address, label_text: "Postal Address", class: "control-label" %>
       <%= f.text_field :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from" %>
       <%= f.hidden_field :suburb, class: "hidden-address suburb" %>
@@ -42,22 +49,22 @@ Please allow 4-6 weeks for delivery.
     </div>
   </div>
   <div class="form-group">
-    <div class="col-xs-4">
+    <div class="col-sm-8">
       <%= f.label :phone, class: "control-label" %>
       <%= f.text_field :phone, class: "form-control" %>
     </div>
-    <div class="col-xs-4">
+    <div class="col-sm-8">
       <%= f.label :email, class: "control-label" %>
       <%= f.email_field :email, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <div class="checkbox col-xs-4">
+    <div class="checkbox col-sm-4">
       <%= f.label :tertiary_student do %>
         <%= f.check_box :tertiary_student, class: 'tertiary-institution-toggle' %>Are you a tertiary student?
       <% end %>
     </div>
-    <div id="tertiary_institution" class="col-xs-4">
+    <div id="tertiary_institution" class="col-sm-8">
       <%= f.label :tertiary_institution, class: "control-label" %>
       <%= f.text_field :tertiary_institution, class: "form-control" %>
     </div>
@@ -65,10 +72,10 @@ Please allow 4-6 weeks for delivery.
   <div class="form-group">
     <h4>Select the item(s) you would like to receive</h4>
     <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
-    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple' %>
+    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple'%>
   </div>
   <div class="form-group">
-    <div class="checkbox col-xs-6">
+    <div class="checkbox col-sm-6">
       <%= f.label :further_contact_requested do %>
         <%= f.check_box :further_contact_requested %>I am interested in receiving further contact.
       <% end %>
