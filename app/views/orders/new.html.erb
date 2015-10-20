@@ -19,19 +19,19 @@ Please allow 4-6 weeks for delivery.
 <%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group row">
  
-    <div class="col-sm-1">
+    <div class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xlg-1">
       <%= f.required_label :title, class: "control-label"%>
       <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order_form.title), {include_blank: true}, class: "form-control"%>
     </div>
   </div>
     <div class="form-group row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <%= f.required_label :first_name, class: "control-label" %>
       <%= f.text_field :first_name, class: "form-control" %>
     </div></div>
   <div class="form-group row">
    
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <%= f.required_label :last_name, class: "control-label" %>
       <%= f.text_field :last_name, class: "form-control" %>
  
@@ -49,11 +49,11 @@ Please allow 4-6 weeks for delivery.
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-8">
+    <div class="col-sm-5">
       <%= f.label :phone, class: "control-label" %>
       <%= f.text_field :phone, class: "form-control" %>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-5">
       <%= f.label :email, class: "control-label" %>
       <%= f.email_field :email, class: "form-control" %>
     </div>
@@ -72,7 +72,7 @@ Please allow 4-6 weeks for delivery.
   <div class="form-group">
     <h4>Select the item(s) you would like to receive</h4>
     <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
-    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker', multiple: 'multiple'%>
+    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker txtsize', multiple: 'multiple'%>
   </div>
   <div class="form-group">
     <div class="checkbox col-sm-6">
