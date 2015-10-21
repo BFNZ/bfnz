@@ -11,7 +11,8 @@
 
     <title>Bibles for New Zealand</title>
 
-    <link rel="icon" href="favicon.ico">
+    
+    <%= favicon_link_tag '/favicon.ico' %>
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'https://www.addressfinder.co.nz/assets/v2/widget.js' %>
@@ -65,7 +66,7 @@
                 </button>
 
                 <%= link_to "Home", root_path, class: "navbar-brand" %>
-                <img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:10%;height:10% class="navbar-brand">
+                <!--<img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:9%;height:9% class="navbar-brand">-->
  
             </div>
 
