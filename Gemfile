@@ -17,6 +17,7 @@ gem 'kaminari'
 gem 'attribute_normalizer'
 
 gem 'unicorn'
+gem 'roo'
 
 group :development do
   gem 'better_errors'
