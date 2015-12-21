@@ -6,49 +6,18 @@
 
                 <!--<h1>Bibles for New Zealand</h1>
                 <hr>-->
-                <img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:30%;height:30% class="img-responsive center-block">
-                <hr>
-                <h2>Know God and understand the Bible <br>in a deeper way</h2>
-                <hr>
+                <!--<img src="/img/bfnz.svg" alt="BFNZ Banner" style=width:30%;height:30% class="img-responsive center-block">-->
+               <br>
+                <h1>Know God and <br>understand the Bible <br>in a deeper way</h1>
+                <h2>We give away free study Bibles and Christian <br>books that help you progress in your Christian <br>life. </h2>
                 <p></p>
-                <a> <%= link_to 'Order Free Books here', new_order_path, class: 'btn btn-primary btn-xl page-scroll' %></a>
+                <a> <%= link_to 'Order yours now', new_order_path, class: 'btn btn-primary btn-xl page-scroll' %></a>
+                <p></p>
+                <a class="btn btn-primary btn-xl page-scroll" href="/#freebooks">Learn more about our Free Books</a>
             </div>
         </div>
         
     </header>
-
-    <section class="bg-primary" id="about">
-       
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-1 text-center">
-                    <hr class="primary">
-                    <h2 class="section-heading">A Brief Explanation</h2>
-                    <hr class="primary">
-                    <p>The Bible is the complete and only divine revelation.</p>
-
-                    <p>God is eternally one. He is also eternally the Father, the Son, and the Spirit. These three are distinct but not separate.</p>
-
-                    <p>Christ is both the complete God and the perfect man. He was divinely conceived in the womb of a human virgin, lived a genuine human life on earth, and died a vicarious and all-inclusive death on the cross. After three days He resurrected bodily and had ascended to the heavens. He is now in glory, still fully God and fully man. He will return to reign in the millennium and in eternity.<br></p>
-
-                    <p>The Spirit, the third of the Trinity, is also God. All that the Father has and is, is expressed by the Son; and all that the Son has and is, is realized as the Spirit.<br>
-
-                    <p>Man is unable to fulfill the requirements of God's righteousness, holiness, and glory, and thus is in need of God's salvation. Through Christ's death on the cross, which fulfilled all of God's requirements, God forgives, reconciles, and justifies those who believe in Jesus Christ and His work.<br></p>
-
-                    <p>God regenerates the redeemed with His Spirit that they may become His children possessing His life and nature. The believers enjoy a daily salvation in His Body in this age and the eternal salvation in the coming age and in eternity.<br></p>
-
-                    <p>In eternity all of God's redeemed elect will dwell with Him in the New Jerusalem, which is the consummation of God's salvation.<br></p>
-
-		<div class='btn-group-vertical'>
-      <%= link_to 'Order Free here', new_order_path, class: 'btn btn-primary btn-xl page-scroll' %>
-    </div>
-                 </div>
-            </div>
-        </div>
-        <p class="text-pad">
-    
-</p>
-    </section>
 
 <section class="bg-primary" id="faith">
         <div class="container">
@@ -77,7 +46,7 @@
 
 
 
-    <section id="freebooks" style=padding-bottom:80px;>
+    <section id="freebooks" class = "top-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -160,13 +129,13 @@
                     
                     <!--<img src="banner.png" alt="BFNZ Banner">-->
                     <br><br>
-                    <h2 class="section-heading">Contact us at Bibles for New Zealand</h2>
+                    <h3 class="section-heading top-padding">Contact us at Bibles for New Zealand</h3>
                     <hr class="primary">
-                    <h2 class="primary">
-                        <img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:20%;height:20%>
+                    <h3 class="primary">
+                        <%= link_to(image_tag("/img/bfnz.svg",class: "imageblock"), root_path)%>
                         <br><hr>
-                        Bibles for New Zealand<br>PO Box 302746
-                    <br>North Harbour<br>Auckland 0751<br>New Zealand<br><br></hr><br><br>
+                        <br>PO Box 302746
+                    <br>North Harbour<br>Auckland 0751<br>New Zealand<br><br></hr><br><br> </h3>
 
 
                 </div>
@@ -181,8 +150,7 @@
                     <p><a href="mailto:info@biblesfornewzealand.org.nz">info@biblesfornewzealand.org.nz</a></p>
               
                 <hr class="primary">
-                <br><br>
-              </div>
+                </div>
             </div>
         </div>
     </section>

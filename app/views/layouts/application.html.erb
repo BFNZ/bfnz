@@ -65,35 +65,21 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <%= link_to "Home", root_path, class: "navbar-brand" %>
-                <!--<img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:9%;height:9% class="navbar-brand">-->
+                <%= link_to(image_tag("/img/bfnz.svg",class: "imageblock"), root_path)%>
+                <!--<%= link_to "Home", root_path, class: "navbar-brand" %>
+                <img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:9%;height:9% class="navbar-brand">-->
  
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                      <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About BFNZ <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="page-scroll" href="/#about">About the Bible</a></li>
-                        <li><a class="page-scroll" href="/#freebooks">Free Books</a></li>
-                        <li><a class="page-scroll" href="/#faith">Statement of Faith</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><%= link_to 'FAQ', FAQ_page_path('FAQ')%></li>
-                         <li role="separator" class="divider"></li>
-                         <li><%= link_to 'Free Order', new_order_path %></li>
-                      </ul>
-                    </li>
-
-                    <li><a class="page-scroll" href="/#freebooks">Free Books</a>
-                    </li>                 
-                     <li><a class="page-scroll" href="/staticpages/Gospel/#gospel">The Gospel</a>
-                     <li><a class="page-scroll" href="/staticpages/Links/#study">Study</a>
-                    </li>  
-                    </li>  
+                    <li><a class="page-scroll" href="/orders/new"><h3>Order</h3> <i>Bibles and books</i></a>
+                     <li><a class="page-scroll" href="/staticpages/Gospel/#gospel"> <h3>Share</h3><i>The Gospel </i></p></a>
+                     <li><a class="page-scroll" href="/staticpages/Links/#study"><h3>Study</h3> <i>The word</i></a>
+                    </li>    
                      <li>
-                        <a class="page-scroll" href="/#contact">Contact</a>
+                        <a class="page-scroll" href="/#contact"> <h3>Contact</h3> <i>us</i> </a>
                     </li>
                 </ul>
             </div>
@@ -114,9 +100,9 @@
                 <div class="col-lg-10 col-lg-offset-1 faq text-center"style=padding-top:80px;padding-bottom:20px;>
                     <a href="/#contact">Contact Us&nbsp&nbsp</a>  
                     <a href="/#faith">Our Faith&nbsp&nbsp</a> 
-                    <a href="/FAQ">FAQs&nbsp&nbsp</a> 
+                    <a href="/staticpages/FAQ/#FAQ">FAQs&nbsp&nbsp</a> 
                     <%= link_to 'Free Order', new_order_path%><br>
-                    © 2015 Bibles for New Zealand. All rights reserved. <br><a href="/terms-of-use">Terms of Use&nbsp&nbsp</a> <a href="/privacy-policy">Privacy Policy</a>
+                    © 2015 Bibles for New Zealand. All rights reserved. <br><a href="/staticpages/FAQ/#terms">Terms of Use&nbsp&nbsp</a> <a href="/staticpages/FAQ/#privacy">Privacy Policy</a>
                 </div>
             </div>
         </div>
