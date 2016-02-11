@@ -1,18 +1,39 @@
 require 'spreadsheet'
+require 'tiny_tds'
 namespace :import do
 
   desc "Import data from ASP version of Bibles for NZ"
 
+# run with : rake import:import[sql-server-ip-address]
+
+ task :import, [:ip] do |t, args|
+    #client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+    #result = client.execute("select * from districts")
+    #result.each do |row|
+     #puts row["name"]
+
+    #end
+  end    
+
+task :temp, [:ip] => :environment do |t, args|
+   client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+    result = client.execute("select * from subscribers")
+    Customer.delete_all()
+    counter = 0
+    result.each do |r|
+      customer = Customer.create(first_name: r["first_name"], last_name: r["last_name"], address: r["address"], suburb: r["suburb"], city_town: r["city_town"], phone: r["phone"], email: r["email"], tertiary_student: r["tertiary_student"], tertiary_institution: r["institution"], admin_notes: r["admin_notes"], coordinator_notes: r["coordinator_notes"], old_subscriber_id: r["id"], old_system_address: r["address"], old_system_suburb: r["suburb"], old_system_city_town: r["city_town"])
+      puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
+      counter += 1 if customer.persisted?
+      #break if counter > 10
+    end
+      
+    puts "Imported #{counter} customers"
+
+
+end
 
   task customers: :environment do
         Customer.delete_all()
-    filename = File.join Rails.root, "import.xls"
-
-    Spreadsheet.client_encoding = "UTF-8"
-
-    book = Spreadsheet.open filename
-
-    customers = book.worksheet "subscribers"
 
     counter = 0
 
@@ -27,34 +48,6 @@ namespace :import do
     puts "Imported #{counter} customers"
   end    
 
-  task orders: :environment do
-    Order.delete_all()
-    Shipment.delete_all()
-    filename = File.join Rails.root, "import.xls"
-
-    Spreadsheet.client_encoding = "UTF-8"
-
-    book = Spreadsheet.open filename
-
-    orders = book.worksheet "shipments"
-
-    counter = 0
-
-    orders.each 1 do |row|
-      id,date_shipped, item_id, subscriber_id = row
-      shipment = Shipment.create()
-      shipment = Shipment.last
-      customer= Customer.find_by_old_subscriber_id(id)
-      olditem = item_id.to_s
-      item= Item.find_by_code(olditem)
-      order = Order.create(shipment_id: Shipment.id, customer_id: Customer.id)
-      items_order = Items_order.create(item_id: Item.id, order_id: Order.id)
-      puts "#{id} - #{order.errors.full_messages.join(",")}" if order.errors.any?
-      counter += 1 if order.persisted?
-    end
-      
-    puts "Imported #{counter} orders"
-  end
 
 
    task items: :environment do
