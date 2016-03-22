@@ -11,6 +11,13 @@ module Admin
     attribute :pxid, String
     attribute :ta, String
 
+    attribute :postal_line_1, String
+    attribute :postal_line_2, String
+    attribute :postal_line_3, String
+    attribute :postal_line_4, String
+    attribute :postal_line_5, String
+    attribute :postal_line_6, String
+
     attribute :phone, String
     attribute :email, String
 
