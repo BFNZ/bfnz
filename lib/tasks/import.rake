@@ -7,7 +7,7 @@ require 'csv'
 #usage: $ rake export_from_SQL_SERVER[sql-server-ip-address, path-to-cleansed-address-file]
 
 task :export_from_SQL_SERVER, [:ip] do |t, args|
-  
+
   client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
   result = client.execute("select * from subscribers")
   counter = 0
@@ -20,31 +20,31 @@ task :export_from_SQL_SERVER, [:ip] do |t, args|
       city_town = r['city_town'].gsub(/ \d{4}$/, '')
     end
     address = (r['address'] ? r['address'] : '') + ', ' + (r['suburb'] ? r['suburb'] : '') + ', ' + city_town
-    
+
     address.gsub!(/(, ){2,}/, ', ')
     address.gsub!(/, $/, '')
-    
+
     puts CSV.generate_line([r['id'], r['first_name'], r['last_name'], address])
     counter += 1
     break if counter > 10
   end
-  
+
 
 #  puts args[:path_to_cleansed_addresses]
 
-  
+
 #  puts "#{args[:ip]}  #{args[:path_to_cleansed_addresses]}"
 end
 
-  
+
 # Import data from ASP version of Bibles for NZ
-  
+
 # run with : rake import[sql-server-ip-address]
-  
+
 task :import, [:ip] do |t, args|
   # copy code in here when it works
-end    
-  
+end
+
 task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   territorial_authorities = {}
@@ -55,7 +55,7 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 #  territorial_authorities.keys.each do |ta|
 #    puts "#{territorial_authorities[ta]} - #{ta}"
 #  end
-  
+
   addresses = {}
   CSV.foreach(args[:path_to_cleansed_addresses], :headers => true) do |r|
     addresses[r['id'].to_i] = {
@@ -72,14 +72,14 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
   result = client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
-  
+
   Customer.delete_all()
   counter = 0
   result.each do |r|
 
 
 #    puts r
-    
+
     old_id = r['id'].to_i
     address_info = addresses[old_id]
 
@@ -104,7 +104,7 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
     end
 
     title = nil
-    
+
     if r['gender'] == 'Male'
       title = 'Mr'
     elsif  r['gender'] == 'Female'
@@ -141,8 +141,7 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   #TODO: need to create orders for each
 
-  
-  puts "Imported #{counter} customers"
-    
-end
 
+  puts "Imported #{counter} customers"
+
+end
