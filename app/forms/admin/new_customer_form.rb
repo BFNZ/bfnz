@@ -53,7 +53,7 @@ module Admin
     end
 
     def customer_attr_keys
-      %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
+      %w{title first_name last_name address suburb city_town post_code pxid ta postal_line_1 postal_line_2 postal_line_3 postal_line_4 postal_line_5 postal_line_6 phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
     end
 
     def contains_at_least_one_item
