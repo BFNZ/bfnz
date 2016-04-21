@@ -1,0 +1,7 @@
+id,first_name,last_name,address,full address,unit identifier,unit type,building name,number,alpha,street,street type,rural delivery number,suburb,city,postcode,territorial authority,region,latitude,longitude,pxid,meshblock,dpid,sufi
+30628,Adam,Little,"48 Stottholm Road, Green Bay, Waitakere"
+44586,Joseph,O'Hara,"147 Upland Road, Kelburn, Wellington","147 Upland Road, Kelburn, Wellington 6012",,,,147,,Upland Road,road,,Kelburn,Wellington,6012,Wellington City,Wellington Region,-41.2864675259833,174.759812426182,2-.F.1W.K.g.1z,2152800,1110224,351414
+11452,Maria,Saunders,"B2 - 59 Tawanui Rd, Kaikohe"
+26895,V,Giannoutsos,"33 A Sunset St, Taupo","33A Sunset Street, Hilltop, Taupo 3330",,,,33,A,Sunset Street,street,,Hilltop,Taupo,3330,Taupo District,Waikato Region,-38.6983459370465,176.094728277485,2-.E.3F.2.T.F,1268000,799568,1276130
+26845,Kariene,Gardiner,"15 Tauroa St, Raumanga, Whangarei","15 Tauroa Street, Raumanga, Whangarei 0110",,,,15,,Tauroa Street,street,,Raumanga,Whangarei,0110,Whangarei District,Northland Region,-35.7466652994306,174.301264218908,2-.9.2U.K.m.O,107803,697532,931669
+46245,Isaac,Wheatley,"109 Nixon Street, Hamilton East, Hamilton","109 Nixon Street, Hamilton East, Hamilton 3216",,,,109,,Nixon Street,street,,Hamilton East,Hamilton,3216,Hamilton City,Waikato Region,-37.7951493167398,175.299020852021,2-.E.Y.M.19.12,892100,1223833,
