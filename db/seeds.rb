@@ -84,14 +84,9 @@ end
  ['E', "The Christian Experience Set", "Witness Lee", "christian_experience.jpg", "Lee shows that the good land in all its aspects is actually a type of Christ in His all-inclusiveness. In this book, the riches of the good land are explained and applied to our experience of Christ today.", nil],
  ['C', "The Church Set", "Watchman Nee & Witness Lee", "church_set.jpg", "What is the the church and what is its purpose? Watchman Nee uses types of the church from throughout the Bible to show us the church's origin, purpose, and destiny.", nil],
  ['F', "Foundational Christian Truths Set", "Watchman Nee and Witness Lee", "foundational_christian_truths.jpg", "This series details the basic yet crucial elements of the life of a Christian, showing how each provides the foundation for a rich and meaningful Christian life.", nil],
-  ['BE1', "Basic Elements 1", "Watchman Nee and Witness Lee", "basic_elements_1.png", "Basic Elements 1", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
-  ['BE2', "Basic Elements 2", "Watchman Nee and Witness Lee", "basic_elements_2.png", "Basic Elements 2", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
-  ['BE3', "Basic Elements 3", "Watchman Nee and Witness Lee", "basic_elements_3.png", "Basic Elements 3", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
-
-
-
-
-
+ ['X1', "Old Set 1", "Watchman Nee and Witness Lee", "old_set_1.png", "Basic Elements 1", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
+ ['X2', "Old Set 2", "Watchman Nee and Witness Lee", "old_set_2.png", "Basic Elements 2 plus The Economy of God, and The All Inclusive Christ", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
+ ['X3', "Old Set 3", "Watchman Nee and Witness Lee", "old_set_3.png", "Basic Elements 3 plus The Glorious Church, and The Knowledge of Life", DateTime.strptime("01/01/2016 00:00", "%d/%m/%Y %H:%M")],
 ].each do |code, title, author, image_path, description, deactivated_at|
    Item.create!(code: code, title: title, author: author, image_path: image_path, description: description, deactivated_at: deactivated_at) unless Item.find_by_code(code)
  end

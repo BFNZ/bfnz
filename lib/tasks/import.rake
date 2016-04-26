@@ -4,7 +4,7 @@ require 'csv'
 
 #Export addresses from legacy SQL Server database as a CSV file to be manually cleansed with AddressFinder batch service
 
-#usage: $ rake export_from_SQL_SERVER[sql-server-ip-address, path-to-cleansed-address-file] > output-file.csv
+#usage: $ rake export_from_SQL_SERVER[sql-server-ip-address] > output-file.csv
 
 task :export_from_SQL_SERVER, [:ip] do |t, args|
 
@@ -40,28 +40,29 @@ task :import, [:ip] do |t, args|
   # copy code in here when it works
 end
 
+# run with : rake import[sql-server-ip-address,path-to-cleansed-address-file]
+# (note: no space between arguments on the command line)
+
 task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
-
-  territorial_authorities = get_territorial_authorities
-
-  addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
 
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
 
-  old_subscribers = get_old_subscribers(sql_client, addresses, territorial_authorities)
 
-  # old_subscribers.keys.each do |s|
-  #   puts old_subscribers[s][:first_name]
-  # end
-
-  old_items = get_old_items(sql_client)
-
-  old_requests = get_old_requests_by_subscriber(sql_client)
-
-  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
-  unique_shipment_dates.keys.each do |date|
-    puts date.strftime("%Y%m%d")
+  result = sql_client.execute("select * from further_contact")
+  result.each do |r|
+    puts r["further_contact"]
   end
+
+# keep the following
+#  territorial_authorities = get_territorial_authorities
+#  addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
+#  old_subscribers = get_old_subscribers(sql_client, addresses, territorial_authorities)
+#  old_items = get_old_items(sql_client, get_new_items)
+#  old_requests = get_old_requests_by_subscriber(sql_client)
+#  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
+
+
+
 
 #  result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
 
@@ -104,6 +105,14 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   #puts "Imported #{counter} customers"
 
+end
+
+def get_new_items
+  items = {}
+  Item.find_each do |item|
+    items[item.code] = [item.id, item.title]
+  end
+  items
 end
 
 
@@ -194,17 +203,24 @@ def get_old_subscribers(sql_client, addresses, territorial_authorities)
   old_subscribers
 end
 
-def get_old_items(sql_client)
+def get_old_items(sql_client, new_items)
   result = sql_client.execute("select * from items order by ship_order")
-
   old_items = {}
-
   result.each do |r|
-    old_items[r['id'].to_i] = r['name']
+    name = r['name']
+    new_item_id = nil
+    if name == 'Recovery Version'
+      new_item_id = new_items['R'][0]
+    elsif name == 'Basic Elements 1'
+      new_item_id = new_items['X1'][0]
+    elsif name == 'Basic Elements 2'
+      new_item_id = new_items['X2'][0]
+    elsif name == 'Basic Elements 3'
+      new_item_id = new_items['X3'][0]
+    end
+
+    old_items[r['id'].to_i] = {name: r['name'], new_item_id: new_item_id}
   end
-
-  #TODO: link these to the items in the new DB, to save lots of lookup later
-
   old_items
 end
 
