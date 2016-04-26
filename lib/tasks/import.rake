@@ -34,9 +34,10 @@ end
 
 # Import data from ASP version of Bibles for NZ
 
-# run with : rake import[sql-server-ip-address]
+# run with : rake import[sql-server-ip-address,path-to-cleansed-address-file]
+# (note: no space between arguments on the command line)
 
-task :import, [:ip] do |t, args|
+task :import, [:ip, :path_to_cleansed_addresses] do |t, args|
   # copy code in here when it works
 end
 
@@ -48,10 +49,6 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
 
 
-  result = sql_client.execute("select * from further_contact")
-  result.each do |r|
-    puts r["further_contact"]
-  end
 
 # keep the following
 #  territorial_authorities = get_territorial_authorities
@@ -61,6 +58,8 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 #  old_requests = get_old_requests_by_subscriber(sql_client)
 #  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
 
+#TODO: method_received, further_contact, create the stuff in the new DB
+#TODO: need to create orders for each
 
 
 
@@ -100,7 +99,6 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
 
 
-  #TODO: need to create orders for each
 
 
   #puts "Imported #{counter} customers"
@@ -264,6 +262,3 @@ end
 def int_to_date_time(int)
   DateTime.strptime(int.to_s, '%Y%m%d%H%M%S')
 end
-
-
-#TODO: method_received, further_contact, create the stuff in the new DB
