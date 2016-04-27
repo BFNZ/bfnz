@@ -4,7 +4,16 @@ module Admin::OrdersHelper
   end
 
   def method_of_discovery_options
-    Order.method_of_discoveries.map { |k,v| [k.humanize,k] }
+    Order.method_of_discoveries.map do |k,v|
+      case k.to_s
+      when 'mail_disc'
+        ['Mail', k]
+      when 'other_disc'
+        ['Other', k]
+      else
+        [k.humanize,k]
+      end
+    end
   end
 
   def method_received_options
