@@ -4,31 +4,47 @@ require 'csv'
 
 #Export addresses from legacy SQL Server database as a CSV file to be manually cleansed with AddressFinder batch service
 
-#usage: $ rake export_from_SQL_SERVER[sql-server-ip-address] > output-file.csv
-
-task :export_from_SQL_SERVER, [:ip] do |t, args|
-
-  client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
-  result = client.execute("select * from subscribers")
-  counter = 0
-  puts CSV.generate_line(["id", "first_name", "last_name", "address"])
-  result.each do |r|
-    post_code = ''
-    city_town = ''
-    if r['city_town']
-      post_code = r['city_town'].match(/\d{4}$/)
-      city_town = r['city_town'].gsub(/ \d{4}$/, '')
-    end
-    address = (r['address'] ? r['address'] : '') + ', ' + (r['suburb'] ? r['suburb'] : '') + ', ' + city_town
-
-    address.gsub!(/(, ){2,}/, ', ')
-    address.gsub!(/, $/, '')
-
-    puts CSV.generate_line([r['id'], r['first_name'], r['last_name'], address])
-    counter += 1
-    break if counter > 10
+#usage: $ rake export_from_SQL_SERVER_with_existing[sql-server-ip-address,path-to-existing-cleansed-addresses] > output-file.csv
+# (note: no space between arguments on the command line)
+task :export_from_SQL_SERVER_with_existing, [:ip, :path_to_existing_cleansed_addresses] do |t, args|
+  existing_addresses = get_cleansed_addresses(args[:path_to_existing_cleansed_addresses])
+  sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+  new_export_addresses = export_addresses(sql_client, existing_addresses)
+  new_export_addresses.each do |address|
+    puts CSV.generate_line(address)
   end
+end
 
+#usage: $ rake export_from_SQL_SERVER[sql-server-ip-address] > output-file.csv
+task :export_from_SQL_SERVER, [:ip] do |t, args|
+  sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+  new_export_addresses = export_addresses(sql_client, {})
+  new_export_addresses.each do |address|
+    puts CSV.generate_line(address)
+  end
+end
+
+def export_addresses(sql_client, existing_addresses)
+  result = sql_client.execute("select * from subscribers")
+  addresses = []
+  addresses << ["id", "first_name", "last_name", "address"]
+  result.each do |r|
+    sub_id = r['id']
+    if !existing_addresses.has_key?(sub_id)
+      post_code = ''
+      city_town = ''
+      if r['city_town']
+        post_code = r['city_town'].match(/\d{4}$/)
+        city_town = r['city_town'].gsub(/ \d{4}$/, '')
+      end
+      address = (r['address'] ? r['address'] : '') + ', ' + (r['suburb'] ? r['suburb'] : '') + ', ' + city_town
+
+      address.gsub!(/(, ){2,}/, ', ')
+      address.gsub!(/, $/, '')
+      addresses << [sub_id, r['first_name'], r['last_name'], address]
+    end
+  end
+  addresses
 end
 
 
@@ -50,7 +66,7 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   territorial_authorities = get_territorial_authorities
   addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
-  old_subscribers = get_old_subscribers(sql_client, addresses, territorial_authorities)
+  old_subscribers, old_subscribers_other_info = get_old_subscribers(sql_client, addresses, territorial_authorities)
   old_items = get_old_items(sql_client, get_new_items)
   old_requests = get_old_requests_by_subscriber(sql_client)
   old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
@@ -59,67 +75,79 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
   old_method_received = get_old_method_received(sql_client, Order.method_receiveds)
 
 #TODO: further_contact, bad address
-#TODO: need to create customers, orders, and shipments
+#TODO: split out adding cleansed address stuff, so that I can run the import from SQL Server without cleansed addresses, then run a separate taks to add the cleansed addresses. That way, we can test importing all of the data without having the cleansed addresses
+
 
   Shipment.delete_all()
+  Order.find_each do |order|
+    order.items.each do |item|
+      order.items.delete(item)
+    end
+  end
   Order.delete_all()
   Customer.delete_all()
-
-  # unique_shipment_dates.keys.each do |date|
-  #   shipment = Shipment.create()
-  #   shipment.created_at = date
-  #   shipment.save
-  #   unique_shipment_dates[date] = shipment.id
-  # end
+  ship_counter = 0
+  unique_shipment_dates.keys.each do |date|
+    shipment = Shipment.create()
+    shipment.created_at = date
+    shipment.save
+    puts "#{shipment.errors.full_messages.join(",")}" if shipment.errors.any?
+    ship_counter += 1 if shipment.persisted?
+    unique_shipment_dates[date] = shipment.id
+  end
+  puts "#{ship_counter} shipments created"
 
   sub_counter = 0
   old_subscribers.each do |sub_id, sub|
     customer = Customer.create(sub)
     sub[:new_id] = customer.id
-    puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
+    puts "#{sub_id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
     sub_counter += 1 if customer.persisted?
   end
   puts "#{sub_counter} customers created"
 
+  req_counter = 0
+  ship_order_counter = 0
+  old_requests.each do |sub_id, requests|
+    if old_subscribers[sub_id]
+      new_cust_id = old_subscribers[sub_id][:new_id]
+      requests.each do |request|
+        old_item_id = request[:item_id]
+        new_item_id = old_items[old_item_id][:new_item_id]
+        item = Item.find(new_item_id)
+        request_date = request[:date_requested]
 
+        method_of_discovery = old_how_heard[old_subscribers_other_info[sub_id][:how_heard_id]]
+        method_received = old_method_received[old_subscribers_other_info[sub_id][:method_received_id]]
+        new_customer_id = old_subscribers[sub_id][:new_id]
 
-#  Shipment.find_each do |shipment|
-#    puts "#{shipment.id}, #{shipment.created_at}, #{shipment.updated_at}"
-#  end
-  # counter = 0
-  # result.each do |r|
-  #   customer = Customer.create(
-  #     territorial_authority_id: ta_id,
-  #     first_name: r['first_name'],
-  #     last_name: r['last_name'],
-  #     address: address_info[:full_address],
-  #     suburb: address_info[:suburb],
-  #     city_town: city_town,
-  #     post_code: postcode,
-  #      ta: address_info[:ta],
-  #      pxid: address_info[:pxid],
-  #      phone: r['phone'],
-  #      email: r['email'],
-  #      title: title,
-  #      tertiary_student: r['tertiary_student'],
-  #      tertiary_institution: r['institution'],
-  #      admin_notes: r['admin_notes'],
-  #      coordinator_notes: r['coordinator_notes'],
-  #      old_subscriber_id: old_id,
-  #      old_system_address: r['address'],
-  #      old_system_suburb: r['suburb'],
-  #      old_system_city_town: r['city_town']
-  #    )
-  #    puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
-  #    counter += 1 if customer.persisted?
-  #   break if counter > 10
-  # end
+        order = Order.create(
+          method_of_discovery: method_of_discovery,
+          created_at: request_date,
+          method_received: method_received,
+          customer_id: new_customer_id)
+        request[:new_order_id] = order.id
+        puts "#{order.id} - #{order.errors.full_messages.join(",")}" if order.errors.any?
+        order.items << item
+        order.save
+        req_counter += 1 if order.persisted?
 
-
-
-
-
-  #puts "Imported #{counter} customers"
+        if old_shipments[sub_id] && old_shipments[sub_id].has_key?(old_item_id)
+          date_shipped = old_shipments[sub_id][old_item_id]
+          if unique_shipment_dates.has_key?(date_shipped)
+            new_shipment_id = unique_shipment_dates[date_shipped]
+            order.shipment_id = new_shipment_id
+            order.save
+            ship_order_counter += 1
+          else
+            puts "Error: shipment for date not found: #{date_shipped}"
+          end
+        end
+      end
+    end
+  end
+  puts "#{req_counter} orders created"
+  puts "#{ship_order_counter} orders shipped"
 
 end
 
@@ -159,12 +187,13 @@ def get_old_subscribers(sql_client, addresses, territorial_authorities)
   result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
 
   old_subscribers = {}
+  old_subscribers_other_info = {}
 
   result.each do |r|
 
     old_id = r['id'].to_i
+    old_subscribers_other_info[old_id] = {how_heard_id: r['how_heard_id'], method_received_id: r['method_received_id']}
     address_info = addresses[old_id]
-
     ta_name = address_info[:ta]
     ta_id = nil
     if ta_name
@@ -217,7 +246,7 @@ def get_old_subscribers(sql_client, addresses, territorial_authorities)
       created_at: int_to_date_time(r['date_entered'])
     }
   end
-  old_subscribers
+  [old_subscribers, old_subscribers_other_info]
 end
 
 def get_old_items(sql_client, new_items)
@@ -266,9 +295,9 @@ def get_old_shipments_by_subscriber_and_shipments(sql_client)
     item_id = r['item_id']
     shipment = {date_shipped: date_shipped, item_id: item_id}
     if old_shipments_by_subscriber.has_key?(sub_id)
-      old_shipments_by_subscriber[sub_id] << shipment
+      old_shipments_by_subscriber[sub_id][item_id] = date_shipped
     else
-      old_shipments_by_subscriber[sub_id] = [shipment]
+      old_shipments_by_subscriber[sub_id] = {item_id => date_shipped}
     end
     unique_shipment_dates[date_shipped] = 1
   end
