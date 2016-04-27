@@ -58,44 +58,47 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 #  old_requests = get_old_requests_by_subscriber(sql_client)
 #  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
 
-#TODO: method_received, further_contact, create the stuff in the new DB
-#TODO: need to create orders for each
+  old_how_heard = get_old_how_heard(sql_client, Order.method_of_discoveries)
+  old_method_received = get_old_method_received(sql_client, Order.method_receiveds)
+
+#TODO: further_contact, bad address
+#TODO: need to create customers, orders, and shipments
 
 
 
 #  result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
 
-  #Customer.delete_all()
+#  Customer.delete_all()
 
 
-#  counter = 0
-#  result.each do |r|
-#    customer = Customer.create(
-#      territorial_authority_id: ta_id,
-#      first_name: r['first_name'],
-#      last_name: r['last_name'],
-#      address: address_info[:full_address],
-#      suburb: address_info[:suburb],
-#      city_town: city_town,
-#      post_code: postcode,
-    #   ta: address_info[:ta],
-    #   pxid: address_info[:pxid],
-    #   phone: r['phone'],
-    #   email: r['email'],
-    #   title: title,
-    #   tertiary_student: r['tertiary_student'],
-    #   tertiary_institution: r['institution'],
-    #   admin_notes: r['admin_notes'],
-    #   coordinator_notes: r['coordinator_notes'],
-    #   old_subscriber_id: old_id,
-    #   old_system_address: r['address'],
-    #   old_system_suburb: r['suburb'],
-    #   old_system_city_town: r['city_town']
-    # )
-    # puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
-    # counter += 1 if customer.persisted?
-#    break if counter > 10
-#  end
+  # counter = 0
+  # result.each do |r|
+  #   customer = Customer.create(
+  #     territorial_authority_id: ta_id,
+  #     first_name: r['first_name'],
+  #     last_name: r['last_name'],
+  #     address: address_info[:full_address],
+  #     suburb: address_info[:suburb],
+  #     city_town: city_town,
+  #     post_code: postcode,
+  #      ta: address_info[:ta],
+  #      pxid: address_info[:pxid],
+  #      phone: r['phone'],
+  #      email: r['email'],
+  #      title: title,
+  #      tertiary_student: r['tertiary_student'],
+  #      tertiary_institution: r['institution'],
+  #      admin_notes: r['admin_notes'],
+  #      coordinator_notes: r['coordinator_notes'],
+  #      old_subscriber_id: old_id,
+  #      old_system_address: r['address'],
+  #      old_system_suburb: r['suburb'],
+  #      old_system_city_town: r['city_town']
+  #    )
+  #    puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
+  #    counter += 1 if customer.persisted?
+  #   break if counter > 10
+  # end
 
 
 
@@ -222,7 +225,6 @@ def get_old_items(sql_client, new_items)
   old_items
 end
 
-
 def get_old_requests_by_subscriber(sql_client)
   result = sql_client.execute("select * from requests")
   old_requests = {}
@@ -258,6 +260,53 @@ def get_old_shipments_by_subscriber_and_shipments(sql_client)
 
 end
 
+# returns hash: {old how_heard_id => new method_discovered enum index}
+def get_old_how_heard(sql_client, new_method_of_discoveries)
+  result = sql_client.execute("select * from how_heard")
+  old_how_heard = {}
+  result.each do |r|
+    case r['how_heard_short']
+    when 'Unknown'
+      old_how_heard[r['id']] = new_method_of_discoveries['unknown']
+    when 'Mail'
+      old_how_heard[r['id']] = new_method_of_discoveries['mail_disc']
+    when 'Uni Lit'
+      old_how_heard[r['id']] = new_method_of_discoveries['uni_lit']
+    when 'Non-uni Lit'
+      old_how_heard[r['id']] = new_method_of_discoveries['non_uni_lit']
+    when 'Other Ad'
+      old_how_heard[r['id']] = new_method_of_discoveries['other_ad']
+    when 'Word of Mouth'
+      old_how_heard[r['id']] = new_method_of_discoveries['word_of_mouth']
+    when 'Internet'
+      old_how_heard[r['id']] = new_method_of_discoveries['website']
+    when 'Other'
+      old_how_heard[r['id']] = new_method_of_discoveries['other_disc']
+    end
+  end
+  old_how_heard
+end
+
+# returns hash: {old how_heard_id => new method_discovered enum index}
+def get_old_method_received(sql_client, new_method_receiveds)
+  result = sql_client.execute("select * from method_received")
+  old_method_received = {}
+  result.each do |r|
+    case r['method_received']
+    when 'Mail'
+      old_method_received[r['id']] = new_method_receiveds['mail']
+    when 'Phone'
+      old_method_received[r['id']] = new_method_receiveds['phone']
+    when 'Personally delivered'
+      old_method_received[r['id']] = new_method_receiveds['personally_delivered']
+    when 'Internet'
+      old_method_received[r['id']] = new_method_receiveds['internet']
+    when 'Other'
+      old_method_received[r['id']] = new_method_receiveds['other']
+    end
+  end
+  old_method_received
+end
 
 def int_to_date_time(int)
   DateTime.strptime(int.to_s, '%Y%m%d%H%M%S')
