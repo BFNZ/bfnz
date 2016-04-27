@@ -48,15 +48,12 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
 
-
-
-# keep the following
-#  territorial_authorities = get_territorial_authorities
-#  addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
-#  old_subscribers = get_old_subscribers(sql_client, addresses, territorial_authorities)
-#  old_items = get_old_items(sql_client, get_new_items)
-#  old_requests = get_old_requests_by_subscriber(sql_client)
-#  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
+  territorial_authorities = get_territorial_authorities
+  addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
+  old_subscribers = get_old_subscribers(sql_client, addresses, territorial_authorities)
+  old_items = get_old_items(sql_client, get_new_items)
+  old_requests = get_old_requests_by_subscriber(sql_client)
+  old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
 
   old_how_heard = get_old_how_heard(sql_client, Order.method_of_discoveries)
   old_method_received = get_old_method_received(sql_client, Order.method_receiveds)
@@ -64,13 +61,31 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
 #TODO: further_contact, bad address
 #TODO: need to create customers, orders, and shipments
 
+  Shipment.delete_all()
+  Order.delete_all()
+  Customer.delete_all()
+
+  # unique_shipment_dates.keys.each do |date|
+  #   shipment = Shipment.create()
+  #   shipment.created_at = date
+  #   shipment.save
+  #   unique_shipment_dates[date] = shipment.id
+  # end
+
+  sub_counter = 0
+  old_subscribers.each do |sub_id, sub|
+    customer = Customer.create(sub)
+    sub[:new_id] = customer.id
+    puts "#{id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
+    sub_counter += 1 if customer.persisted?
+  end
+  puts "#{sub_counter} customers created"
 
 
-#  result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
 
-#  Customer.delete_all()
-
-
+#  Shipment.find_each do |shipment|
+#    puts "#{shipment.id}, #{shipment.created_at}, #{shipment.updated_at}"
+#  end
   # counter = 0
   # result.each do |r|
   #   customer = Customer.create(
@@ -198,7 +213,8 @@ def get_old_subscribers(sql_client, addresses, territorial_authorities)
       old_subscriber_id: old_id,
       old_system_address: r['address'],
       old_system_suburb: r['suburb'],
-      old_system_city_town: r['city_town']
+      old_system_city_town: r['city_town'],
+      created_at: int_to_date_time(r['date_entered'])
     }
   end
   old_subscribers
