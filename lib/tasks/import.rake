@@ -2,10 +2,10 @@ require 'spreadsheet'
 require 'tiny_tds'
 require 'csv'
 
-#Export addresses from legacy SQL Server database as a CSV file to be manually cleansed with AddressFinder batch service
-
-#usage: $ rake export_from_SQL_SERVER_with_existing[sql-server-ip-address,path-to-existing-cleansed-addresses] > output-file.csv
-# (note: no space between arguments on the command line)
+# Export addresses from legacy SQL Server database as a CSV file to be manually cleansed with AddressFinder batch service
+# Exclude any records in the provided CSV file
+# usage: $ rake export_from_SQL_SERVER_with_existing[sql-server-ip-address,path-to-existing-cleansed-addresses] > output-file.csv
+#  (note: no space between arguments on the command line)
 task :export_from_SQL_SERVER_with_existing, [:ip, :path_to_existing_cleansed_addresses] do |t, args|
   existing_addresses = get_cleansed_addresses(args[:path_to_existing_cleansed_addresses])
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
@@ -15,7 +15,8 @@ task :export_from_SQL_SERVER_with_existing, [:ip, :path_to_existing_cleansed_add
   end
 end
 
-#usage: $ rake export_from_SQL_SERVER[sql-server-ip-address] > output-file.csv
+# Export addresses from legacy SQL Server database as a CSV file to be manually cleansed with AddressFinder batch service
+#  usage: $ rake export_from_SQL_SERVER[sql-server-ip-address] > output-file.csv
 task :export_from_SQL_SERVER, [:ip] do |t, args|
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
   new_export_addresses = export_addresses(sql_client, {})
@@ -24,59 +25,67 @@ task :export_from_SQL_SERVER, [:ip] do |t, args|
   end
 end
 
-def export_addresses(sql_client, existing_addresses)
-  result = sql_client.execute("select * from subscribers")
-  addresses = []
-  addresses << ["id", "first_name", "last_name", "address"]
-  result.each do |r|
-    sub_id = r['id']
-    if !existing_addresses.has_key?(sub_id)
-      post_code = ''
-      city_town = ''
-      if r['city_town']
-        post_code = r['city_town'].match(/\d{4}$/)
-        city_town = r['city_town'].gsub(/ \d{4}$/, '')
-      end
-      address = (r['address'] ? r['address'] : '') + ', ' + (r['suburb'] ? r['suburb'] : '') + ', ' + city_town
-
-      address.gsub!(/(, ){2,}/, ', ')
-      address.gsub!(/, $/, '')
-      addresses << [sub_id, r['first_name'], r['last_name'], address]
-    end
-  end
-  addresses
-end
-
-
-# Import data from ASP version of Bibles for NZ
-
-# run with : rake import[sql-server-ip-address,path-to-cleansed-address-file]
-# (note: no space between arguments on the command line)
-
-task :import, [:ip, :path_to_cleansed_addresses] do |t, args|
-  # copy code in here when it works
-end
-
-# run with : rake import[sql-server-ip-address,path-to-cleansed-address-file]
-# (note: no space between arguments on the command line)
-
-task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
-
-  sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
-
+# Add address data to customers in the new system, passing a CSV that is the cleansed output from the AddressFinder batch service
+#  usage: $ rake add_address_data[path-to-cleansed-address-csv-file]
+task :add_address_data, [:path_to_cleansed_addresses] => :environment do |t, args|
+  start = Time.now
   territorial_authorities = get_territorial_authorities
   addresses = get_cleansed_addresses(args[:path_to_cleansed_addresses])
-  old_subscribers, old_subscribers_other_info = get_old_subscribers(sql_client, addresses, territorial_authorities)
+  add_counter = 0
+  Customer.find_each do |customer|
+    if customer.old_subscriber_id
+      address_info = addresses[customer.old_subscriber_id]
+      ta_name = address_info[:ta]
+      ta_id = nil
+      if ta_name
+        ta_id = territorial_authorities[ta_name]
+      end
+
+      postcode = nil
+      if address_info[:postcode]
+        postcode = address_info[:postcode]
+      elsif customer.old_system_city_town.match(/\d{4}$/)
+        postcode = customer.old_system_city_town.match(/\d{4}$/)[0]
+      end
+
+      city_town = nil
+      if address_info[:city]
+        city_town = address_info[:city]
+      else
+        city_town =  customer.old_system_city_town.gsub(/ \d{4}$/, '')
+      end
+
+      customer.territorial_authority_id = ta_id
+      customer.address = address_info[:full_address]
+      customer.suburb = address_info[:suburb]
+      customer.city_town = city_town
+      customer.post_code = postcode
+      customer.ta = address_info[:ta]
+      customer.pxid = address_info[:pxid]
+      customer.save
+      add_counter += 1
+    end
+  end
+  puts "#{add_counter} address info added"
+  finish = Time.now
+  puts "Took: #{((finish - start)/60).round(2)}  minutes"
+end
+
+# Import data from old (ASP) system to new (Rails) system. Does not include cleansed address data
+# run with : rake import[sql-server-ip-address]
+
+#TODO: further_contact, bad address
+
+task :import, [:ip] => :environment do |t, args|
+  start = Time.now
+  sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+
+  old_subscribers, old_subscribers_other_info = get_old_subscribers(sql_client)
   old_items = get_old_items(sql_client, get_new_items)
   old_requests = get_old_requests_by_subscriber(sql_client)
   old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
-
   old_how_heard = get_old_how_heard(sql_client, Order.method_of_discoveries)
   old_method_received = get_old_method_received(sql_client, Order.method_receiveds)
-
-#TODO: further_contact, bad address
-#TODO: split out adding cleansed address stuff, so that I can run the import from SQL Server without cleansed addresses, then run a separate taks to add the cleansed addresses. That way, we can test importing all of the data without having the cleansed addresses
-
 
   Shipment.delete_all()
   Order.find_each do |order|
@@ -86,6 +95,7 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
   end
   Order.delete_all()
   Customer.delete_all()
+
   ship_counter = 0
   unique_shipment_dates.keys.each do |date|
     shipment = Shipment.create()
@@ -148,7 +158,32 @@ task :temp, [:ip, :path_to_cleansed_addresses] => :environment do |t, args|
   end
   puts "#{req_counter} orders created"
   puts "#{ship_order_counter} orders shipped"
+  finish = Time.now
+  puts "Took: #{((finish - start)/60).round(2)}  minutes"
+end
 
+
+def export_addresses(sql_client, existing_addresses)
+  result = sql_client.execute("select * from subscribers")
+  addresses = []
+  addresses << ["id", "first_name", "last_name", "address"]
+  result.each do |r|
+    sub_id = r['id']
+    if !existing_addresses.has_key?(sub_id)
+      post_code = ''
+      city_town = ''
+      if r['city_town']
+        post_code = r['city_town'].match(/\d{4}$/)
+        city_town = r['city_town'].gsub(/ \d{4}$/, '')
+      end
+      address = (r['address'] ? r['address'] : '') + ', ' + (r['suburb'] ? r['suburb'] : '') + ', ' + city_town
+
+      address.gsub!(/(, ){2,}/, ', ')
+      address.gsub!(/, $/, '')
+      addresses << [sub_id, r['first_name'], r['last_name'], address]
+    end
+  end
+  addresses
 end
 
 def get_new_items
@@ -158,7 +193,6 @@ def get_new_items
   end
   items
 end
-
 
 def get_territorial_authorities
   territorial_authorities = {}
@@ -183,66 +217,48 @@ def get_cleansed_addresses(path)
   addresses
 end
 
-def get_old_subscribers(sql_client, addresses, territorial_authorities)
-  result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
+def get_old_subscribers(sql_client)
+#  result = sql_client.execute("select * from subscribers where id in (44586,11452,26895,26845,46245,30628)")
+  result = sql_client.execute("select * from subscribers")
 
   old_subscribers = {}
   old_subscribers_other_info = {}
 
   result.each do |r|
-
     old_id = r['id'].to_i
     old_subscribers_other_info[old_id] = {how_heard_id: r['how_heard_id'], method_received_id: r['method_received_id']}
-    address_info = addresses[old_id]
-    ta_name = address_info[:ta]
-    ta_id = nil
-    if ta_name
-      ta_id = territorial_authorities[ta_name]
-    end
-
-    postcode = nil
-    if address_info[:postcode]
-      postcode = address_info[:postcode]
-    elsif r['city_town'].match(/\d{4}$/)
-      postcode = r['city_town'].match(/\d{4}$/)[0]
-    end
-
-    city_town = nil
-    if address_info[:city]
-      city_town = address_info[:city]
-    else
-      city_town =  r['city_town'].gsub(/ \d{4}$/, '')
-    end
 
     title = nil
-
     if r['gender'] == 'Male'
       title = 'Mr'
     elsif  r['gender'] == 'Female'
       title = 'Ms'
     end
 
+    fields = Hash[[:phone, :email, :institution, :admin_notes, :coordinator_notes, :address, :suburb, :city_town].collect do |field_name|
+                    value = nil
+                    if r[field_name.to_s]
+                      value = r[field_name.to_s].strip
+                      value = nil if value.empty?
+                    end
+                    [field_name, value]
+                  end
+                 ]
+
     old_subscribers[old_id] = {
-      territorial_authority_id: ta_id,
       first_name: r['first_name'],
       last_name: r['last_name'],
-      address: address_info[:full_address],
-      suburb: address_info[:suburb],
-      city_town: city_town,
-      post_code: postcode,
-      ta: address_info[:ta],
-      pxid: address_info[:pxid],
-      phone: r['phone'],
-      email: r['email'],
+      phone: fields[:phone],
+      email: fields[:email],
       title: title,
       tertiary_student: r['tertiary_student'],
-      tertiary_institution: r['institution'],
-      admin_notes: r['admin_notes'],
-      coordinator_notes: r['coordinator_notes'],
+      tertiary_institution: fields[:institution],
+      admin_notes: fields[:admin_notes],
+      coordinator_notes: fields[:coordinator_notes],
       old_subscriber_id: old_id,
-      old_system_address: r['address'],
-      old_system_suburb: r['suburb'],
-      old_system_city_town: r['city_town'],
+      old_system_address: fields[:address],
+      old_system_suburb: fields[:suburb],
+      old_system_city_town: fields[:city_town],
       created_at: int_to_date_time(r['date_entered'])
     }
   end
