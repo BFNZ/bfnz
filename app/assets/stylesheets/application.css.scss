@@ -46,10 +46,12 @@ body {
   transition: all .35s;
 }
 
-.navbar-brand { padding-top: 0px;
-    padding-right: 0px;
+.navbar-brand {
+    padding-right: 10px;
     padding-bottom: 10px;
     padding-left: 150px;
+    padding-top: 16px;
+    font-size: 100%;
 }
 
 .nav_title {
@@ -150,6 +152,3 @@ body {
     color: #C4A006;
   }
 }
-
-
-
