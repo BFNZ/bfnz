@@ -11,7 +11,7 @@
 
     <title>Bibles for New Zealand</title>
 
-    
+
     <%= favicon_link_tag '/favicon.ico' %>
 
     <%= javascript_include_tag 'application' %>
@@ -20,10 +20,10 @@
    <%= javascript_include_tag 'jquery.easing.min.js' %>
    <%= javascript_include_tag 'wow.min.js' %>
     <%= csrf_meta_tags %>
-  
+
 
     <!-- Bootstrap Core CSS -->
-   
+
     <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -37,7 +37,7 @@
         <%= stylesheet_link_tag 'font-awesome.min', media: 'all' %>
         <%= stylesheet_link_tag 'font-awesome', media: 'all' %>
     <!-- Plugin CSS -->
-    
+
         <%= stylesheet_link_tag 'animate.min', media: 'all' %>
     <!-- Custom CSS -->
     <!--<link rel="stylesheet" href="css/creative.css" type="text/css">-->
@@ -68,7 +68,7 @@
                 <%= link_to(image_tag("/img/bfnz.svg",class: "imageblock"), root_path)%>
                 <!--<%= link_to "Home", root_path, class: "navbar-brand" %>
                 <img src="/BFNZlogo.png" alt="BFNZ Banner" style=width:9%;height:9% class="navbar-brand">-->
- 
+
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -77,7 +77,7 @@
                     <li><a class="page-scroll" href="/orders/new"><h3>Order</h3> <i>Bibles and books</i></a>
                      <li><a class="page-scroll" href="/staticpages/Gospel/#gospel"> <h3>Share</h3><i>The Gospel </i></p></a>
                      <li><a class="page-scroll" href="/staticpages/Links/#study"><h3>Study</h3> <i>The word</i></a>
-                    </li>    
+                    </li>
                      <li>
                         <a class="page-scroll" href="/#contact"> <h3>Contact</h3> <i>us</i> </a>
                     </li>
@@ -91,22 +91,22 @@
 
 
 
-      <%= yield %>
+    <%= yield %>
   </body>
 
-<footer>      
-        <div class="container">
+<footer>
+  <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 faq text-center"style=padding-top:80px;padding-bottom:20px;>
-                    <a href="/#contact">Contact Us&nbsp&nbsp</a>  
-                    <a href="/#faith">Our Faith&nbsp&nbsp</a> 
-                    <a href="/staticpages/FAQ/#FAQ">FAQs&nbsp&nbsp</a> 
+                    <a href="/#contact">Contact Us&nbsp&nbsp</a>
+                    <a href="/#faith">Our Faith&nbsp&nbsp</a>
+                    <a href="/staticpages/FAQ/#FAQ">FAQs&nbsp&nbsp</a>
                     <%= link_to 'Free Order', new_order_path%><br>
                     © 2015 Bibles for New Zealand. All rights reserved. <br><a href="/staticpages/FAQ/#terms">Terms of Use&nbsp&nbsp</a> <a href="/staticpages/FAQ/#privacy">Privacy Policy</a>
                 </div>
             </div>
         </div>
-   
+
 </footer>
 
 </html>
