@@ -1,3 +1,4 @@
+<%= render partial: "shared/flash_messages", flash: flash %>
 <h1>Log in</h1>
 <%= form_for(@user_session, role: 'form') do |form| %>
   <div class="form-group">

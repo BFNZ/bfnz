@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'webmock/rspec'
+require 'capybara/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -18,6 +19,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+Capybara.javascript_driver = :selenium
 
 RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
@@ -59,5 +62,10 @@ RSpec.configure do |config|
 
   config.before(:all, type: :feature) do
     DatabaseCleaner.strategy = :truncation, {except: %w{items territorial_authorities}}
+
+  end
+
+  config.before(:each, js: true) do
+    Capybara.page.driver.browser.manage.window.maximize
   end
 end

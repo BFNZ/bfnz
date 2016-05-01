@@ -62,14 +62,14 @@ describe Order do
     subject(:item_ids_scope) { Order.item_ids([new_testament.id]) }
 
     let(:new_testament)   { Item.find_by_code('R') }
-    let(:glorious_church) { Item.find_by_code('G') }
+    let(:church) { Item.find_by_code('C') }
 
     let!(:nt_only)   { Order.make!(items: [new_testament]) }
-    let!(:nt_and_gc) { Order.make!(items: [new_testament, glorious_church]) }
-    let!(:gc_only)   { Order.make!(items: [glorious_church]) }
+    let!(:nt_and_church) { Order.make!(items: [new_testament, church]) }
+    let!(:church_only)   { Order.make!(items: [church]) }
 
     it "returns orders that contain the items" do
-      expect(item_ids_scope).to match_array [nt_only, nt_and_gc]
+      expect(item_ids_scope).to match_array [nt_only, nt_and_church]
     end
   end
 

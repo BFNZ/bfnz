@@ -6,12 +6,7 @@ describe Admin::OrderSearchForm do
 
     it "returns the titles and ids of all items" do
       expect(item_ids_options).
-        to match_array [["The New Testament Recovery Version", 1],
-                        ["The All Inclusive Christ", 2],
-                        ["The Glorious Church", 3],
-                        ["Basic Elements of the Christian Life", 4],
-                        ["The Economy of God", 5],
-                        ["The Knowledge of Life", 6]]
+        to match_array [["Foundational Christian Truths Set", 4], ["Old Set 1", 5], ["Old Set 2", 6], ["Old Set 3", 7], ["The Christian Experience Set", 2], ["The Church Set", 3], ["The New Testament Recovery Version", 1]]
     end
   end
 

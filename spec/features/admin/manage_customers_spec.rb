@@ -29,7 +29,7 @@ feature 'Managing customers', js: true do
     select "Unknown", from: "Method of discovery"
     check "Is the order for a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
-    page.first(".image_picker_image").click
+    select_item
     click_button "Save and add another"
     expect(page).to have_text("Customer created successfully.")
     expect(page.current_path).to eq '/admin/customers/new'
@@ -43,7 +43,7 @@ feature 'Managing customers', js: true do
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
     select_address("1 Short Street")
-    page.first(".image_picker_image").click
+    select_item
     check "This order has already been delivered."
     click_button "Save and add another"
 

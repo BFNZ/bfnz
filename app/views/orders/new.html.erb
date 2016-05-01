@@ -79,7 +79,7 @@ Please allow 4-6 weeks for delivery.
   <div class="form-group">
     <h4>Select the item(s) you would like to receive</h4>
     <div class="error_msg"><%= @order_form.errors[:item_ids].join %></div>
-    <%= f.select :item_ids, items_for_select(@order_form), {}, class: 'imagepicker txtsize', multiple: 'multiple'%>
+    <%= f.select :item_ids, items_for_select(@order_form), {}, id: 'item_list', class: 'imagepicker txtsize', multiple: 'multiple' %>
   </div>
   <div class="form-group">
     <div class="checkbox col-sm-6">

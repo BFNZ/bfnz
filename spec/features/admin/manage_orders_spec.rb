@@ -8,7 +8,7 @@ feature 'Managing orders', js: true do
                      ta: 'wellington')
   end
   let(:ordered_item) { Item.first }
-  let(:another_item) { Item.last }
+  let(:another_item) { Item.second }
   let!(:order) { Order.create!(customer: customer, item_ids: [ordered_item.id]) }
 
   let(:duplicate_customer) do
