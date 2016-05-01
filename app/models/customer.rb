@@ -5,6 +5,7 @@ class Customer < ActiveRecord::Base
   belongs_to :updated_by, class_name: 'User'
   has_many :merged_customers, class_name: 'Customer', foreign_key: 'parent_id'
 
+  enum further_contact_requested: [:not_specified, :not_wanted, :wanted]
   normalize_attributes :first_name, :last_name, :email, :address
   normalize_attribute :phone, with: :phone
 
@@ -19,7 +20,7 @@ class Customer < ActiveRecord::Base
     where(further_contact_requested: further_contact_requested)
   }
   scope :contactable, -> {
-    where(further_contact_requested: true).where(contact_list_id: nil)
+    where(further_contact_requested: self.further_contact_requesteds[:wanted]).where(contact_list_id: nil)
   }
   scope :for_districts, ->(ids) {
     where(territorial_authority_id: ids)

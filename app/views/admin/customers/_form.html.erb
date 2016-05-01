@@ -55,18 +55,16 @@
         <%= f.text_field :tertiary_institution, class: "form-control" %>
       </div>
     </div>
-    <div class="checkbox col-sm-6">
-      <div class="form-group">
-        <%= f.label :further_contact_requested do %>
-          <%= f.check_box :further_contact_requested %>This person is interested in receiving further contact.
-        <% end %>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <%= render 'further_contact_requested', form: f %>
       </div>
-    </div>
-    <div class="col-sm-6">
-      <dl>
-        <dt><%= f.label 'Date customer record created' %></dt>
-        <dd><%= customer_form.date_created %></dd>
-      </dl>
+      <div class="col-sm-6">
+        <dl>
+          <dt><%= f.label 'Date customer record created' %></dt>
+          <dd><%= customer_form.date_created %></dd>
+        </dl>
+      </div>
     </div>
   </div>
 

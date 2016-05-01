@@ -14,7 +14,7 @@ module Admin
     attribute :created_at_to, Date
     attribute :shipped_at_from, Date
     attribute :shipped_at_to, Date
-    attribute :further_contact_requested, Virtus::Attribute::Boolean
+    attribute :further_contact_requested, Integer
 
     def created_at_from=(date)
       super parse_date(date)
@@ -40,6 +40,10 @@ module Admin
       [["Yes", true], ["No", false]]
     end
 
+    def further_contact_options
+      Customer.further_contact_requesteds.map { |k,v| [k.humanize, v] }
+    end
+
     def item_ids=(item_ids)
       super item_ids.map(&:to_i).reject { |id| id.zero? }
     end
@@ -54,7 +58,6 @@ module Admin
       order_attributes.each do |key, value|
         orders = orders.public_send(key, value) if value.present?
       end
-      orders = further_contact_flag(orders)
       orders = shipped_flag(orders)
       orders = created_between(orders)
       orders = shipped_between(orders)
@@ -62,14 +65,6 @@ module Admin
     end
 
     private
-
-    def further_contact_flag(scope)
-      if [true, false].include?(further_contact_requested)
-        scope.merge(Customer.further_contact_requested(further_contact_requested))
-      else
-        scope
-      end
-    end
 
     def shipped_flag(scope)
       if [true, false].include?(shipped)
@@ -102,7 +97,7 @@ module Admin
     end
 
     def customer_attributes
-      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city_town)
+      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested)
     end
 
     def order_attributes

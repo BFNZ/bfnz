@@ -82,9 +82,9 @@ Please allow 4-6 weeks for delivery.
     <%= f.select :item_ids, items_for_select(@order_form), {}, id: 'item_list', class: 'imagepicker txtsize', multiple: 'multiple' %>
   </div>
   <div class="form-group">
-    <div class="checkbox col-sm-6">
+    <div class="col-sm-6">
       <%= f.label :further_contact_requested do %>
-        <%= f.check_box :further_contact_requested %>I am interested in receiving further contact.
+        <%= f.check_box :further_contact_requested, {}, @order_form.contact_wanted_value, @order_form.contact_not_specified_value %>I am interested in receiving further contact.
       <% end %>
     </div>
   </div>

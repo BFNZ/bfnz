@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321023215) do
+ActiveRecord::Schema.define(version: 20160501040554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20160321023215) do
     t.string   "tertiary_institution"
     t.text     "admin_notes"
     t.text     "coordinator_notes"
-    t.boolean  "further_contact_requested"
     t.integer  "old_subscriber_id"
     t.string   "old_system_address"
     t.string   "old_system_suburb"
@@ -69,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160321023215) do
     t.string   "postal_line_4"
     t.string   "postal_line_5"
     t.string   "postal_line_6"
+    t.integer  "further_contact_requested", default: 0
   end
 
   add_index "customers", ["address"], name: "index_customers_on_address", using: :btree

@@ -23,7 +23,7 @@ module Admin
 
     attribute :tertiary_student, Virtus::Attribute::Boolean
     attribute :tertiary_institution, String
-    attribute :further_contact_requested, Virtus::Attribute::Boolean
+    attribute :further_contact_requested, Integer
     attribute :received_in_person, Virtus::Attribute::Boolean
     attribute :admin_notes, String
 

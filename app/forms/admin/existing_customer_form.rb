@@ -25,7 +25,7 @@ module Admin
     attribute :tertiary_institution, String
 
     attribute :admin_notes, String
-    attribute :further_contact_requested, Virtus::Attribute::Boolean
+    attribute :further_contact_requested, Integer
 
     validates :first_name, :last_name, :ta, presence: true
 

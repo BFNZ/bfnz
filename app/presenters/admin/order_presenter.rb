@@ -24,7 +24,7 @@ class Admin::OrderPresenter
   end
 
   def further_contact_requested
-    customer.further_contact_requested? ? "Yes" : "No"
+    customer.further_contact_requested.humanize
   end
 
   private

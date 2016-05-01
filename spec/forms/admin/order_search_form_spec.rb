@@ -16,6 +16,12 @@ describe Admin::OrderSearchForm do
     it { expect(yes_no_options).to match_array [["Yes", true], ["No", false]] }
   end
 
+  describe "#further_contact_options" do
+    subject(:further_contact_options) { described_class.new.further_contact_options }
+
+    it { expect(further_contact_options).to match_array [["Not specified", 0], ["Not wanted", 1], ["Wanted", 2]] }
+  end
+
   describe "#filtered_orders" do
     subject(:filtered_orders) { described_class.new(attrs).filtered_orders }
 
@@ -49,10 +55,10 @@ describe Admin::OrderSearchForm do
       end
     end
 
-    context "when further_contact_requested is set to true" do
-      let(:attrs) { {further_contact_requested: true} }
+    context "when further_contact_requested is set to 'wanted'" do
+      let(:attrs) { {further_contact_requested: 2} }
 
-      let!(:order) { Order.make!(customer: Customer.make!(further_contact_requested: true)) }
+      let!(:order) { Order.make!(customer: Customer.make!(further_contact_requested: 2)) }
 
       it "scopes orders by further_contact_requested" do
         expect(filtered_orders).to eq [order]

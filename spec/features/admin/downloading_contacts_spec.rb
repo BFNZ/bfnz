@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Downloading Contacts' do
   let(:hamilton) { TerritorialAuthority.find_by_code("016") }
   let(:rotorua) { TerritorialAuthority.find_by_code("024") }
-  let!(:hamilton_contact) { Customer.make!(further_contact_requested: true,
+  let!(:hamilton_contact) { Customer.make!(further_contact_requested: 2,
                                            territorial_authority: hamilton) }
 
   background do

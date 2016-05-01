@@ -25,7 +25,7 @@ class CustomerAndOrderForm < BaseForm
 
   attribute :item_ids, Array[Integer]
 
-  attribute :further_contact_requested, Virtus::Attribute::Boolean
+  attribute :further_contact_requested, Integer
 
   validates :title, :first_name, :last_name, :address, presence: true
   validate :contains_at_least_one_item
@@ -48,6 +48,14 @@ class CustomerAndOrderForm < BaseForm
 
   def item_ids=(item_ids)
     super item_ids.reject(&:blank?)
+  end
+
+  def contact_wanted_value
+    Customer.further_contact_requesteds[:wanted]
+  end
+
+  def contact_not_specified_value
+    Customer.further_contact_requesteds[:not_specified]
   end
 
   private
