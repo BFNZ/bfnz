@@ -14,4 +14,8 @@
 //= require jquery_ujs
 //= require image-picker.min
 //= require bootstrap-datepicker/core
+//= require jquery.fittext
+//= require bootstrap.min
+//= require wow.min
+//= require creative
 //= require_tree .
