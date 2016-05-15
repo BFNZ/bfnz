@@ -31,6 +31,23 @@ module Admin
         customer.id
       end
 
+      def cannot_ship_orders?
+        customer.not_wanted? || customer.bad_address?
+      end
+
+      def not_shippable_reason
+        reasons = []
+        if customer.not_wanted?
+          reasons << "No further contact requested"
+        end
+
+        if customer.bad_address?
+          reasons << "Customer has bad address"
+        end
+
+        reasons.join(", ")
+      end
+
       private
 
       attr_reader :order_id

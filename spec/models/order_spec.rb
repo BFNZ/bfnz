@@ -88,10 +88,27 @@ describe Order do
     subject(:ready_to_ship_scope) { Order.ready_to_ship }
 
     let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
-    let!(:not_shipped_order) { Order.make! }
+    let!(:not_shipped_order) { Order.make!(customer: customer) }
+    let(:customer) { Customer.make! }
 
     it "returns orders that are not shipped" do
       expect(ready_to_ship_scope).to eq [not_shipped_order]
     end
-  end
+
+    context "when the order is for a customer with a bad address" do
+      let(:customer) { Customer.make!(bad_address: true) }
+
+      it "doesn't include that order" do
+        expect(ready_to_ship_scope).not_to include not_shipped_order
+      end
+    end
+
+    context "when the order is for a customer who doesn't want to be contacted" do
+      let(:customer) { Customer.make!(further_contact_requested: Customer.further_contact_requesteds[:not_wanted]) }
+
+      it "doesn't include that order" do
+        expect(ready_to_ship_scope).not_to include not_shipped_order
+      end
+    end
+end
 end

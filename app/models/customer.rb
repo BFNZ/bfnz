@@ -20,10 +20,17 @@ class Customer < ActiveRecord::Base
     where(further_contact_requested: further_contact_requested)
   }
   scope :contactable, -> {
-    where(further_contact_requested: self.further_contact_requesteds[:wanted]).where(contact_list_id: nil)
+    where(further_contact_requested: self.further_contact_requesteds[:wanted]).
+      where(contact_list_id: nil)
   }
   scope :for_districts, ->(ids) {
     where(territorial_authority_id: ids)
+  }
+  scope :can_ship_to, -> {
+    where(further_contact_requested:
+            [self.further_contact_requesteds[:not_specified],
+             self.further_contact_requesteds[:wanted]]).
+      where(bad_address: false)
   }
 
   def self.strip_non_numeric(string)

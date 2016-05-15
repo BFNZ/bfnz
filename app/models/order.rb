@@ -14,7 +14,9 @@ class Order < ActiveRecord::Base
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
   scope :shipped, -> { where.not(shipment_id: nil) }
-  scope :ready_to_ship, -> { where(shipment_id: nil) }
+  scope :ready_to_ship, -> {
+    where(shipment_id: nil).joins(:customer).merge(Customer.can_ship_to)
+  }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
 
   attr_writer :received_in_person
