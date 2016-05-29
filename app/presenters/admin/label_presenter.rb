@@ -4,7 +4,7 @@ class Admin::LabelPresenter
   end
 
   def headers
-    ["Code", "Title", "First name", "Last name", "Address"]
+    ["Code", "Title", "First name", "Last name", "Address 1", "Address 2", "Address 3", "Address 4", "Address 5", "Address 6", "Full Address"]
   end
 
   def each_label(&block)
