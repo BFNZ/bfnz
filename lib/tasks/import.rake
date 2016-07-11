@@ -73,9 +73,6 @@ end
 
 # Import data from old (ASP) system to new (Rails) system. Does not include cleansed address data
 # run with : rake import[sql-server-ip-address]
-
-#TODO: further_contact, bad address
-
 task :import, [:ip] => :environment do |t, args|
   start = Time.now
   sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
@@ -86,6 +83,7 @@ task :import, [:ip] => :environment do |t, args|
   old_shipments, unique_shipment_dates = get_old_shipments_by_subscriber_and_shipments(sql_client)
   old_how_heard = get_old_how_heard(sql_client, Order.method_of_discoveries)
   old_method_received = get_old_method_received(sql_client, Order.method_receiveds)
+  old_further_contact, bad_address_id = get_old_further_contact_and_bad_address(sql_client, Customer.further_contact_requesteds)
 
   Shipment.delete_all()
   Order.find_each do |order|
@@ -101,7 +99,7 @@ task :import, [:ip] => :environment do |t, args|
     shipment = Shipment.create()
     shipment.created_at = date
     shipment.save
-    puts "#{shipment.errors.full_messages.join(",")}" if shipment.errors.any?
+    puts "ERROR: #{shipment.errors.full_messages.join(",")}" if shipment.errors.any?
     ship_counter += 1 if shipment.persisted?
     unique_shipment_dates[date] = shipment.id
   end
@@ -111,7 +109,7 @@ task :import, [:ip] => :environment do |t, args|
   old_subscribers.each do |sub_id, sub|
     customer = Customer.create(sub)
     sub[:new_id] = customer.id
-    puts "#{sub_id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
+    puts "ERROR: #{sub_id} - #{customer.errors.full_messages.join(",")}" if customer.errors.any?
     sub_counter += 1 if customer.persisted?
   end
   puts "#{sub_counter} customers created"
@@ -120,7 +118,7 @@ task :import, [:ip] => :environment do |t, args|
   ship_order_counter = 0
   old_requests.each do |sub_id, requests|
     if old_subscribers[sub_id]
-      new_cust_id = old_subscribers[sub_id][:new_id]
+      new_customer_id = old_subscribers[sub_id][:new_id]
       requests.each do |request|
         old_item_id = request[:item_id]
         new_item_id = old_items[old_item_id][:new_item_id]
@@ -129,7 +127,17 @@ task :import, [:ip] => :environment do |t, args|
 
         method_of_discovery = old_how_heard[old_subscribers_other_info[sub_id][:how_heard_id]]
         method_received = old_method_received[old_subscribers_other_info[sub_id][:method_received_id]]
-        new_customer_id = old_subscribers[sub_id][:new_id]
+
+        customer = Customer.find(new_customer_id)
+
+        if old_subscribers_other_info[sub_id][:further_contact_id] == bad_address_id
+          customer.bad_address = true
+          customer.save
+        else
+          further_contact = old_further_contact[old_subscribers_other_info[sub_id][:further_contact_id]]
+          customer.further_contact_requested = further_contact
+          customer.save
+        end
 
         order = Order.create(
           method_of_discovery: method_of_discovery,
@@ -137,7 +145,7 @@ task :import, [:ip] => :environment do |t, args|
           method_received: method_received,
           customer_id: new_customer_id)
         request[:new_order_id] = order.id
-        puts "#{order.id} - #{order.errors.full_messages.join(",")}" if order.errors.any?
+        puts "ERROR: #{order.id} - #{order.errors.full_messages.join(",")}" if order.errors.any?
         order.items << item
         order.save
         req_counter += 1 if order.persisted?
@@ -226,7 +234,7 @@ def get_old_subscribers(sql_client)
 
   result.each do |r|
     old_id = r['id'].to_i
-    old_subscribers_other_info[old_id] = {how_heard_id: r['how_heard_id'], method_received_id: r['method_received_id']}
+    old_subscribers_other_info[old_id] = {how_heard_id: r['how_heard_id'], method_received_id: r['method_received_id'], further_contact_id: r['further_contact_id']}
 
     title = nil
     if r['gender'] == 'Male'
@@ -368,6 +376,26 @@ def get_old_method_received(sql_client, new_method_receiveds)
   end
   old_method_received
 end
+
+def get_old_further_contact_and_bad_address(sql_client, new_further_contact_requesteds)
+  result = sql_client.execute("select * from further_contact")
+  old_further_contact = {}
+  bad_address = nil
+  result.each do |r|
+    case r['further_contact']
+    when 'Not specified'
+      old_further_contact[r['id']] = new_further_contact_requesteds['not_specified']
+    when 'Wanted'
+      old_further_contact[r['id']] = new_further_contact_requesteds['wanted']
+    when 'Not wanted'
+      old_further_contact[r['id']] = new_further_contact_requesteds['not_wanted']
+    when 'Bad address'
+      bad_address = r['id']
+    end
+  end
+  [old_further_contact, bad_address]
+end
+
 
 def int_to_date_time(int)
   DateTime.strptime(int.to_s, '%Y%m%d%H%M%S')
