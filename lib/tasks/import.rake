@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spreadsheet'
 require 'tiny_tds'
 require 'csv'
@@ -399,4 +400,91 @@ end
 
 def int_to_date_time(int)
   DateTime.strptime(int.to_s, '%Y%m%d%H%M%S')
+end
+
+
+
+
+# Compare data imported from old (ASP) system to new (Rails) system. Does not include cleansed address data
+# run with : rake compare[sql-server-ip-address]
+task :compare, [:ip] => :environment do |t, args|
+  old_sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+  result = get_old_sub(31423, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+
+  new_cust = Customer.find_by old_subscriber_id: 31423
+
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+#  old_result = old_sql_client.execute("select * from subscribers")
+#  old_result.each do |r|
+#    name = "#{r['first_name']} #{r['last_name']}"
+#    if /[^a-zA-Z\s\.\'\?\-\(\)\&\/\,]/.match(name)
+#      puts "#{r['id']}: #{name}"
+#    end
+#    if r['id'] == 2504
+#      puts "#{r['id']}: #{r['first_name']} #{r['last_name']}"
+#    end
+#  end
+
+
+
+  # 2504: name contains ampersand: Hannah & Lydia Cho
+  # 31423: name contains accents: Sione Tupou Taéíloa
+  # 21435: name conatins special chars: Stephan Rößner
+
+end
+
+def get_old_sub(id, sql_client)
+  sql_client.execute("select * from subscribers where id = #{id}")
+end
+
+
+
+
+# Find stuff (for working)
+# run with : rake find[sql-server-ip-address]
+task :find, [:ip] => :environment do |t, args|
+  old_sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
+  result = old_sql_client.execute(%q(
+    SELECT TOP 10 subscribers.id, subscribers.first_name, subscribers.further_contact_id, further_contact.further_contact
+    FROM subscribers
+    LEFT JOIN further_contact ON subscribers.further_contact_id = further_contact.id
+    WHERE further_contact.id = 4
+))
+
+  result.each do |r|
+    puts r
+  end
+#  result.each do |r|
+#    if /RD\s\d/.match(r['suburb'])
+#      name = "#{r['first_name']} #{r['last_name']}"
+#      puts "#{r['id']}: #{name}, #{r['address']} #{r['suburb']}"
+#    end
+#  end
+
+#  new_cust = Customer.find_by old_subscriber_id: 31423
+
+#  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+#  old_result = old_sql_client.execute("select * from subscribers")
+#  old_result.each do |r|
+#    name = "#{r['first_name']} #{r['last_name']}"
+#    if /[^a-zA-Z\s\.\'\?\-\(\)\&\/\,]/.match(name)
+#      puts "#{r['id']}: #{name}"
+#    end
+#    if r['id'] == 2504
+#      puts "#{r['id']}: #{r['first_name']} #{r['last_name']}"
+#    end
+#  end
+
+
+
+  # 2504: name contains ampersand: Hannah & Lydia Cho
+  # 31423: name contains accents: Sione Tupou Taéíloa
+  # 21435: name conatins special chars: Stephan Rößner
+
 end
