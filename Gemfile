@@ -18,7 +18,7 @@ gem 'kaminari'
 gem 'attribute_normalizer'
 gem 'unicorn'
 gem 'roo'
-gem 'tiny_tds'
+#gem 'tiny_tds'
 
 group :development do
   gem 'better_errors'
