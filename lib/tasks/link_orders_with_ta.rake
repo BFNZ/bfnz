@@ -20,14 +20,4 @@ task :link_orders_with_ta => :environment do
   puts "Updated #{order_count} orders"
 end
 
-desc "Add an admin user"
-task :add_admin_user => :environment do
-
-user_name = ENV["USER_NAME"]
-user_email = ENV["USER_EMAIL"]
-user_password = ENV["USER_PASSWORD"]
-   
-User.create!(name: user_name, email: user_email, password: user_password, password_confirmation: user_password, admin: true) unless User.find_by_email(user_email)
- 
-end
 
