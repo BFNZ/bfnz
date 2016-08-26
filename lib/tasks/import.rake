@@ -409,15 +409,203 @@ end
 # run with : rake compare[sql-server-ip-address]
 task :compare, [:ip] => :environment do |t, args|
   old_sql_client = TinyTds::Client.new username: "bfnz2", password: "bfnz", host: args[:ip]
-  result = get_old_sub(31423, old_sql_client)
+ 
+# == Special Characters in Names ==
+# éí Sione Tupou Taéíloa 
+ result = get_old_sub(31423, old_sql_client)
   result.each do |r|
     name = "#{r['first_name']} #{r['last_name']}"
     puts "#{r['id']}: #{name}"
   end
-
   new_cust = Customer.find_by old_subscriber_id: 31423
-
   puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# & Hannah & Lydia Cho
+  result = get_old_sub(2504, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 2504
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+
+# '`' Matthew` Rose
+  result = get_old_sub(21435, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 21435
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# öß - Stephan Rößner
+  result = get_old_sub(14614, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 14614
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+
+# '.' Miss S.	Lum
+  result = get_old_sub(86, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 86
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# () Jun (Gene) Zhao	
+	result = get_old_sub(1562, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 1562
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# '-' Bo-Ra Kim		
+	result = get_old_sub(1554, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 1554
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# '-' Ainslee-Brooke	Watts
+	result = get_old_sub(1445, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 1445
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# '	Lupepau'u Tupou	Moheofo
+result = get_old_sub(2305, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 2305
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+# 12639	40	.	.
+result = get_old_sub(12639, old_sql_client)
+  result.each do |r|
+    name = "#{r['first_name']} #{r['last_name']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 12639
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.first_name} #{new_cust.last_name}"
+
+puts " == Gender / Salutations == "
+
+puts "== Gender is NULL"
+result = get_old_sub(35358, old_sql_client)
+  result.each do |r|
+    name = " #{r['first_name']} #{r['last_name']}, Gender: #{r['gender']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 35358
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.title} #{new_cust.first_name} #{new_cust.last_name}"
+
+puts "== Gender is empty string"
+result = get_old_sub(34775, old_sql_client)
+  result.each do |r|
+    name = " #{r['first_name']} #{r['last_name']}, Gender: #{r['gender']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 34775
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.title} #{new_cust.first_name} #{new_cust.last_name}"
+
+
+puts "== Gender is Unknown"
+result = get_old_sub(41, old_sql_client)
+  result.each do |r|
+    name = " #{r['first_name']} #{r['last_name']}, Gender: #{r['gender']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 41
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.title} #{new_cust.first_name} #{new_cust.last_name}"
+
+
+# Female gender to Ms
+puts "== Kylee Mitchell - Female to Ms Kylee Mitchell"
+result = get_old_sub(29, old_sql_client)
+  result.each do |r|
+    name = " #{r['first_name']} #{r['last_name']}, Gender: #{r['gender']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 29
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.title} #{new_cust.first_name} #{new_cust.last_name}"
+
+# Male gender to Ms
+puts "== Craig Love - Male to Mr Craig Love"
+result = get_old_sub(134, old_sql_client)
+  result.each do |r|
+    name = " #{r['first_name']} #{r['last_name']}, Gender: #{r['gender']}"
+    puts "#{r['id']}: #{name}"
+  end
+  new_cust = Customer.find_by old_subscriber_id: 134
+  puts "#{new_cust.id} [#{new_cust.old_subscriber_id}]: #{new_cust.title} #{new_cust.first_name} #{new_cust.last_name}"
+
+
+puts "== Old system uses gender.  Totals should match title totals in new system"
+#Count of Subscribers with NULL (Feb 16 was 158)
+countNullSubscribers = old_sql_client.execute("select id from subscribers where gender is NULL")
+puts "Count of NULL Gender Subscribers:#{countNullSubscribers.count}"
+#Count of Subscribers with Empty string (Feb 16 was 21)
+countEmptySubscribers = old_sql_client.execute("select id from subscribers where gender = ''")
+puts "Count of Empty String Gender Subscribers:#{countEmptySubscribers.count}"
+#Count of Subcribers with Unknown (Feb 16 was 11559)
+countUnknownSubscribers = old_sql_client.execute("select id from subscribers where gender = 'Unknown'")
+puts "Count of Unknown Gender Subscribers:#{countUnknownSubscribers.count}"
+
+#Total of unknown, NULL and empty string (Feb 16 was 11738)
+totalwithoutvalidgender = countNullSubscribers.count +  countEmptySubscribers.count + countUnknownSubscribers.count
+puts "Total without valid gender: #{totalwithoutvalidgender}"
+
+#Count of Male Subcribers (Feb 16 was 16553)
+countMaleSubscribers = old_sql_client.execute("select id from subscribers where gender = 'Male'")
+puts "Count of Male Subscribers:#{countMaleSubscribers.count}"
+
+#Count of Female Subcribers (Feb 16 was 16553)
+countFemaleSubscribers = old_sql_client.execute("select id from subscribers where gender = 'Female'")
+puts "Count of Female Subscribers:#{countFemaleSubscribers.count}"
+
+
+#Total without title in New DB
+puts "== New system uses titles.  Numbers should match gender above."
+totalMrCount = 0
+totalMsCount = 0
+totalMissingCount = 0
+
+Customer.find_each do |cust|
+  if cust.title == 'Mr'
+    totalMrCount += 1 
+  elsif cust.title == 'Ms'
+    totalMsCount += 1
+  else
+    totalMissingCount += 1
+  end
+end
+
+puts "Count of Customers without a title :#{totalMissingCount}"
+puts "Count of Customers with a title of Mr :#{totalMrCount}"
+puts "Count of Customers with a title of Ms :#{totalMsCount}"
+
+if countMaleSubscribers.count == totalMrCount and countFemaleSubscribers.count == totalMsCount and totalwithoutvalidgender == totalMissingCount
+	puts "Counts Match"
+else
+  puts "Counts dont Match - Why not?"
+end
+
+
 
 #  old_result = old_sql_client.execute("select * from subscribers")
 #  old_result.each do |r|
@@ -429,12 +617,6 @@ task :compare, [:ip] => :environment do |t, args|
 #      puts "#{r['id']}: #{r['first_name']} #{r['last_name']}"
 #    end
 #  end
-
-
-
-  # 2504: name contains ampersand: Hannah & Lydia Cho
-  # 31423: name contains accents: Sione Tupou Taéíloa
-  # 21435: name conatins special chars: Stephan Rößner
 
 end
 
@@ -482,9 +664,26 @@ task :find, [:ip] => :environment do |t, args|
 #  end
 
 
-
-  # 2504: name contains ampersand: Hannah & Lydia Cho
-  # 31423: name contains accents: Sione Tupou Taéíloa
-  # 21435: name conatins special chars: Stephan Rößner
-
 end
+
+
+
+# Test tds connection
+# run with : rake testconn[sql-server-ip-address]
+task :testconn, [:ip] => :environment do |t, args|
+	puts "before connection"  
+	client = TinyTds::Client.new username: "sa", password: "", host: args[:ip]
+	puts "after connection"
+  puts client.closed?
+	client.dead?    # => false
+	client.closed?  # => false
+	client.active?  # => true
+	client.execute("SQL TO A DEAD SERVER")
+	client.dead?    # => true
+	client.closed?  # => false
+	client.active?  # => false
+	client.close
+	client.closed?  # => true
+	client.active?  # => false
+end
+

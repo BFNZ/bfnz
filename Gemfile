@@ -18,7 +18,13 @@ gem 'kaminari'
 gem 'attribute_normalizer'
 gem 'unicorn'
 gem 'roo'
-#gem 'tiny_tds'
+gem 'tiny_tds', '0.7.0'
+gem 'connection_pool'
+gem 'mini_portile2', '~> 2.0'
+gem 'minitest'
+gem 'rake-compiler'
+
+
 
 group :development do
   gem 'better_errors'
