@@ -18,7 +18,6 @@ gem 'kaminari'
 gem 'attribute_normalizer'
 gem 'unicorn'
 gem 'roo'
-gem 'tiny_tds', '1.0.4'
 gem 'connection_pool'
 gem 'mini_portile2', '~> 2.0'
 gem 'minitest'
@@ -33,6 +32,7 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'tiny_tds', '0.7.0'
 end
 
 group :test do
