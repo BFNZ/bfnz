@@ -12,7 +12,7 @@ module Admin
 
           shipment = Shipment.create_for_orders(@orders)
           @label_presenter = Admin::LabelPresenter.new(shipment)
-          headers['Content-Disposition'] = "attachment; filename=\"#{shipment.filename}\""
+          headers['Content-Disposition'] = "attachment; filename=\"#{shipment.filename}.csv\""
           headers['Content-Type'] = 'text/csv'
 
           render 'admin/shipments/show'
