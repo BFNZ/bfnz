@@ -10,7 +10,7 @@ module Admin
       create_customer = CreateCustomerService.new(user: current_user,
                                                   form: @new_customer_form).perform
       if create_customer.success?
-        redirect_to new_admin_customer_path, notice: "Customer created successfully."
+        redirect_to new_admin_customer_path, notice: "Customer created successfully. Customer Id: #{view_context.link_to(create_customer.cust_id, edit_admin_customer_path(create_customer.cust_id))}"
       else
         render :new
       end

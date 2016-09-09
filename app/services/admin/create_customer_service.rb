@@ -16,6 +16,14 @@ module Admin
       @success
     end
 
+		def cust_id
+			@cust_id = customer.id
+		end
+
+		def order_id
+ 			@order_id = order.id
+		end 
+
     private
 
     attr_reader :form, :user
