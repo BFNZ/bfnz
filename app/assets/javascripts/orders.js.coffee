@@ -11,12 +11,6 @@ $(document).ready ->
       $(".hidden-address.post_code").val(item.postcode || '')
       $(".hidden-address.pxid").val(item.pxid || '')
       $(".hidden-address.ta").val(item.ta)
-      $(".hidden-address.postal_line_1").val(item.postal_line_1)
-      $(".hidden-address.postal_line_2").val(item.postal_line_2)
-      $(".hidden-address.postal_line_3").val(item.postal_line_3)
-      $(".hidden-address.postal_line_4").val(item.postal_line_4)
-      $(".hidden-address.postal_line_5").val(item.postal_line_5)
-      $(".hidden-address.postal_line_6").val(item.postal_line_6)
 
     $(this).on "change", ->
       clear_hidden_values()
