@@ -14,7 +14,7 @@ class UpdateOrderService
   private
 
   def order_params
-    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :ta, :phone, :email, :method_received, :method_of_discovery, :tertiary_student, :tertiary_institution, :item_ids => [])
+    @params.require(:order).permit(:title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :dpid, :x, :y,  :ta, :phone, :email, :method_received, :method_of_discovery, :tertiary_student, :tertiary_institution, :item_ids => [])
   end
 
   def ip_address

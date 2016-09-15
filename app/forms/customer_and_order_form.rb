@@ -7,7 +7,11 @@ class CustomerAndOrderForm < BaseForm
   attribute :suburb, String
   attribute :city_town, String
   attribute :post_code, String
+  attribute :dpid, String
+  attribute :x, Decimal
+  attribute :y, Decimal
   attribute :pxid, String
+
   attribute :ta, String
 
   attribute :phone, String
@@ -28,7 +32,7 @@ class CustomerAndOrderForm < BaseForm
   end
 
   def customer_attr_keys
-    %w{title first_name last_name address suburb city_town post_code pxid ta phone email tertiary_student tertiary_institution further_contact_requested}
+    %w{title first_name last_name address suburb city_town post_code pxid dpid x y  ta phone email tertiary_student tertiary_institution further_contact_requested}
   end
 
   def order_attributes

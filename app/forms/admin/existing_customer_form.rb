@@ -9,6 +9,9 @@ module Admin
     attribute :city_town, String
     attribute :post_code, String
     attribute :pxid, String
+    attribute :dpid, String
+    attribute :x, Decimal
+    attribute :y, Decimal
     attribute :ta, String
     attribute :bad_address, Virtus::Attribute::Boolean
 
@@ -25,7 +28,7 @@ module Admin
 
     attr_reader :customer
 
-    CUSTOMER_ATTRS = %w{title first_name last_name address suburb city_town post_code pxid ta bad_address phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
+    CUSTOMER_ATTRS = %w{title first_name last_name address suburb city_town post_code pxid dpid x y  ta bad_address phone email tertiary_student tertiary_institution further_contact_requested admin_notes}
 
     def initialize(customer:, form_params: nil)
       @customer = customer
