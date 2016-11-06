@@ -1,0 +1,35 @@
+language: ruby
+sudo: false
+cache: bundler
+before_install:
+  - gem install bundler
+bundler_args: --binstubs
+script: "bundle exec ruby test/suite.rb"
+rvm:
+  - ruby-head
+  - 2.0.0
+  - 2.2.3
+  - 2.1.7
+  - 1.9.3
+  - 1.9.2
+  - 1.8.7
+  - rbx-19mode
+  - rbx-18mode
+  - jruby-head
+  - jruby-19mode
+  - jruby-18mode
+  - ree
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: rbx-19mode
+    - rvm: rbx-18mode
+    - rvm: jruby-head
+    - rvm: jruby-19mode
+    - rvm: jruby-18mode
+    - rvm: ree
+notifications:
+  email:
+    recipients:
+      - yasaka@ywesee.com
+      - zdavatz@ywesee.com

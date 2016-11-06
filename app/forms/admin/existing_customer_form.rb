@@ -25,6 +25,8 @@ module Admin
     attribute :further_contact_requested, Integer
 
     validates :first_name, :last_name, :ta, presence: true
+    validates :confirm_personal_order, acceptance: true
+
 
     attr_reader :customer
 

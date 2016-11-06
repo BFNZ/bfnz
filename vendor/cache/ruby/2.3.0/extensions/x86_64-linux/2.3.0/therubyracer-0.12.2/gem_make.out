@@ -1,0 +1,47 @@
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/therubyracer-0.12.2/ext/v8
+/home/paul/.rvm/rubies/ruby-2.3.0/bin/ruby -r ./siteconf20160929-22044-ab53wy.rb extconf.rb
+checking for main() in -lpthread... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/extensions/x86_64-linux/2.3.0/therubyracer-0.12.2/mkmf.log
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/therubyracer-0.12.2/ext/v8
+make "DESTDIR=" clean
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/therubyracer-0.12.2/ext/v8
+make "DESTDIR="
+compiling gc.cc
+compiling handles.cc
+compiling script.cc
+compiling rr.cc
+compiling stack.cc
+compiling function.cc
+compiling constants.cc
+compiling object.cc
+compiling value.cc
+compiling accessor.cc
+compiling exception.cc
+compiling string.cc
+compiling external.cc
+compiling init.cc
+compiling trycatch.cc
+compiling heap.cc
+compiling date.cc
+compiling backref.cc
+compiling v8.cc
+compiling message.cc
+compiling locker.cc
+compiling invocation.cc
+compiling signature.cc
+compiling array.cc
+compiling primitive.cc
+compiling context.cc
+compiling template.cc
+compiling constraints.cc
+linking shared-object v8/init.so
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/therubyracer-0.12.2/ext/v8
+make "DESTDIR=" install
+/usr/bin/install -m 0755 init.so ./.gem.20160929-22044-1onv6pd/v8

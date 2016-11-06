@@ -1,0 +1,15 @@
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+/home/paul/.rvm/rubies/ruby-2.3.0/bin/ruby -r ./siteconf20160929-22044-mfsi0t.rb extconf.rb
+creating Makefile
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -m 0755 debug_inspector.so ./.gem.20160929-22044-vp6qm4

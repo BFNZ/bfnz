@@ -1,0 +1,153 @@
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ext/tiny_tds
+/home/paul/.rvm/rubies/ruby-2.3.0/bin/ruby -r ./siteconf20160929-22044-15qdts.rb extconf.rb
+checking for sybfront.h... no
+Extracting freetds-0.91.112.tar.gz into tmp/x86_64-pc-linux-gnu/ports/freetds/0.91... OK
+Running git apply with /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ports/patches/freetds/0.91/Makefile.in.diff...
+Running 'patch' for freetds 0.91... OK
+Running git apply with /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ports/patches/freetds/0.91/dblib-30-char-username.diff...
+Running 'patch' for freetds 0.91... OK
+Running 'configure' for freetds 0.91... OK
+Running 'compile' for freetds 0.91... OK
+Running 'install' for freetds 0.91... OK
+Activating freetds 0.91 (from /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ports/x86_64-pc-linux-gnu)...
+checking for sybfront.h... yes
+checking for sybdb.h... yes
+checking for tdsdbopen() in -lsybdb... yes
+checking for ct_bind() in -lct... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/extensions/x86_64-linux/2.3.0/tiny_tds-0.7.0/mkmf.log
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ext/tiny_tds
+make "DESTDIR=" clean
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ext/tiny_tds
+make "DESTDIR="
+compiling client.c
+client.c: In function ‘rb_tinytds_raise_error’:
+client.c:35:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE e = rb_exc_new2(cTinyTdsError, error);
+   ^
+client.c: In function ‘tinytds_err_handler’:
+client.c:51:25: warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   static char *source = "error";
+                         ^
+client.c:55:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   int return_value = INT_CANCEL;
+   ^
+client.c: In function ‘tinytds_msg_handler’:
+client.c:128:25: warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   static char *source = "message";
+                         ^
+client.c: In function ‘rb_tinytds_execute’:
+client.c:242:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE result = rb_tinytds_new_result_obj(cwrap);
+   ^
+In file included from ./tiny_tds_ext.h:13:0,
+                 from client.c:1:
+./result.h:30:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   tinytds_result_wrapper *rwrap; \
+   ^
+client.c:244:3: note: in expansion of macro ‘GET_RESULT_WRAPPER’
+   GET_RESULT_WRAPPER(result);
+   ^
+client.c: In function ‘rb_tinytds_escape’:
+client.c:15:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   tinytds_client_wrapper *cwrap; \
+   ^
+client.c:262:3: note: in expansion of macro ‘GET_CLIENT_WRAPPER’
+   GET_CLIENT_WRAPPER(self);
+   ^
+client.c:263:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE new_string = rb_funcall(string, intern_gsub, 2, opt_escape_regex, opt_escape_dblquote);
+   ^
+client.c: In function ‘rb_tinytds_connect’:
+client.c:15:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   tinytds_client_wrapper *cwrap; \
+   ^
+client.c:314:3: note: in expansion of macro ‘GET_CLIENT_WRAPPER’
+   GET_CLIENT_WRAPPER(self);
+   ^
+client.c:348:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     VALUE transposed_encoding = rb_funcall(cTinyTdsClient, intern_transpose_iconv_encoding, 1, charset);
+     ^
+compiling tiny_tds_ext.c
+compiling result.c
+result.c: In function ‘rb_tinytds_result_free’:
+result.c:45:27: warning: unused variable ‘rwrap’ [-Wunused-variable]
+   tinytds_result_wrapper *rwrap = (tinytds_result_wrapper *)ptr;
+                           ^
+result.c: In function ‘nogvl_cleanup’:
+result.c:95:5: warning: implicit declaration of function ‘rb_tinytds_raise_error’ [-Wimplicit-function-declaration]
+     rb_tinytds_raise_error(client,
+     ^
+result.c: In function ‘nogvl_dbsqlok’:
+result.c:70:12: warning: implicit declaration of function ‘rb_thread_call_without_gvl’ [-Wimplicit-function-declaration]
+   (RETCODE)rb_thread_call_without_gvl( \
+            ^
+result.c:109:13: note: in expansion of macro ‘NOGVL_DBCALL’
+   retcode = NOGVL_DBCALL(dbsqlok, client);
+             ^
+result.c: In function ‘rb_tinytds_result_dbresults_retcode’:
+result.c:143:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE ruby_rc;
+   ^
+result.c: In function ‘rb_tinytds_result_exec_helper’:
+result.c:166:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   RETCODE dbsqlok_rc = rb_tinytds_result_ok_helper(client);
+   ^
+result.c: In function ‘rb_tinytds_result_fetch_row’:
+result.c:191:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE row = as_array ? rb_ary_new2(rwrap->number_of_fields) : rb_hash_new();
+   ^
+result.c:275:11: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+           int year  = date_rec.dateyear,
+           ^
+result.c:284:22: warning: unused variable ‘seconds’ [-Wunused-variable]
+             uint64_t seconds = (year*31557600ULL) + (month*2592000ULL) + (day*86400ULL) + (hour*3600ULL) + (min*60ULL) + sec;
+                      ^
+result.c:283:19: warning: unused variable ‘offset’ [-Wunused-variable]
+             VALUE offset = (timezone == intern_local) ? rwrap->local_offset : opt_zero;
+                   ^
+result.c: In function ‘rb_tinytds_result_fields’:
+result.c:318:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   RETCODE dbsqlok_rc = rb_tinytds_result_ok_helper(rwrap->client);
+   ^
+In file included from ./tiny_tds_ext.h:12:0,
+                 from result.c:2:
+result.c: In function ‘rb_tinytds_result_each’:
+./client.h:43:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   tinytds_client_userdata *userdata = (tinytds_client_userdata *)dbgetuserdata(dbproc);
+   ^
+result.c:357:3: note: in expansion of macro ‘GET_CLIENT_USERDATA’
+   GET_CLIENT_USERDATA(rwrap->client);
+   ^
+result.c:359:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE qopts, opts, block;
+   ^
+result.c:389:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     RETCODE dbsqlok_rc = rb_tinytds_result_ok_helper(rwrap->client);
+     ^
+In file included from ./tiny_tds_ext.h:12:0,
+                 from result.c:2:
+result.c: In function ‘rb_tinytds_result_cancel’:
+./client.h:43:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   tinytds_client_userdata *userdata = (tinytds_client_userdata *)dbgetuserdata(dbproc);
+   ^
+result.c:451:3: note: in expansion of macro ‘GET_CLIENT_USERDATA’
+   GET_CLIENT_USERDATA(rwrap->client);
+   ^
+result.c:453:13: warning: unused variable ‘dbsqlok_rc’ [-Wunused-variable]
+     RETCODE dbsqlok_rc = rb_tinytds_result_ok_helper(rwrap->client);
+             ^
+result.c: In function ‘rb_tinytds_result_insert’:
+result.c:494:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     VALUE identity = Qnil;
+     ^
+linking shared-object tiny_tds/tiny_tds.so
+
+current directory: /home/paul/Documents/dev/bfnz/vendor/cache/ruby/2.3.0/gems/tiny_tds-0.7.0/ext/tiny_tds
+make "DESTDIR=" install
+/usr/bin/install -m 0755 tiny_tds.so ./.gem.20160929-22044-1lnoc6d/tiny_tds

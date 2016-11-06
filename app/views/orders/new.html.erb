@@ -13,13 +13,19 @@ To order your free books simply fill out the order form below.  Please note that
  for New Zealand can only service requests for the listed free books from New Zealand.
 </p>
 <p>
-Please allow 4-6 weeks for delivery.
+Please allow 2-4 weeks for delivery.
 </p>
 
 
 <%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
   <div class="form-group row">
+    <div class="col-xs-4 col-sm-4">
+      <%= check_box :confirm_personal_order, "confirm_personal_order" %>
+      <%= f.required_label "I am ordering for myself only", class: "control-label"%>
+    </div>
+</div>
 
+  <div class="form-group row">
     <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xlg-2">
       <%= f.required_label :title, class: "control-label"%>
       <%= f.select :title, options_for_select(['Mr', 'Mrs', 'Ms'], @order_form.title), {include_blank: true}, class: "form-control"%>
@@ -81,7 +87,8 @@ Please allow 4-6 weeks for delivery.
   <div class="form-group">
     <div class="col-sm-6">
       <%= f.label :further_contact_requested do %>
-        <%= f.check_box :further_contact_requested, {}, @order_form.contact_wanted_value, @order_form.contact_not_specified_value %>I am interested in receiving further contact.
+        <%= f.check_box :further_contact_requested, {}, @order_form.contact_wanted_value, @order_form.contact_not_specified_value %>
+            I am interested in receiving guidance in using the recovery version to better understand the Bible
       <% end %>
     </div>
   </div>

@@ -1,0 +1,14 @@
+.DS_Store
+.swp
+*.log
+*.sqlite3
+pkg/*
+coverage/*
+doc/*
+benchmarks/*
+.rvmrc
+test/gemfiles/Gemfile*.lock
+.bundle
+Gemfile.lock
+.ruby-gemset
+.ruby-version
