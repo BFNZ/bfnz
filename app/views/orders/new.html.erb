@@ -16,12 +16,24 @@ To order your free books simply fill out the order form below.  Please note that
 Please allow 2-4 weeks for delivery.
 </p>
 
-
 <%= form_for @order_form, url: orders_path, html: {role: "form", class: "form-horizontal"} do |f| %>
+
+  <% if @order_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order_form.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="form-group row">
     <div class="col-xs-4 col-sm-4">
-      <%= check_box :confirm_personal_order, "confirm_personal_order" %>
-      <%= f.required_label "I am ordering for myself only", class: "control-label"%>
+      <%= f.check_box :confirm_personal_order %>
+      <%= f.required_label :confirm_personal_order, label_text: "I am ordering for myself only", class: "control-label"%>
     </div>
 </div>
 

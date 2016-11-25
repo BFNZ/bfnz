@@ -24,8 +24,12 @@ class CustomerAndOrderForm < BaseForm
 
   attribute :further_contact_requested, Integer
 
+  attribute :confirm_personal_order
+
   validates :title, :first_name, :last_name, :address, presence: true
   validate :contains_at_least_one_item
+
+  validates :confirm_personal_order, acceptance: true
 
   def order_attr_keys
     %w{item_ids}
