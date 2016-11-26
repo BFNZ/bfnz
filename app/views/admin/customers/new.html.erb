@@ -1,6 +1,6 @@
 <h2>Add a new customer</h2>
 <%= form_for [:admin, @new_customer_form], url: admin_customers_path, html: {role: "form", class: "form-horizontal"} do |f| %>
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <div class="form-group">
       <div class="col-sm-4">
         <%= f.required_label :title, class: "control-label"%>
@@ -70,10 +70,33 @@
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="form-group">
       <%= f.label :admin_notes, "Notes", class: "control-label" %>
       <%= f.text_area :admin_notes, class: 'form-control', rows: 10 %>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+
+    <%= f.submit "Search Duplicates", id: "search-duplicates" %>
+    <div id="duplicate-name">
+      <% if @duplicate_customers_by_name %>
+        <h4>Duplicates by name</h4>
+        <% @duplicate_customers_by_name.each do |customer| %>
+          <%= customer.full_name %>
+          <%= customer.address %>
+        <% end %>
+      <% end %>
+    </div>
+    <div id="duplicate-address">
+      <% if @duplicate_customers_by_address %>
+        <h4>Duplicates by address</h4>
+        <% @duplicate_customers_by_address.each do |customer| %>
+          <%= customer.full_name %>
+          <%= customer.address %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 

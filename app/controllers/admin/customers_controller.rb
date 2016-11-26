@@ -6,6 +6,11 @@ module Admin
 
     def create
       @new_customer_form = NewCustomerForm.new(params[:admin_new_customer_form])
+      if params[:commit] == "Search Duplicates"
+        @duplicate_customers_by_name = get_duplicate_customers_by_name
+        @duplicate_customers_by_address = get_duplicate_customers_by_address
+        return render :new
+      end
 
       create_customer = CreateCustomerService.new(user: current_user,
                                                   form: @new_customer_form).perform
@@ -41,6 +46,25 @@ module Admin
 
     def customer
       @customer ||= Customer.find(params[:id])
+    end
+
+    def get_duplicate_customers_by_name
+      return [] if @new_customer_form.first_name.blank?
+      return [] if @new_customer_form.last_name.blank?
+
+      Customer.where(
+        first_name: @new_customer_form.first_name,
+        last_name: @new_customer_form.last_name
+      )
+    end
+
+    def get_duplicate_customers_by_address
+      return [] if @new_customer_form.pxid.blank?
+
+      puts "search by address #{@new_customer_form.pxid}"
+      Customer.where(
+        pxid: @new_customer_form.pxid
+      )
     end
 
   end

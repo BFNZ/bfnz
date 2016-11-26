@@ -5,7 +5,7 @@ class CreateOrderService
   end
 
   def save
-    if @form.valid?
+      if @form.valid?
       customer.save!
       order.save!
       send_confirmation_email
