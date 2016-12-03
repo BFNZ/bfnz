@@ -22,6 +22,7 @@ feature 'Managing customers', js: true do
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
+    click_button "Search Duplicates"
     select_address("1 Short Street")
     fill_in "Phone", with: "12345678"
     fill_in "Email", with: "email@test.com"
@@ -42,6 +43,7 @@ feature 'Managing customers', js: true do
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
+    click_button "Search Duplicates"
     select_address("1 Short Street")
     select_item
     check "This order has already been delivered."
