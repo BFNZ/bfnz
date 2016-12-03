@@ -71,6 +71,7 @@ feature 'Managing customers', js: true do
     expect(page).to have_text "Customer #{customer.identifier}"
     expect(page).to have_text "Order #{order.identifier}"
     click_link "Cancel order"
+    expect(page).to have_text "Order cancelled"
     expect(page).not_to have_text "Order #{order.identifier}"
   end
 
