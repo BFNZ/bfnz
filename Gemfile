@@ -39,7 +39,7 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver'        # v2.53.4 requires older Firefox (try 47.0.1)
   gem 'database_cleaner', '1.3.0' # TODO investigate why 1.4.0 breaks the tests
   gem 'machinist'
   gem 'timecop'
