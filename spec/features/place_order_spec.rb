@@ -5,6 +5,7 @@ feature 'Placing an order', js: true do
     visit "/orders/new"
     expect(page).to have_text("Free Order")
 
+    check "I am ordering for myself only"
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
@@ -14,7 +15,7 @@ feature 'Placing an order', js: true do
     check "Are you a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
     select_item
-    check "I am interested in receiving further contact."
+    check "I am interested in receiving guidance in using the recovery version to better understand the Bible"
     click_button "Place Order"
     expect(page).to have_text("your order will be shipped as soon as possible")
   end

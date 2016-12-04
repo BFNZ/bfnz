@@ -22,6 +22,7 @@ class EditCustomerPage < CapybaraPage
     expect(page).to have_select(items_select, selected: selected_titles)
 
     click_link "Cancel order"
+    expect(page).to have_text "Order cancelled"
     expect(page).not_to have_text "Order #{order.identifier}"
   end
 

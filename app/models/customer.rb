@@ -27,7 +27,7 @@ class Customer < ActiveRecord::Base
     where(territorial_authority_id: ids)
   }
   scope :can_ship_to, -> {
-    where(further_contact_requested:
+    where("further_contact_requested in (?)",
             [self.further_contact_requesteds[:not_specified],
              self.further_contact_requesteds[:wanted]]).
       where(bad_address: false)
