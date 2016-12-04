@@ -4,7 +4,7 @@ module OrdersHelper
   end
 
   def titles_for_select(form)
-    options_for_select(['Mr', 'Mrs', 'Ms'], form.title)
+    options_for_select(['Mr', 'Mrs', 'Miss','Ms'], form.title)
   end
 
   def discovery_methods_for_select(form)

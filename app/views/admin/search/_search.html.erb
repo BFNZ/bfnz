@@ -2,77 +2,77 @@
 
   <!--TODO Can we have an indicator or message next to the list that shows when an address does not have a pxid -->
   <div class="form-group">
-    <label class="col-xs-2">Name</label>
-    <div class="col-xs-4">
+    <label class="col-xs-1">Name</label>
+    <div class="col-xs-2">
       <%= f.label :first_name, class: "sr-only" %>
       <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-2">
       <%= f.label :last_name, class: "sr-only" %>
       <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-xs-2">Contact info</label>
-    <div class="col-xs-4">
+    <label class="col-xs-1">Contact info</label>
+    <div class="col-xs-2">
       <%= f.label :email, class: "sr-only" %>
       <%= f.text_field :email, class: "form-control", placeholder: "Email address" %>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-2">
       <%= f.label :phone, "Phone", class: "sr-only" %>
       <%= f.text_field :phone, class: "form-control", placeholder: "Phone number" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-xs-2">Address</label>
-    <div class="col-xs-4">
+    <label class="col-xs-1">Address</label>
+    <div class="col-xs-2">
       <%= f.label :address, class: "sr-only" %>
       <%= f.text_field :address, class: "form-control", placeholder: "Street address" %>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2">
       <%= f.label :suburb, class: "sr-only" %>
       <%= f.text_field :suburb, class: "form-control", placeholder: "Suburb" %>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2">
       <%= f.label :city_town, "City/Town", class: "sr-only" %>
       <%= f.text_field :city_town, class: "form-control", placeholder: "City/Town" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-xs-2">Created Date</label>
-    <div class="col-xs-3">
+    <label class="col-xs-1">Created Date</label>
+    <div class="col-xs-1">
       <%= f.label :created_at_from, class: "sr-only" %>
       <%= f.text_field :created_at_from, class: "form-control datepicker", placeholder: "From" %>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-1">
       <%= f.label :created_at_to, class: "sr-only" %>
       <%= f.text_field :created_at_to, class: "form-control datepicker", placeholder: "To" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-xs-2">Shipped Date</label>
-    <div class="col-xs-3">
+    <label class="col-xs-1">Shipped Date</label>
+    <div class="col-xs-1">
       <%= f.label :shipped_at_from, class: "sr-only" %>
       <%= f.text_field :shipped_at_from, class: "form-control datepicker", placeholder: "From" %>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-1">
       <%= f.label :shipped_at_to, class: "sr-only" %>
       <%= f.text_field :shipped_at_to, class: "form-control datepicker", placeholder: "To" %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-xs-2">Order info</label>
-    <div class="col-xs-2">
+    <label class="col-xs-1">Order info</label>
+    <div class="col-xs-1">
       <%= f.label :id, "ID" %>
       <%= f.text_field :id, class: "form-control" %>
     </div>
 
-    <div class="col-xs-2">
+    <div class="col-xs-1">
       <%= f.label :shipped, "Shipped?" %>
       <%= f.select :shipped, order_search.yes_no_options, {include_blank: true}, {class: "form-control"} %>
     </div>
@@ -82,7 +82,7 @@
       <%= f.select :further_contact_requested, order_search.further_contact_options, {include_blank: true}, {class: "form-control"} %>
     </div>
 
-    <div class="col-xs-4">
+    <div class="col-xs-3">
       <%= f.label :item_ids, "Items" %>
       <%= f.select :item_ids, order_search.item_ids_options, {}, {class: "form-control", multiple: :multiple} %>
     </div>
