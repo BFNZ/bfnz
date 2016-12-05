@@ -93,5 +93,6 @@ end
 
 if Rails.env.development?
   User.create!(name: 'Shevaun', email: 'shevaun.coker@gmail.com', password: 'password', password_confirmation: 'password', admin: true) unless User.find_by_email('shevaun.coker@gmail.com')
-  User.create!(name: 'Russell', email: 'russell.healy@gmail.com', password: 'secret', password_confirmation: 'secret', admin: true) unless User.find_by_email('russell.healy@gmail.com')
+  User.create!(name: 'Russell', email: 'russell.healy@gmail.com', password: 'password', password_confirmation: 'password', admin: true) unless User.find_by_email('russell.healy@gmail.com')
+  User.create!(name: 'Paul', email: 'paulesalmon@gmail.com', password: 'password', password_confirmation: 'password', admin: true) unless User.find_by_email('paulesalmon@gmail.com')
 end
