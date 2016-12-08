@@ -32,7 +32,7 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'tiny_tds', '0.7.0'
+#  gem 'tiny_tds', '0.7.0'
 end
 
 group :test do
