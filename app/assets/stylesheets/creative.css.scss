@@ -200,10 +200,15 @@ aside {
 }
 
 .top-padding{
-    padding-top: 105px;
+    padding-top: 10px;
     padding-right: 0px;
     padding-bottom: 0px;
     padding-left: 0px;
+}
+@media(min-width:768px) {
+  .top-padding{
+    padding-top: 105px;
+  }
 }
 
 .no-padding {
