@@ -112,8 +112,12 @@ p {
 
 .bg-primary {
   background-color:  #FFFFFF  ;color:  #383838;
-  padding-bottom: 250px;
-  padding-top: 100px;
+}
+@media(min-width:768px) {
+  .bg-primary {
+    padding-bottom: 100px;
+    padding-top: 100px;
+  }
 }
 
 .bg-primary2 {
