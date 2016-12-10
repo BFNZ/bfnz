@@ -9,4 +9,7 @@
 ul.thumbnails.image_picker_selector li .thumbnail {
   min-height: 230px;
   width: 100px;
+  img {
+    max-height: 100px;
+  }
 }
