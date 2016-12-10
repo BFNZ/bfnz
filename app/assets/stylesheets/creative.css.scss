@@ -112,8 +112,12 @@ p {
 
 .bg-primary {
   background-color:  #FFFFFF  ;color:  #383838;
-  padding-bottom: 250px;
-  padding-top: 100px;
+}
+@media(min-width:768px) {
+  .bg-primary {
+    padding-bottom: 100px;
+    padding-top: 100px;
+  }
 }
 
 .bg-primary2 {
@@ -200,10 +204,15 @@ aside {
 }
 
 .top-padding{
-    padding-top: 105px;
+    padding-top: 10px;
     padding-right: 0px;
     padding-bottom: 0px;
     padding-left: 0px;
+}
+@media(min-width:768px) {
+  .top-padding{
+    padding-top: 105px;
+  }
 }
 
 .no-padding {
