@@ -59,7 +59,7 @@ Please allow 2-4 weeks for delivery.
   <div class="form-group">
     <div class="col-sm-8">
       <%= f.required_label :address, label_text: "Postal Address", class: "control-label" %>
-      <%= f.text_area :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from", rows: 2, style: "resize: none;" %>
+      <%= f.text_area :address, class: "addressfinder_widget form-control", placeholder: "Start typing to see a list of addresses to choose from", rows: 1 %>
       <%= f.hidden_field :suburb, class: "hidden-address suburb" %>
       <%= f.hidden_field :city_town, class: "hidden-address city_town" %>
       <%= f.hidden_field :post_code, class: "hidden-address post_code" %>
