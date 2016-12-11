@@ -11,7 +11,7 @@ fitTextArea = (element) ->
 
 $(document).ready ->
   $(".addressfinder_widget").each ->
-    widget = new AddressFinder.Widget(this, "TWVJBCDGM7Y4NPH9QX68", show_locations: false)
+    widget = new AddressFinder.Widget(this, "DYJ8TQLUGPR9VEHNC6KW", show_locations: false)
     fitTextArea(@)
 
     widget.on "result:select", (value, item)->
