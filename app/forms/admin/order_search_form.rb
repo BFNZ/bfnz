@@ -3,7 +3,7 @@ module Admin
     attribute :first_name, String
     attribute :last_name, String
     attribute :item_ids, Array[Integer]
-    attribute :shipped, Boolean, default: false
+    attribute :shipped, Boolean
     attribute :id, Integer
     attribute :phone, String
     attribute :email, String

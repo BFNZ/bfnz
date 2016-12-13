@@ -36,7 +36,6 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'rails-helper'
   gem 'capybara'
   gem 'launchy'
   gem 'selenium-webdriver'        # v2.53.4 requires older Firefox (try 47.0.1)
