@@ -50,6 +50,14 @@
   </div>
 
   <div class="form-group">
+    <label class="col-xs-1">Creator Email</label>
+    <div class="col-xs-4">
+      <%= f.label :creator_email, class: "sr-only" %>
+      <%= f.text_field :creator_email, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label class="col-xs-1">Created Date</label>
     <div class="col-xs-1">
       <%= f.label :created_at_from, class: "sr-only" %>
