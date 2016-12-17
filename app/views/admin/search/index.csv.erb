@@ -18,6 +18,8 @@
                "Shipment ID",
                "Shipped at",
                "Item codes",
+               "User name",
+               "User email",
               ]-%>
 
 <%= CSV.generate_line headers %>
@@ -42,5 +44,7 @@
                             view_model.shipment_id,
                             view_model.shipped_at,
                             view_model.item_codes,
+                            view_model.creator_name,
+                            view_model.creator_email,
                            ]) -%>
 <%- end -%>

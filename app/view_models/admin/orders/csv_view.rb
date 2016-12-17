@@ -26,6 +26,14 @@ class Admin::Orders::CsvView
     customer.tertiary_student? ? 'Yes' : 'No'
   end
 
+  def creator_name
+    order.created_by.try(:name)
+  end
+
+  def creator_email
+    order.created_by.try(:email)
+  end
+
   private
 
   attr_reader :order, :customer
