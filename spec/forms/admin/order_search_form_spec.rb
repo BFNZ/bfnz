@@ -119,6 +119,18 @@ describe Admin::OrderSearchForm do
         expect(filtered_orders).to eq [order]
       end
     end
+
+    context "when district is passed in" do
+      let(:attrs) { {district: ta.id} }
+
+      let(:ta) { TerritorialAuthority.first }
+      let!(:order) { Order.make!(customer: Customer.make!(territorial_authority: ta)) }
+
+
+      it "scopes orders by creator_email" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
 end
 
   describe "#item_ids" do
