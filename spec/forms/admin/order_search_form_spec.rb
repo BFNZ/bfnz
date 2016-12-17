@@ -107,6 +107,18 @@ describe Admin::OrderSearchForm do
         expect(filtered_orders).to eq [order]
       end
     end
+
+    context "when creator_email is passed in" do
+      let(:attrs) { {creator_email: " Test@google.co.nz "} }
+
+      let(:creator) { User.make!(email: "tEst@google.co.nz") }
+      let!(:order) { Order.make!(created_by: creator) }
+
+
+      it "scopes orders by creator_email" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
 end
 
   describe "#item_ids" do

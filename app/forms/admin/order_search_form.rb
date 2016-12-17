@@ -16,6 +16,7 @@ module Admin
     attribute :shipped_at_to, Date
     attribute :further_contact_requested, Integer
     attribute :customer_id, Integer
+    attribute :creator_email, String
 
     def created_at_from=(date)
       super parse_date(date)
@@ -51,6 +52,11 @@ module Admin
 
     def filtered_orders
       orders = ::Order.includes(:customer).joins(:customer).order('orders.created_at desc')
+
+      if creator_email.present?
+        orders = orders.joins(:created_by).
+          where("lower(users.email) = ?", creator_email.strip.downcase)
+      end
 
       customer_attributes.each do |key, value|
         orders = orders.merge(Customer.public_send(key, value)) if value.present?
