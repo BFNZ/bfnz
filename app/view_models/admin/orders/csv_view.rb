@@ -5,7 +5,8 @@ class Admin::Orders::CsvView
   end
 
   delegate :first_name, :last_name, :address, :suburb, :city_town, :phone,
-  :email, :title, :ta, :post_code, :tertiary_institution, to: :customer
+  :email, :title, :ta, :post_code, :tertiary_institution,
+  :further_contact_requested, to: :customer
 
   delegate :id, :method_of_discovery, :created_at, :ip_address,
   :method_received, :shipment_id, :item_codes, to: :order
