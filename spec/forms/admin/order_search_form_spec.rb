@@ -22,6 +22,12 @@ describe Admin::OrderSearchForm do
     it { expect(further_contact_options).to match_array [["Not specified", 0], ["Not wanted", 1], ["Wanted", 2]] }
   end
 
+  describe "#district_options" do
+    subject(:district_options) { described_class.new.district_options }
+
+    it { expect(district_options.first).to eql ["Ashburton District", 54] }
+  end
+
   describe "#filtered_orders" do
     subject(:filtered_orders) { described_class.new(attrs).filtered_orders }
 

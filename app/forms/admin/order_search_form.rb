@@ -47,6 +47,10 @@ module Admin
       Customer.further_contact_requesteds.map { |k,v| [k.humanize, v] }
     end
 
+    def district_options
+      TerritorialAuthority.order(:name).pluck(:name, :id)
+    end
+
     def item_ids=(item_ids)
       super item_ids.map(&:to_i).reject { |id| id.zero? }
     end

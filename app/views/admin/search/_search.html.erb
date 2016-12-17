@@ -47,6 +47,10 @@
       <%= f.label :city_town, "City/Town", class: "sr-only" %>
       <%= f.text_field :city_town, class: "form-control", placeholder: "City/Town" %>
     </div>
+    <div class="col-xs-4">
+      <%= f.label :district, "TA / Distrct", class: "sr-only" %>
+      <%= f.select :district, order_search.district_options, {include_blank: "All Districts"}, {class: "form-control"} %>
+    </div>
   </div>
 
   <div class="form-group">
