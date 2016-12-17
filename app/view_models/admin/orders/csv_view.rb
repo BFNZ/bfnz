@@ -8,7 +8,7 @@ class Admin::Orders::CsvView
   :email, :title, :ta, :post_code, :tertiary_institution, to: :customer
 
   delegate :id, :method_of_discovery, :created_at, :ip_address,
-  :method_received, :shipment_id, to: :order
+  :method_received, :shipment_id, :item_codes, to: :order
 
   def created_at
     order.created_at.to_s(:display)

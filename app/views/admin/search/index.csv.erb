@@ -17,6 +17,7 @@
                "Tertiary institution",
                "Shipment ID",
                "Shipped at",
+               "Item codes",
               ]-%>
 
 <%= CSV.generate_line headers %>
@@ -40,5 +41,6 @@
                             view_model.tertiary_institution,
                             view_model.shipment_id,
                             view_model.shipped_at,
+                            view_model.item_codes,
                            ]) -%>
 <%- end -%>
