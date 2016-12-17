@@ -15,6 +15,7 @@ module Admin
     attribute :shipped_at_from, Date
     attribute :shipped_at_to, Date
     attribute :further_contact_requested, Integer
+    attribute :customer_id, Integer
 
     def created_at_from=(date)
       super parse_date(date)
@@ -97,7 +98,7 @@ module Admin
     end
 
     def customer_attributes
-      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested)
+      attributes.slice(:customer_id, :first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested)
     end
 
     def order_attributes

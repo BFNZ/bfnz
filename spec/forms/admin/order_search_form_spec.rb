@@ -35,6 +35,16 @@ describe Admin::OrderSearchForm do
       end
     end
 
+    context "when customer_id is passed in" do
+      let(:attrs) { {customer_id: order.customer.id} }
+
+      let!(:order) { Order.make!(customer: Customer.make!) }
+
+      it "returns all orders" do
+        expect(filtered_orders).to match_array [order]
+      end
+    end
+
     context "when shipped is passed in" do
       let(:attrs) { {shipped: true} }
 
