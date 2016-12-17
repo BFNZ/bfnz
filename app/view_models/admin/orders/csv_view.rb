@@ -9,7 +9,7 @@ class Admin::Orders::CsvView
   :further_contact_requested, to: :customer
 
   delegate :id, :method_of_discovery, :created_at, :ip_address,
-  :method_received, :shipment_id, :item_codes, to: :order
+  :method_received, :shipment_id, :item_codes, :admin_notes, to: :order
 
   def created_at
     order.created_at.to_s(:display)
