@@ -9,6 +9,7 @@ class Customer < ActiveRecord::Base
   normalize_attributes :first_name, :last_name, :email, :address
   normalize_attribute :phone, with: :phone
 
+  scope :customer_id, ->(customer_id) { where("customers.id = ?", customer_id) }
   scope :first_name, ->(first_name) { where("lower(customers.first_name) LIKE ?", "%#{first_name.downcase}%") }
   scope :last_name, ->(last_name) { where("lower(customers.last_name) LIKE ?", "%#{last_name.downcase}%") }
   scope :email, ->(email) { where("lower(customers.email) LIKE ?", "%#{email.downcase}%") }
