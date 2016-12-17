@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-  default from: "info@biblesfornewzealand.org.nz"
+  default from: "info@bfnz.org.nz"
 
   def confirmation_email(order)
     @customer = order.customer

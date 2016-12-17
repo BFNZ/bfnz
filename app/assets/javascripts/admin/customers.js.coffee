@@ -12,6 +12,7 @@ $(document).ready ->
     event.preventDefault()
     $('#merge-preview').html("")
 
-  $('#new_admin_new_customer_form').on 'change', '#admin_new_customer_form_last_name', (event)->
-    event.preventDefault()
-    $('#search-duplicates').click()
+# Causing issues with data entry
+  #$('#new_admin_new_customer_form').on 'change', '#admin_new_customer_form_last_name', (event)->
+  #  event.preventDefault()
+  #  $('#search-duplicates').click()
