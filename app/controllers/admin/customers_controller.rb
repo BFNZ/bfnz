@@ -7,8 +7,13 @@ module Admin
     def create
       @new_customer_form = NewCustomerForm.new(params[:admin_new_customer_form])
       if params[:commit] == "Search Duplicates"
-        @duplicate_customers_by_name = get_duplicate_customers_by_name
-        @duplicate_customers_by_address = get_duplicate_customers_by_address
+        @duplicate_customers_by_name = get_duplicate_customers_by_name(
+          @new_customer_form.first_name,
+          @new_customer_form.last_name
+        )
+        @duplicate_customers_by_address = get_duplicate_customers_by_address(
+          @new_customer_form.pxid
+        )
         return render :new
       end
 
@@ -48,23 +53,17 @@ module Admin
       @customer ||= Customer.find(params[:id])
     end
 
-    def get_duplicate_customers_by_name
-      return [] if @new_customer_form.first_name.blank?
-      return [] if @new_customer_form.last_name.blank?
+    def get_duplicate_customers_by_name first_name, last_name
+      return [] if first_name.blank?
+      return [] if last_name.blank?
 
-      Customer.where(
-        first_name: @new_customer_form.first_name,
-        last_name: @new_customer_form.last_name
-      )
+      Customer.where(first_name: first_name, last_name: last_name)
     end
 
-    def get_duplicate_customers_by_address
-      return [] if @new_customer_form.pxid.blank?
+    def get_duplicate_customers_by_address pxid
+      return [] if pxid.blank?
 
-      puts "search by address #{@new_customer_form.pxid}"
-      Customer.where(
-        pxid: @new_customer_form.pxid
-      )
+      Customer.where(pxid: pxid)
     end
 
   end
