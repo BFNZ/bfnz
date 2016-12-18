@@ -21,6 +21,7 @@ $(document).ready ->
     searchDuplicates()
 
 searchDuplicates = ->
+  $(".duplicates-by-name-or-address").html("loading...")
   $.post '/admin/customers/find_duplicate_by_name_or_address', {
     first_name: $("#admin_new_customer_form_first_name").val()
     last_name:  $("#admin_new_customer_form_last_name").val()
