@@ -78,11 +78,13 @@
   </div>
 
   <div class="col-sm-3">
-    <%= f.submit "Search Duplicates", id: "search-duplicates" %>
-    <%= render 'duplicates_by_name_or_address',
-      duplicate_customers_by_name: @duplicate_customers_by_name,
-      duplicate_customers_by_address: @duplicate_customers_by_address
-    %>
+    <button id="search-duplicates">Search Duplicates</button>
+    <div class="duplicates-by-name-or-address">
+      <%= render 'duplicates_by_name_or_address',
+        duplicates_by_name: @duplicates_by_name,
+        duplicates_by_address: @duplicates_by_address
+      %>
+    </div>
   </div>
 
   <div class="col-sm-8">
