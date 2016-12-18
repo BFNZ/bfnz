@@ -78,32 +78,11 @@
   </div>
 
   <div class="col-sm-3">
-
     <%= f.submit "Search Duplicates", id: "search-duplicates" %>
-    <div id="duplicate-name">
-      <% if @duplicate_customers_by_name %>
-        <h4>Duplicates by name</h4>
-        <% @duplicate_customers_by_name.each do |customer| %>
-          <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank" %>
-          <%= customer.full_name %>,
-          <%= customer.address %>,
-          <%= customer.email %>
-          <%= customer.phone %><br>
-        <% end %>
-      <% end %>
-    </div>
-    <div id="duplicate-address">
-      <% if @duplicate_customers_by_address %>
-        <h4>Duplicates by address</h4>
-        <% @duplicate_customers_by_address.each do |customer| %>
-          <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank"%>
-          <%= customer.full_name %>,
-          <%= customer.address %>,
-          <%= customer.email %>
-          <%= customer.phone %><br>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render 'duplicates_by_name_or_address',
+      duplicate_customers_by_name: @duplicate_customers_by_name,
+      duplicate_customers_by_address: @duplicate_customers_by_address
+    %>
   </div>
 
   <div class="col-sm-8">
