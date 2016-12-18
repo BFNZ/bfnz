@@ -13,10 +13,6 @@ $(document).ready ->
     event.preventDefault()
     $('#merge-preview').html("")
 
-  $('#search-duplicates').click (event)->
-    event.preventDefault()
-    searchDuplicates()
-
   $('#new_admin_new_customer_form').on 'change', '#admin_new_customer_form_first_name', ->
     searchDuplicates()
   $('#new_admin_new_customer_form').on 'change', '#admin_new_customer_form_last_name', ->
