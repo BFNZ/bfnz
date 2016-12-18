@@ -1,25 +1,21 @@
-<div id="duplicate-name">
-  <% if duplicates_by_name %>
-    <h4>Duplicates by name</h4>
-    <% duplicates_by_name.each do |customer| %>
-      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank" %>
-      <%= customer.full_name %>,
-      <%= customer.address %>,
-      <%= customer.email %>
-      <%= customer.phone %><br>
-    <% end %>
+<% if duplicates_by_name %>
+  <h4>Duplicates by name</h4>
+  <% duplicates_by_name.each do |customer| %>
+    <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank" %>
+    <%= customer.full_name %>,
+    <%= customer.address %>,
+    <%= customer.email %>
+    <%= customer.phone %><br>
   <% end %>
-</div>
+<% end %>
 
-<div id="duplicate-address">
-  <% if duplicates_by_address %>
-    <h4>Duplicates by address</h4>
-    <% duplicates_by_address.each do |customer| %>
-      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank"%>
-      <%= customer.full_name %>,
-      <%= customer.address %>,
-      <%= customer.email %>
-      <%= customer.phone %><br>
-    <% end %>
+<% if duplicates_by_address %>
+  <h4>Duplicates by address</h4>
+  <% duplicates_by_address.each do |customer| %>
+    <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank"%>
+    <%= customer.full_name %>,
+    <%= customer.address %>,
+    <%= customer.email %>
+    <%= customer.phone %><br>
   <% end %>
-</div>
+<% end %>
