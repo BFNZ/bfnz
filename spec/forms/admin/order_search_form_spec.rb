@@ -22,6 +22,12 @@ describe Admin::OrderSearchForm do
     it { expect(further_contact_options).to match_array [["Not specified", 0], ["Not wanted", 1], ["Wanted", 2]] }
   end
 
+  describe "#district_options" do
+    subject(:district_options) { described_class.new.district_options }
+
+    it { expect(district_options.first).to eql ["Ashburton District", 54] }
+  end
+
   describe "#filtered_orders" do
     subject(:filtered_orders) { described_class.new(attrs).filtered_orders }
 
@@ -32,6 +38,16 @@ describe Admin::OrderSearchForm do
 
       it "returns all orders" do
         expect(filtered_orders).to match_array Order.all
+      end
+    end
+
+    context "when customer_id is passed in" do
+      let(:attrs) { {customer_id: order.customer.id} }
+
+      let!(:order) { Order.make!(customer: Customer.make!) }
+
+      it "returns all orders" do
+        expect(filtered_orders).to match_array [order]
       end
     end
 
@@ -94,6 +110,30 @@ describe Admin::OrderSearchForm do
 
 
       it "scopes orders by city" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
+
+    context "when creator_email is passed in" do
+      let(:attrs) { {creator_email: " Test@google.co.nz "} }
+
+      let(:creator) { User.make!(email: "tEst@google.co.nz") }
+      let!(:order) { Order.make!(created_by: creator) }
+
+
+      it "scopes orders by creator_email" do
+        expect(filtered_orders).to eq [order]
+      end
+    end
+
+    context "when district is passed in" do
+      let(:attrs) { {district: ta.id} }
+
+      let(:ta) { TerritorialAuthority.first }
+      let!(:order) { Order.make!(customer: Customer.make!(territorial_authority: ta)) }
+
+
+      it "scopes orders by creator_email" do
         expect(filtered_orders).to eq [order]
       end
     end

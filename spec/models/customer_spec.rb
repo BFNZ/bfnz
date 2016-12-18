@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 describe Customer do
+  describe ".customer_id" do
+    subject(:customer_id_scope) { Customer.customer_id(match.id) }
+
+    let!(:match) { Customer.make! }
+    let!(:nope)  { Customer.make! }
+
+    it "returns customers that match on customer id" do
+      expect(customer_id_scope).to match_array [match]
+    end
+  end
+
   describe ".first_name" do
     subject(:first_name_scope) { Customer.first_name("den") }
 

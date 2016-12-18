@@ -15,6 +15,9 @@ module Admin
     attribute :shipped_at_from, Date
     attribute :shipped_at_to, Date
     attribute :further_contact_requested, Integer
+    attribute :customer_id, Integer
+    attribute :creator_email, String
+    attribute :district, Integer
 
     def created_at_from=(date)
       super parse_date(date)
@@ -44,12 +47,21 @@ module Admin
       Customer.further_contact_requesteds.map { |k,v| [k.humanize, v] }
     end
 
+    def district_options
+      TerritorialAuthority.order(:name).pluck(:name, :id)
+    end
+
     def item_ids=(item_ids)
       super item_ids.map(&:to_i).reject { |id| id.zero? }
     end
 
     def filtered_orders
       orders = ::Order.includes(:customer).joins(:customer).order('orders.created_at desc')
+
+      if creator_email.present?
+        orders = orders.joins(:created_by).
+          where("lower(users.email) = ?", creator_email.strip.downcase)
+      end
 
       customer_attributes.each do |key, value|
         orders = orders.merge(Customer.public_send(key, value)) if value.present?
@@ -97,7 +109,7 @@ module Admin
     end
 
     def customer_attributes
-      attributes.slice(:first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested)
+      attributes.slice(:customer_id, :first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested, :district)
     end
 
     def order_attributes
