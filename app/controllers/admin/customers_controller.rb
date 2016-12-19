@@ -51,14 +51,14 @@ module Admin
     end
 
     def duplicates_by_name first_name, last_name
-      return [] if first_name.blank?
-      return [] if last_name.blank?
+      return nil if first_name.blank?
+      return nil if last_name.blank?
 
       Customer.where(first_name: first_name, last_name: last_name)
     end
 
     def duplicates_by_address pxid
-      return [] if pxid.blank?
+      return nil if pxid.blank?
 
       Customer.where(pxid: pxid)
     end
