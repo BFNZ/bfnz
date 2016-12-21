@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get '/orders' => 'search#index'
 
     resources :customers, only: [:new, :create, :edit, :update] do
+      post 'find_duplicate_by_name_or_address', on: :collection
       member do
         get 'find_duplicate'
         post 'merge'

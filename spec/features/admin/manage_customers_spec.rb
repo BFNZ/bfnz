@@ -22,7 +22,6 @@ feature 'Managing customers', js: true do
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
-    click_button "Search Duplicates"
     select_address("1 Short Street")
     fill_in "Phone", with: "12345678"
     fill_in "Email", with: "email@test.com"
@@ -43,7 +42,6 @@ feature 'Managing customers', js: true do
     select "Mr", from: "Title"
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
-    click_button "Search Duplicates"
     select_address("1 Short Street")
     select_item
     check "This order has already been delivered."
@@ -51,6 +49,17 @@ feature 'Managing customers', js: true do
 
     expect(page).to have_text("Customer created successfully.")
     expect(Order.last).to be_shipped
+  end
+
+  scenario "Search duplidates by name" do
+    click_link "New Customer"
+    fill_in "First Name", with: "Joe"
+    fill_in "Last Name", with: "Smith"
+    select_address("1 Short Street")
+
+    expect(page).to have_text("Joe Smith, 123 Sesame Street")
+    click_button "Save and add another"
+    expect(page).to have_text("Joe Smith, 123 Sesame Street")
   end
 
   scenario "Viewing an existing customer" do
