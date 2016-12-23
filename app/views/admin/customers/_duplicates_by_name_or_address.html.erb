@@ -3,8 +3,9 @@
   <% if duplicates_by_name.blank? %>
     Not found
   <% else %>
+    <% tabindex_number = 100 %>
     <% duplicates_by_name.each do |customer| %>
-      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank" %>
+      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank", :tabindex => tabindex_number += 1  %>
       <%= customer.full_name %>,
       <%= customer.address %>,
       <%= customer.email %>
@@ -18,8 +19,9 @@
   <% if duplicates_by_address.blank? %>
     Not found
   <% else %>
+  <% tabindex_number = 150 %>
     <% duplicates_by_address.each do |customer| %>
-      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank"%>
+      <%= link_to customer.id, edit_admin_customer_path(customer.id), :target => "_blank", :tabindex => tabindex_number += 1 %>
       <%= customer.full_name %>,
       <%= customer.address %>,
       <%= customer.email %>

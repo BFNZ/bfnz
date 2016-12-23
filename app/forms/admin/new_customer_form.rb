@@ -28,7 +28,7 @@ module Admin
     attribute :method_of_discovery, String
     attribute :item_ids, Array[Integer]
 
-    validates :first_name, :last_name, :address, presence: true
+    validates :first_name, :last_name, :ta, presence: true
     validate :contains_at_least_one_item
 
     def order_attributes
