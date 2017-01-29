@@ -6,10 +6,10 @@ class Admin::Orders::CsvView
 
   delegate :first_name, :last_name, :address, :suburb, :city_town, :phone,
   :email, :title, :ta, :post_code, :tertiary_institution,
-  :further_contact_requested, to: :customer
+  :further_contact_requested, :admin_notes, to: :customer
 
   delegate :id, :method_of_discovery, :created_at, :ip_address,
-  :method_received, :shipment_id, :item_codes, :admin_notes, to: :order
+  :method_received, :shipment_id, :item_codes, to: :order
 
   def created_at
     order.created_at.to_s(:display)
