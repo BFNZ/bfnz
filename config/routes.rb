@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
    root 'home#index'
 
+  get 'table' => 'table#new'
+
   resources :orders, only: [:new, :create]
 
   get 'login' => 'user_sessions#new', as: :login

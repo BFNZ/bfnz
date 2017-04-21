@@ -85,4 +85,6 @@ RSpec.configure do |config|
   config.before(:each, js: true) do
     Capybara.page.driver.browser.manage.window.maximize
   end
+
+  config.filter_run_when_matching :focus
 end

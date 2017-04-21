@@ -32,9 +32,11 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'byebug', platform: :mri
 end
 
 group :test do
+  gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
