@@ -1,0 +1,25 @@
+<%= form_for @table, role: 'form' do |f|%>
+
+  <div class="form-group">
+    <%= f.label :coordinator_first_name %>
+    <%= f.text_field :coordinator_first_name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :coordinator_last_name %>
+    <%= f.text_field :coordinator_last_name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :coordinator_phone %>
+    <%= f.text_field :coordinator_phone %>
+  </div>
+  <div class="form-group">
+    <%= f.label :coordinator_email %>
+    <%= f.text_field :coordinator_email %>
+  </div>
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

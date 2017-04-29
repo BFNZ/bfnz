@@ -19,8 +19,11 @@ Rails.application.routes.draw do
 
    root 'home#index'
 
-  get 'table' => 'table#new'
+  resources :tables, except: [:show, :index]
+  get 'table' => 'tables#show'
+  get 'tables' => redirect('table')
 
+  post 'table/exit' => 'tables#exit_table', as: :exit_table
   resources :orders, only: [:new, :create]
 
   get 'login' => 'user_sessions#new', as: :login
