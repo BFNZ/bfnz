@@ -13,6 +13,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def create_table_order
+    order_service = CreateOrderService.new(request, @order_form)
+    if order_service.save
+      redirect_to table_path, notice: "Form submitted successfully. Have a great day!" # better wording for the notice?
+    else
+      render :new # how to get this to the table_new?
+    end
+  end
+
   private
 
   def setup_order_form

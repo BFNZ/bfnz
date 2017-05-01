@@ -1,7 +1,10 @@
 class TablesController < ApplicationController
 
   def show
+    @disable_navbar = true
     redirect_to new_table_path unless cookies["bfnz_table"]
+    @order_form ||= CustomerAndOrderForm.new(params[:customer_and_order_form] || {})
+
   end
 
   def new
@@ -11,7 +14,7 @@ class TablesController < ApplicationController
   def create
     @table = Table.new(table_params)
     if @table.save
-      cookies["bfnz_table"] = { value: "#{@table.id}", expires: 12.hours.from_now }
+      bake_cookie @table.id
       render action: "show", notice: "Table \##{@table.id.to_s.rjust(4, '0')} created."
     else
       flash[:error] = @table.errors.full_messages.join(", ")
@@ -26,8 +29,19 @@ class TablesController < ApplicationController
   def update
     @table = Table.find(:id)
     if @table.save
-      cookies["bfnz_table"] = { value: "#{@table.id}", expires: 12.hours.from_now }
-      redirect_to table_path, notice: "Table \##{@table.id.to_s.rjust(4, '0')} updated."
+      bake_cookie @table.id
+      redirect_to table_path, notice: "Table \##{@table.code} updated."
+    else
+      flash[:error] = @table.errors.full_messages.join(", ")
+      render 'new'
+    end
+  end
+
+  def join_table
+    @table = Table.find(:id)
+    if @table
+      bake_cookie @table.id
+      redirect_to table_path, notice: "Joined table \##{@table.code}."
     else
       flash[:error] = @table.errors.full_messages.join(", ")
       render 'new'
@@ -40,6 +54,10 @@ class TablesController < ApplicationController
   end
 
   private
+
+  def bake_cookie table_id
+      cookies["bfnz_table"] = { value: table_id, expires: 12.hours.from_now }
+  end
 
   def table_params
     params.require(:table).permit(:coordinator_first_name,

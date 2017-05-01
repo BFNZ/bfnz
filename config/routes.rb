@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'table' => 'tables#show'
   get 'tables' => redirect('table')
 
+  post 'table/join' => 'tables#join_table', as: :join_table
   post 'table/exit' => 'tables#exit_table', as: :exit_table
   resources :orders, only: [:new, :create]
 

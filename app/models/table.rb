@@ -14,9 +14,9 @@ class Table < ActiveRecord::Base
      coordinator_first_name: "Regan",
      coordinator_last_name: "Ryan"}
   end
-
-  private
+  
   def code
     id.to_s.rjust(4, "0")
   end
+  
 end

@@ -6,7 +6,7 @@
 <%= render partial: "shared/flash_messages", flash: flash %>
 
 <h2> enter code to join existing table </h2>
-<%= form_tag(table_bake_cookies_path) do %>
+<%= form_tag(join_table_path) do %>
   <input type='text' name='table_code'>
   <input type='submit'>
 <% end %>
