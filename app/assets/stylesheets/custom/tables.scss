@@ -1,12 +1,13 @@
 .table-container {
   margin: 0 15px;
+  font-family: 'Helvetica Neue',Arial,sans-serif;
 
   h2 {
     max-width: 280px;
     margin: auto;
     margin-bottom: 30px;
 
-    @media(min-width:768px){
+    @media(min-width: $screen-sm-min){
       max-width: 400px;
     } 
   }
@@ -15,7 +16,7 @@
     margin: auto;
     max-width: 280px;
 
-    @media(min-width:768px){
+    @media(min-width: $screen-sm-min){
       max-width: 400px;
     }
   }
@@ -34,5 +35,9 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #ecf7ff;
+    font-weight: 600;
   }
 }
