@@ -18,13 +18,15 @@ class OrdersController < ApplicationController
     if order_service.save
       redirect_to table_path, notice: "Form submitted successfully. Have a great day!" # better wording for the notice?
     else
-      render :new # how to get this to the table_new?
+      flash[:error] = @order_form.errors.full_messages.join("<br>")
+      redirect_to :back
     end
   end
 
   private
 
   def setup_order_form
-    @order_form ||= CustomerAndOrderForm.new(params[:customer_and_order_form] || {})
+    preloaded_settings = params[:action] == "create_table_order" ? {confirm_personal_order: true, item_ids: [Item.find_by(code: "R").id]} : {}
+    @order_form ||= CustomerAndOrderForm.new(params[:customer_and_order_form].merge(preloaded_settings) || {})
   end
 end
