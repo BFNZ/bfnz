@@ -1,0 +1,38 @@
+.table-container {
+  margin: 0 15px;
+
+  h2 {
+    max-width: 280px;
+    margin: auto;
+    margin-bottom: 30px;
+
+    @media(min-width:768px){
+      max-width: 400px;
+    } 
+  }
+
+  .table-form {
+    margin: auto;
+    max-width: 280px;
+
+    @media(min-width:768px){
+      max-width: 400px;
+    }
+  }
+  .form-description {
+    // display: inline;
+    color: darkgrey;
+  }
+
+  .form-group input[type="text"] {
+    width: 100%;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

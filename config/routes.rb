@@ -22,9 +22,8 @@ Rails.application.routes.draw do
   resources :tables, except: [:show, :index]
   get 'table' => 'tables#show'
   get 'tables' => redirect('table')
-
-  post 'table/join' => 'tables#join_table', as: :join_table
   post 'table/exit' => 'tables#exit_table', as: :exit_table
+
   resources :orders, only: [:new, :create]
 
   get 'login' => 'user_sessions#new', as: :login

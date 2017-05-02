@@ -37,17 +37,6 @@ class TablesController < ApplicationController
     end
   end
 
-  def join_table
-    @table = Table.find(:id)
-    if @table
-      bake_cookie @table.id
-      redirect_to table_path, notice: "Joined table \##{@table.code}."
-    else
-      flash[:error] = @table.errors.full_messages.join(", ")
-      render 'new'
-    end
-  end
-
   def exit_table
     cookies.delete("bfnz_table")
     redirect_to new_table_path
@@ -64,6 +53,7 @@ class TablesController < ApplicationController
                                   :coordinator_last_name,
                                   :coordinator_phone,
                                   :coordinator_email,
-                                  :location)
+                                  :location,
+                                  :city)
   end
 end
