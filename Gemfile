@@ -33,6 +33,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails'
 end
 
 group :test do

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
    root 'home#index'
 
   resources :tables, except: [:show, :index]
+  get 'table/new' => redirect('tables/new')
   get 'table' => 'tables#show', as: :show_table
   get 'tables' => redirect('table')
   post 'table/exit' => 'tables#exit_table', as: :exit_table
