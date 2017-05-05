@@ -1,5 +1,11 @@
 .table-container {
-  margin: 0 15px;
+  margin: 0 auto;
+  max-width: 400px;
+  @media(min-width: $screen-sm-min){
+    max-width: 600px;
+  }
+
+
   font-family: 'Helvetica Neue',Arial,sans-serif;
 
   h2 {
@@ -9,7 +15,7 @@
 
     @media(min-width: $screen-sm-min){
       max-width: 400px;
-    } 
+    }
   }
 
   .table-form {
