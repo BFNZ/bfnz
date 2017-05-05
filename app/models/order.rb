@@ -7,8 +7,8 @@ class Order < ActiveRecord::Base
 
   paginates_per 20
 
-  enum method_of_discovery: [:unknown, :mail_disc, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website, :other_disc]
-  enum method_received: [:mail, :phone, :personally_delivered, :internet, :other]
+  enum method_of_discovery: [:unknown, :mail_disc, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website, :other_disc, :table_disc]
+  enum method_received: [:mail, :phone, :personally_delivered, :internet, :other, :table]
 
   scope :created_between, ->(from, to) { where("orders.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }

@@ -2,7 +2,11 @@ class TablesController < ApplicationController
 
   def show
     @disable_navbar = true
-    redirect_to new_table_path unless cookies["bfnz_table"]
+    if cookies["bfnz_table"]
+      @table = Table.find(cookies["bfnz_table"])
+    else
+      redirect_to new_table_path
+    end
     @order_form ||= CustomerAndOrderForm.new({})
   end
 
@@ -15,6 +19,7 @@ class TablesController < ApplicationController
     if @table.save
       bake_cookie @table.id
       redirect_to show_table_path, notice: "Table \##{@table.id.to_s.rjust(4, '0')} created."
+    else
       flash[:error] = @table.errors.full_messages.join("<br>")
       render 'new'
     end
