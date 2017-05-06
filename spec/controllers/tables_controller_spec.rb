@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TablesController do
-  fdescribe "GET show" do
+  describe "GET show" do
     subject { get :show }
     context "when no cookies exist" do
       it { is_expected.to redirect_to(new_table_path)}
@@ -13,6 +13,15 @@ RSpec.describe TablesController do
       end
       it { is_expected.to render_template "show" }
     end
-
+  end
+  describe "POST create" do
+    subject { post :create, table: FactoryGirl.attributes_for(:table) }
+    it "creates table" do
+      expect { subject }.to change(Table, :count).by(1)
+    end
+    it "bakes cookies" do
+      subject
+      expect(!!response.cookies["bfnz_table"]).to eq true
+    end
   end
 end
