@@ -34,10 +34,10 @@ RSpec.describe OrdersController do
       end
       it "marks order already shipped, with table as method discovered and received" do
         subject
-        expect(Order.last.method_of_discovery).to eq("table_disc")
-        expect(Order.last.method_received).to eq("table")
-        expect(Order.last.table_id).to eq(create_table_order_params[:table_id])
-        expect(Order.last.shipped_before_order).to eq true
+        expect(Order.last).to have_attributes(method_of_discovery: "table_disc",
+                                              method_received: "table",
+                                              table_id: create_table_order_params[:table_id],
+                                              shipped_before_order: true)
       end
   end
 end

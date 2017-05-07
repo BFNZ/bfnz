@@ -19,6 +19,10 @@ RSpec.describe TablesController do
     it "creates table" do
       expect { subject }.to change(Table, :count).by(1)
     end
+    it "table has attributes" do
+      subject
+      expect(Table.last).to have_attributes(FactoryGirl.attributes_for(:table))
+    end
     it "bakes cookies" do
       subject
       expect(!!response.cookies["bfnz_table"]).to eq true
