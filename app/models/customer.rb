@@ -31,7 +31,7 @@ class Customer < ActiveRecord::Base
     where(territorial_authority_id: id)
   }
   scope :can_ship_to, -> {
-      where(bad_address: false)
+      where(bad_address: false).where.not("further_contact_requested = #{Customer.further_contact_requesteds[:not_wanted]}")
   }
 
   def self.strip_non_numeric(string)
