@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501023432) do
+ActiveRecord::Schema.define(version: 20160915013738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,15 +109,13 @@ ActiveRecord::Schema.define(version: 20170501023432) do
     t.integer  "method_of_discovery"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ip_address",           limit: 40
-    t.string   "session_identifier",   limit: 100
+    t.string   "ip_address",          limit: 40
+    t.string   "session_identifier",  limit: 100
     t.integer  "method_received"
-    t.boolean  "duplicate",                        default: false
+    t.boolean  "duplicate",                       default: false
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "customer_id"
-    t.integer  "table_id"
-    t.boolean  "shipped_before_order",             default: false
   end
 
   add_index "orders", ["created_by_id"], name: "index_orders_on_created_by_id", using: :btree
@@ -132,17 +130,6 @@ ActiveRecord::Schema.define(version: 20170501023432) do
   end
 
   add_index "shipments", ["created_at"], name: "index_shipments_on_created_at", using: :btree
-
-  create_table "tables", force: true do |t|
-    t.string   "coordinator_phone"
-    t.string   "coordinator_email"
-    t.text     "location"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "coordinator_first_name"
-    t.string   "coordinator_last_name"
-    t.string   "city"
-  end
 
   create_table "territorial_authorities", force: true do |t|
     t.string   "name",               null: false

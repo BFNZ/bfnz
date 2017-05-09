@@ -16,9 +16,9 @@
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'https://www.addressfinder.co.nz/assets/v2/widget.js' %>
-    <%= javascript_include_tag 'bootstrap.min.js' %>
-    <%= javascript_include_tag 'jquery.easing.min.js' %>
-    <%= javascript_include_tag 'wow.min.js' %>
+   <%= javascript_include_tag 'bootstrap.min.js' %>
+   <%= javascript_include_tag 'jquery.easing.min.js' %>
+   <%= javascript_include_tag 'wow.min.js' %>
     <%= csrf_meta_tags %>
 
 
@@ -32,9 +32,16 @@
 
 
 
-    <%= stylesheet_link_tag 'animate.min', media: 'all' %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+        <%= stylesheet_link_tag 'font-awesome.min', media: 'all' %>
+        <%= stylesheet_link_tag 'font-awesome', media: 'all' %>
+    <!-- Plugin CSS -->
+
+        <%= stylesheet_link_tag 'animate.min', media: 'all' %>
+    <!-- Custom CSS -->
+    <!--<link rel="stylesheet" href="css/creative.css" type="text/css">-->
+        <%= stylesheet_link_tag 'creative', media: 'all' %>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,7 +54,7 @@
 
 <body id="page-top">
 
-    <nav class="navbar navbar-default" <%= "style='display: none'" if @disable_navbar %> >
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -80,6 +87,7 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
 
 
 

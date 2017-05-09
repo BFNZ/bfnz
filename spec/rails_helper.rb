@@ -36,8 +36,6 @@ Capybara.register_driver :selenium do |app|
 end
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
-
   config.include FeatureHelpers, type: :feature
   #webdriver.firefox.bin
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -87,6 +85,4 @@ RSpec.configure do |config|
   config.before(:each, js: true) do
     Capybara.page.driver.browser.manage.window.maximize
   end
-
-  config.filter_run_when_matching :focus
 end

@@ -12,12 +12,12 @@
  *
  *= require image-picker
  *= require bootstrap-datepicker3
+ *= require_tree .
+ *= require_self
  */
 
-// @import 'bootstrap';
+@import 'bootstrap';
 @import "bootstrap/theme";
-@import "libraries/*";
-@import "custom/*";
 
 .navbar-static-top {
   margin-bottom: 19px;
