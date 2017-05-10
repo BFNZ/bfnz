@@ -13,9 +13,9 @@ class Order < ActiveRecord::Base
   scope :created_between, ->(from, to) { where("orders.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
-  scope :shipped, -> { where("orders.shipment_id IS NOT NULL OR orders.shipped_before_order = TRUE") }
+  scope :shipped, -> { where("orders.shipment_id IS NOT NULL") }
   scope :ready_to_ship, -> {
-    where(shipment_id: nil ).where(shipped_before_order: [false, nil]).joins(:customer).merge(Customer.can_ship_to)
+    where(shipment_id: nil ).joins(:customer).merge(Customer.can_ship_to)
   }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
 
@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   end
 
   def shipped?
-    shipment_id.present? || shipped_before_order?
+    shipment_id.present?
   end
 
   def shipped_at

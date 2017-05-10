@@ -20,7 +20,6 @@ class CreateOrderService
     @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address,
                                                                   method_received: method_received,
                                                                   method_of_discovery: @table_id.present? ? :table_disc : nil,
-                                                                  shipped_before_order: @table_id.present?,
                                                                   table_id: @table_id
                                                                   ))
   end
