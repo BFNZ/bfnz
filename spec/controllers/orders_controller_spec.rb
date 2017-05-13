@@ -32,12 +32,11 @@ RSpec.describe OrdersController do
       it "creates order" do
         expect { subject }.to change(Order, :count).by(1)
       end
-      it "marks order already shipped, with table as method discovered and received" do
+      it "marks order with table as method discovered and received" do
         subject
         expect(Order.last).to have_attributes(method_of_discovery: "table_disc",
                                               method_received: "table",
-                                              table_id: create_table_order_params[:table_id],
-                                              shipped_before_order: true)
+                                              table_id: create_table_order_params[:table_id])
       end
   end
 end

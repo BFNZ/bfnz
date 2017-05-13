@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   has_and_belongs_to_many :items
+  belongs_to :table
   belongs_to :shipment
   belongs_to :customer
   belongs_to :created_by, class_name: 'User'
