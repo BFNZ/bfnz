@@ -38,5 +38,11 @@ RSpec.describe OrdersController do
                                               method_received: "table",
                                               table_id: create_table_order_params[:table_id])
       end
+      it "creates shipment" do
+        expect { subject }.to change(Shipment, :count).by(1)
+      end
+      it "creates customer" do
+        expect { subject }.to change(Customer, :count).by(1)
+      end
   end
 end
