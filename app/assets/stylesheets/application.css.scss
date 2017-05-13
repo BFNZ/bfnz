@@ -14,10 +14,18 @@
  *= require bootstrap-datepicker3
  */
 
-// @import 'bootstrap';
+@import 'bootstrap';
+// @import 'bootstrap-sprocdkets';
 @import "bootstrap/theme";
 @import "libraries/*";
 @import "custom/*";
+
+
+
+// Override Bootstraps colouring of the buttons
+.btn.btn-primary {
+    background-image: none;
+}
 
 .navbar-static-top {
   margin-bottom: 19px;

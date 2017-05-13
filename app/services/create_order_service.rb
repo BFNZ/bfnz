@@ -6,9 +6,10 @@ class CreateOrderService
   end
 
   def save
-      if @form.valid?
+    if @form.valid?
       customer.save!
       order.save!
+      create_shipment
       send_confirmation_email
       true
     else
@@ -20,8 +21,8 @@ class CreateOrderService
     @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address,
                                                                   method_received: method_received,
                                                                   method_of_discovery: @table_id.present? ? :table_disc : nil,
-                                                                  shipped_before_order: @table_id.present?,
-                                                                  table_id: @table_id
+                                                                  table_id: @table_id,
+                                                                  received_in_person: !!@table_id
                                                                   ))
   end
 
@@ -30,6 +31,13 @@ class CreateOrderService
   end
 
   private
+
+  def create_shipment
+    if order.received_in_person?
+      Shipment.create_for_orders(Order.where(id: order.id))
+    end
+    true
+  end
 
   def ip_address
     @request.remote_ip
