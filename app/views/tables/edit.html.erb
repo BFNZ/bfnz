@@ -1,0 +1,6 @@
+<%= render partial: "shared/flash_messages", flash: flash %>
+
+<h2> Edit Table </h2>
+<%= render 'table_form' %>
+
+<%= link_to 'Exit table', exit_table_path, method: :post %>

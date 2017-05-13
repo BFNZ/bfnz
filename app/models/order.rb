@@ -7,15 +7,15 @@ class Order < ActiveRecord::Base
 
   paginates_per 20
 
-  enum method_of_discovery: [:unknown, :mail_disc, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website, :other_disc]
-  enum method_received: [:mail, :phone, :personally_delivered, :internet, :other]
+  enum method_of_discovery: [:unknown, :mail_disc, :uni_lit, :non_uni_lit, :other_ad, :word_of_mouth, :website, :other_disc, :table_disc]
+  enum method_received: [:mail, :phone, :personally_delivered, :internet, :other, :table]
 
   scope :created_between, ->(from, to) { where("orders.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :shipped_between, ->(from, to) { joins(:shipment).where("shipments.created_at BETWEEN ? AND ?", from.to_time, to.to_time+1.day) }
   scope :id, ->(id) { where(id: id) }
-  scope :shipped, -> { where.not(shipment_id: nil) }
+  scope :shipped, -> { where("orders.shipment_id IS NOT NULL OR orders.shipped_before_order = TRUE") }
   scope :ready_to_ship, -> {
-    where(shipment_id: nil).joins(:customer).merge(Customer.can_ship_to)
+    where(shipment_id: nil ).where(shipped_before_order: [false, nil]).joins(:customer).merge(Customer.can_ship_to)
   }
   scope :item_ids, ->(item_ids) { joins(:items).where(items: {id: item_ids}) }
 
@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   end
 
   def shipped?
-    shipment_id.present?
+    shipment_id.present? || shipped_before_order?
   end
 
   def shipped_at

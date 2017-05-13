@@ -1,7 +1,8 @@
 class CreateOrderService
-  def initialize(request, form)
+  def initialize(request, form, table_id=nil)
     @request = request
     @form = form
+    @table_id = table_id
   end
 
   def save
@@ -16,8 +17,13 @@ class CreateOrderService
   end
 
   def order
-      @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address, method_received: method_received))
-    end
+    @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address,
+                                                                  method_received: method_received,
+                                                                  method_of_discovery: @table_id.present? ? :table_disc : nil,
+                                                                  shipped_before_order: @table_id.present?,
+                                                                  table_id: @table_id
+                                                                  ))
+  end
 
   def customer
     @customer ||= Customer.new(@form.customer_attributes)
@@ -30,9 +36,8 @@ class CreateOrderService
   end
 
   def method_received
-    method_received = :internet
+    @table_id ? :table : :internet
   end
-
 
   def send_confirmation_email
     OrderMailer.confirmation_email(order).deliver if customer.has_email?

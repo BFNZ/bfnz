@@ -19,7 +19,14 @@ Rails.application.routes.draw do
 
    root 'home#index'
 
+  resources :tables, except: [:show, :index]
+  get 'table/new' => redirect('tables/new')
+  get 'table' => 'tables#show', as: :show_table
+  get 'tables' => redirect('table')
+  post 'table/exit' => 'tables#exit_table', as: :exit_table
+
   resources :orders, only: [:new, :create]
+  post 'orders/create_table_order' => 'orders#create_table_order', as: :create_table_order
 
   get 'login' => 'user_sessions#new', as: :login
   post 'logout' => 'user_sessions#destroy', as: :logout
