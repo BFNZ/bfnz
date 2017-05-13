@@ -1,0 +1,49 @@
+.table-container {
+  margin: 0 auto;
+  max-width: 400px;
+  @media(min-width: $screen-sm-min){
+    max-width: 600px;
+  }
+
+
+  font-family: 'Helvetica Neue',Arial,sans-serif;
+
+  h2 {
+    max-width: 280px;
+    margin: auto;
+    margin-bottom: 30px;
+
+    @media(min-width: $screen-sm-min){
+      max-width: 400px;
+    }
+  }
+
+  .table-form {
+    margin: auto;
+    max-width: 280px;
+
+    @media(min-width: $screen-sm-min){
+      max-width: 400px;
+    }
+  }
+  .form-description {
+    // display: inline;
+    color: darkgrey;
+  }
+
+  .form-group input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #ecf7ff;
+    font-weight: 600;
+  }
+}
