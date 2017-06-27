@@ -2,6 +2,7 @@ bfnz
 ====
 SETUP
 
+```
 gem install bundler
 cd bfnz
 sudo apt install postgresql
@@ -12,7 +13,8 @@ exit
 rake db:create
 rake db:migrate
 rake db:seed
-rails s
+rails s 
+```
 To connect with pgadmin3, edit pg configuration files, per: https://help.ubuntu.com/community/PostgreSQL and restart pg with:
 sudo /etc/init.d/postgresql restart
 (not reload as in above docs)
