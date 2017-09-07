@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   private
 
   def setup_order_form
-    preloaded_settings = params[:action] == "create_table_order" ? {confirm_personal_order: true, item_ids: [Item.find_by(code: "R").id]} : {}
+    preloaded_settings = params[:action] == "create_table_order" ? {confirm_personal_order: '1', item_ids: [Item.find_by(code: "R").id]} : {}
     @order_form ||= params[:customer_and_order_form] ?
       CustomerAndOrderForm.new(params[:customer_and_order_form].merge(preloaded_settings)) :
       CustomerAndOrderForm.new({})
