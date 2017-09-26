@@ -51,7 +51,7 @@ feature 'Managing customers', js: true do
     expect(Order.last).to be_shipped
   end
 
-  scenario "Search duplidates by name" do
+  scenario "Search duplicates by name" do
     click_link "New Customer"
     fill_in "First Name", with: "Joe"
     fill_in "Last Name", with: "Smith"
@@ -84,7 +84,7 @@ feature 'Managing customers', js: true do
     expect(page).not_to have_text "Order #{order.identifier}"
   end
 
-  scenario "Updating an existing cusomter" do
+  scenario "Updating an existing customer" do
     ViewOrdersPage.new.edit("Joe")
 
     expect(page).to have_text "Customer #{customer.identifier}"
