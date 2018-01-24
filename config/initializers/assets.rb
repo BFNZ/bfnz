@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file.
 
 Rails.application.config.assets.precompile += %w( animate.min.css )
-Rails.application.config.assets.precompile += %w( creative.css )
+Rails.application.config.assets.precompile += %w( libraries/creative.css )
 Rails.application.config.assets.precompile += %w( bootstrap.min.css )
 Rails.application.config.assets.precompile += %w( jquery.js )
 Rails.application.config.assets.precompile += %w( bootstrap.min.js )
