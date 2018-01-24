@@ -7,7 +7,7 @@ module Admin
     def create
       @order_form = NewOrderForm.new(customer: customer,
                                      form_params: params[:admin_new_order_form])
-      @create_order = CreateOrderService.new(user: current_user,
+      @create_order = ::Admin::CreateOrderService.new(user: current_user,
                                              form: @order_form).perform
       @edit_customer_view = Customers::EditView.new(customer)
     end
