@@ -1,52 +1,60 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.5'
-gem 'pg'
-
-gem 'spreadsheet'
-gem 'sass-rails', '~> 4.0.3'
-gem 'bootstrap-sass'
+# Rails
+gem 'rails', '4.2.6'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'therubyracer',  platforms: :ruby
+gem 'coffee-rails', '~> 4.1.0'
+gem 'therubyracer', platforms: :ruby
+
 gem 'jquery-rails'
-gem 'bootstrap-datepicker-rails'
-gem 'authlogic'
-gem 'bcrypt'
-gem 'virtus'
-gem 'kaminari'
-gem 'attribute_normalizer'
+gem 'jbuilder', '~> 2.0'
+gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
-gem 'roo'
-gem 'connection_pool'
-gem 'mini_portile2', '~> 2.0'
-gem 'minitest'
-gem 'rake-compiler'
 
-
+group :development, :test do
+  gem 'byebug'
+end
 
 group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
+end
+
+
+# Custom
+gem 'pg', '~> 0.18.4'
+gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
+gem 'authlogic', '~> 3.6', '>= 3.6.1'
+gem 'virtus', '~> 1.0', '>= 1.0.5'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'attribute_normalizer', '~> 1.2'
+gem 'roo', '~> 2.7', '>= 2.7.1'
+gem 'connection_pool', '~> 2.2', '>= 2.2.1'
+gem 'mini_portile2', '~> 2.3'
+gem 'rake-compiler', '~> 1.0', '>= 1.0.4'
+
+group :development do
+  gem 'better_errors', '~> 2.4'
+  gem 'binding_of_caller', '~> 0.8.0'
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
+  gem 'pry', '~> 0.11.3'
+  gem 'factory_girl_rails', '~> 4.9'
 end
 
 group :test do
-  gem 'guard-rspec', require: false
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'selenium-webdriver'        # v2.53.4 requires older Firefox (try 47.0.1)
-  gem 'database_cleaner', '1.3.0' # TODO investigate why 1.4.0 breaks the tests
-  gem 'machinist'
-  gem 'timecop'
-  gem 'webmock'
+  gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
+  gem 'capybara', '~> 2.17'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
+  gem 'selenium-webdriver', '~> 3.8'
+  gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
+  gem 'machinist', '~> 2.0'
+  gem 'timecop', '~> 0.9.1'
+  gem 'webmock', '~> 3.3'
 end
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
