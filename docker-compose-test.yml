@@ -1,0 +1,32 @@
+version: "2.1"
+services:
+  test:
+    build: .
+    image: "bfnz_dev"
+    working_dir: /home/app/bfnz
+    volumes:
+      - ./:/home/app/bfnz
+    command: "bundle exec rspec"
+    depends_on:
+      - db
+      - firefox
+    environment:
+      - RAILS_ENV=test
+      - DOCKERIZED=true
+
+  db:
+    image: "postgres:9.6"
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_DB=bfnz_test
+      - POSTGRES_USER=bfnz
+      - POSTGRES_PASSWORD=secret
+
+  firefox:
+    image: selenium/standalone-firefox:3.8.1
+
+volumes:
+  db:
