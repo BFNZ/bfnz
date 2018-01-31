@@ -1,0 +1,30 @@
+version: "2.1"
+services:
+  web:
+    build: .
+    image: "bfnz_dev"
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    user: $UID:$GID
+    command: "bin/rails s -b 0.0.0.0"
+    depends_on:
+      - db
+    environment:
+      - RAILS_ENV=development
+      - DOCKERIZED=true
+
+  db:
+    image: "postgres:9.6"
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "3001:5432"
+    environment:
+      - POSTGRES_DB=bfnz_development
+      - POSTGRES_USER=bfnz
+      - POSTGRES_PASSWORD=secret
+
+volumes:
+  db:
