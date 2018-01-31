@@ -36,6 +36,7 @@ gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'connection_pool', '~> 2.2', '>= 2.2.1'
 gem 'mini_portile2', '~> 2.3'
 gem 'rake-compiler', '~> 1.0', '>= 1.0.4'
+gem 'rake', '~> 12.3'
 
 group :development do
   gem 'better_errors', '~> 2.4'

@@ -333,6 +333,7 @@ DEPENDENCIES
   pg (~> 0.18.4)
   pry (~> 0.11.3)
   rails (= 4.2.10)
+  rake (~> 12.3)
   rake-compiler (~> 1.0, >= 1.0.4)
   roo (~> 2.7, >= 2.7.1)
   rspec-rails (~> 3.7, >= 3.7.2)
