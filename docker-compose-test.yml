@@ -5,7 +5,7 @@ services:
     image: "bfnz_dev"
     working_dir: /home/app/bfnz
     volumes:
-      - ./:/home/app/bfnz
+      - ./:/app
     command: "bundle exec rspec"
     depends_on:
       - db
