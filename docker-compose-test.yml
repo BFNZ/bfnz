@@ -3,7 +3,6 @@ services:
   test:
     build: .
     image: "bfnz_dev"
-    working_dir: /home/app/bfnz
     volumes:
       - ./:/app
     command: "bundle exec rspec"
