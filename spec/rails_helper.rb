@@ -38,7 +38,7 @@ Capybara.register_driver :selenium do |app|
     })
   else
     require 'selenium/webdriver'
-    Selenium::WebDriver::Firefox::Binary.path = "/opt/firefox47/bin/firefox"
+    Selenium::WebDriver::Firefox.driver_path = "/usr/local/bin/geckodriver"
     Capybara::Selenium::Driver.new(app, :browser => :firefox)
   end
 end

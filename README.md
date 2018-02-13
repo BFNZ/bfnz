@@ -13,17 +13,20 @@ exit
 rake db:create
 rake db:migrate
 rake db:seed
-rails s 
+rails s
 ```
 To connect with pgadmin3, edit pg configuration files, per: https://help.ubuntu.com/community/PostgreSQL and restart pg with:
 sudo /etc/init.d/postgresql restart
 (not reload as in above docs)
 
+In the ./spec/rails_helper.rb you may need to change the browser path.
+Selenium::WebDriver::Firefox.driver_path = "/usr/local/bin/geckodriver"
+
 To use preconfigured admin users with email addresses (for testing ONLY, not in prod) add
 ENV['RAILS_ENV'] = 'development'
 to config/environment.rb
-and then run 
-rake db:seed to create the 3 test users mentioned at the bottom of db/seeds.rb 
+and then run
+rake db:seed to create the 3 test users mentioned at the bottom of db/seeds.rb
 These users can be used to login to the admin site on your local environment
 
 ====

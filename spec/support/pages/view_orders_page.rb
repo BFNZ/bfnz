@@ -32,6 +32,8 @@ class ViewOrdersPage < CapybaraPage
   end
 
   def assert_csv_content
-    expect(page).to have_text "ID,Title,First name,Last name,Street address,Suburb,City/Town,Postcode,Region,Phone,Email,Method of discovery,Created at,IP address,Method received,Tertiary student,Tertiary institution,Shipment ID,Shipped at"
+    #expect(page).to have_text "ID,Title,First name,Last name,Street address,Suburb,City/Town,Postcode,Region,Phone,Email,Method of discovery,Created at,IP address,Method received,Tertiary student,Tertiary institution,Shipment ID,Shipped at"
+    expect(page).to have_text "ID,Title,First name,Last name,Street address,Phone,Email,Method received,Item codes,Contact wanted,Admin notes,Suburb,City/Town,Postcode,Region,Shipped at,Shipment ID,IP address,Tertiary student,Tertiary institution,User name,User email,Method of discovery,Created at"
+
   end
 end
