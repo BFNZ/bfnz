@@ -66,7 +66,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="page-scroll" href="/orders/new"><h3>Order</h3> <i>Bibles and books</i></a>
-                     <li><a class="page-scroll" href="/staticpages/Gospel/#gospel"> <h3>Share</h3><i>The Gospel </i></p></a>
+                     <li><a class="page-scroll" href="/staticpages/Gospel/#gospel"> <h3>Share</h3><i>The Gospel </i></a>
                      <li><a class="page-scroll" href="/staticpages/Links/#study"><h3>Study</h3> <i>The word</i></a>
                     </li>
                      <li>
@@ -92,7 +92,7 @@
                     <a href="/#faith">Our Faith</a>&nbsp&nbsp
                     <a href="/staticpages/FAQ/#FAQ">FAQs</a>&nbsp&nbsp
                     <%= link_to 'Free Order', new_order_path%><br>
-                    © 2002-2017 Bibles for New Zealand. All rights reserved. <br>
+                    © 2002-<%= Time.now.year %> Bibles for New Zealand. All rights reserved. <br>
                     <a href="/staticpages/FAQ/#terms">Terms of Use</a>&nbsp&nbsp
                     <a href="/staticpages/FAQ/#privacy">Privacy Policy</a>
                 </div>
