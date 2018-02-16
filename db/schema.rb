@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cancelled_order_events", force: true do |t|
+  create_table "cancelled_order_events", force: :cascade do |t|
     t.integer  "cancelled_by_id"
     t.integer  "customer_id"
     t.text     "order_details"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "cancelled_order_events", ["cancelled_by_id"], name: "index_cancelled_order_events_on_cancelled_by_id", using: :btree
   add_index "cancelled_order_events", ["customer_id"], name: "index_cancelled_order_events_on_customer_id", using: :btree
 
-  create_table "contact_lists", force: true do |t|
+  create_table "contact_lists", force: :cascade do |t|
     t.integer  "territorial_authority_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
 
   add_index "contact_lists", ["territorial_authority_id"], name: "index_contact_lists_on_territorial_authority_id", using: :btree
 
-  create_table "customers", force: true do |t|
+  create_table "customers", force: :cascade do |t|
     t.integer  "territorial_authority_id"
     t.integer  "contact_list_id"
     t.integer  "created_by_id"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "customers", ["territorial_authority_id"], name: "index_customers_on_territorial_authority_id", using: :btree
   add_index "customers", ["updated_by_id"], name: "index_customers_on_updated_by_id", using: :btree
 
-  create_table "items", force: true do |t|
+  create_table "items", force: :cascade do |t|
     t.string   "title",                       null: false
     t.string   "author"
     t.string   "code",                        null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
     t.datetime "updated_at"
   end
 
-  create_table "items_orders", id: false, force: true do |t|
+  create_table "items_orders", id: false, force: :cascade do |t|
     t.integer "item_id"
     t.integer "order_id"
   end
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "items_orders", ["item_id"], name: "index_items_orders_on_item_id", using: :btree
   add_index "items_orders", ["order_id"], name: "index_items_orders_on_order_id", using: :btree
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "shipment_id"
     t.text     "admin_notes"
     t.text     "coordinator_notes"
@@ -125,14 +125,14 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
   add_index "orders", ["updated_by_id"], name: "index_orders_on_updated_by_id", using: :btree
 
-  create_table "shipments", force: true do |t|
+  create_table "shipments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "shipments", ["created_at"], name: "index_shipments_on_created_at", using: :btree
 
-  create_table "tables", force: true do |t|
+  create_table "tables", force: :cascade do |t|
     t.string   "coordinator_phone"
     t.string   "coordinator_email"
     t.text     "location"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
     t.string   "city"
   end
 
-  create_table "territorial_authorities", force: true do |t|
+  create_table "territorial_authorities", force: :cascade do |t|
     t.string   "name",               null: false
     t.integer  "code",               null: false
     t.string   "addressfinder_name", null: false
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "territorial_authorities", ["addressfinder_name"], name: "index_territorial_authorities_on_addressfinder_name", using: :btree
   add_index "territorial_authorities", ["coordinator_id"], name: "index_territorial_authorities_on_coordinator_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                             null: false
     t.string   "crypted_password",                  null: false
     t.string   "password_salt",                     null: false
@@ -169,4 +169,5 @@ ActiveRecord::Schema.define(version: 20170510022444) do
   add_index "users", ["admin"], name: "index_users_on_admin", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
+  add_foreign_key "orders", "tables"
 end

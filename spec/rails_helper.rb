@@ -44,7 +44,7 @@ Capybara.register_driver :selenium do |app|
 end
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.include FeatureHelpers, type: :feature
   #webdriver.firefox.bin
