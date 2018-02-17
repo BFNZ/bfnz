@@ -78,7 +78,7 @@ describe Order do
 
     let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
     let!(:not_shipped_order) { Order.make! }
-    let!(:table_order) { FactoryGirl.create(:table_order) }
+    let!(:table_order) { FactoryBot.create(:table_order) }
 
     it "returns orders that are shipped" do
       expect(shipped_scope).to match_array [shipped_order, table_order]
@@ -90,7 +90,7 @@ describe Order do
 
     let!(:shipped_order) { Order.make!(shipment: Shipment.new) }
     let!(:not_shipped_order) { Order.make!(customer: customer) }
-    let!(:table_order) { FactoryGirl.create(:table_order) }
+    let!(:table_order) { FactoryBot.create(:table_order) }
     let(:customer) { Customer.make! }
 
     it "returns orders that are not shipped" do

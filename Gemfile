@@ -44,7 +44,7 @@ end
 
 group :development, :test do
   gem 'pry', '~> 0.11.3'
-  gem 'factory_girl_rails', '~> 4.9'
+  gem 'factory_bot_rails', '~> 4.8'
 end
 
 group :test do
