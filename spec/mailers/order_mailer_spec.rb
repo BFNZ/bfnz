@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OrderMailer do
 
   describe "#confirmation_email" do
-    subject(:email) { described_class.confirmation_email(order).deliver }
+    subject(:email) { described_class.confirmation_email(order).deliver_now }
 
     let(:customer) { Customer.new(email: 'myemail@gmail.com', first_name: 'Jane', last_name: 'Doe') }
     let(:order) { Order.new(customer: customer) }
