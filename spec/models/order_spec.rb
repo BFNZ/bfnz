@@ -81,5 +81,5 @@ describe Order do
         expect(ready_to_ship_scope).not_to include not_shipped_order
       end
     end
-end
+  end
 end
