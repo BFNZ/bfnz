@@ -56,7 +56,7 @@ describe Customer do
     let!(:match2) { Customer.make!(address: '6 Flower st') }
     let!(:nope)   { Customer.make!(address: '7 Flowerbed St') }
 
-    it "returns customers that match on last name" do
+    it "returns customers that match on address" do
       expect(address_scope).to match_array [match1, match2]
     end
   end
