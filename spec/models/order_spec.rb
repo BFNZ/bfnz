@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'shared_examples'
 
 describe Order do
   describe ".id" do
@@ -13,55 +14,23 @@ describe Order do
   end
 
   describe ".created_between" do
-    subject(:created_between_scope) {
+    subject {
       Order.created_between(Date.parse('2014-1-1'), Date.parse('2014-1-31'))
     }
-
-    let!(:dec31) do
-      Timecop.freeze(Time.new(2013,12,31,1,0,0)) { Order.make! }
-    end
-    let!(:jan1) do
-      Timecop.freeze(Time.new(2014,1,1,1,0,0)) { Order.make! }
-    end
-    let!(:jan31) do
-      Timecop.freeze(Time.new(2014,1,31,1,0,0)) { Order.make! }
-    end
-    let!(:feb1) do
-      Timecop.freeze(Time.new(2014,2,1,1,0,0)) { Order.make! }
-    end
-
-    it "returns order that were created on or in between the dates specified" do
-      expect(created_between_scope).to match_array [jan1, jan31]
-    end
+    include_examples 'date_range'
   end
 
   describe ".shipped_between" do
     subject(:shipped_between_scope) {
       Order.shipped_between(Date.new(2014,1,1), Date.new(2014,1,31))
     }
-
-    let!(:dec31) do
-      Timecop.freeze(Time.new(2013,12,31,1,0,0)) { Order.make!(:shipped) }
-    end
-    let!(:jan1) do
-      Timecop.freeze(Time.new(2014,1,1,11,0,0)) { Order.make!(:shipped) }
-    end
-    let!(:jan31) do
-      Timecop.freeze(Time.new(2014,1,31,12,0,0)) { Order.make!(:shipped) }
-    end
-    let!(:feb1) do
-      Timecop.freeze(Time.new(2014,2,1,1,0,0)) { Order.make!(:shipped) }
-    end
-
-    it "returns order that were shipped on or in between the dates specified" do
-      expect(shipped_between_scope).to match_array [jan1, jan31]
-    end
+    include_examples 'date_range'
   end
 
   describe ".item_ids" do
     subject(:item_ids_scope) { Order.item_ids([new_testament.id]) }
 
-    let(:new_testament)   { Item.find_by_code('R') }
+    let(:new_testament) { Item.find_by_code('R') }
     let(:church) { Item.find_by_code('C') }
 
     let!(:nt_only)   { Order.make!(items: [new_testament]) }
