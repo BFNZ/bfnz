@@ -21,28 +21,32 @@ create_table_order_params = {
     phone: "12389",
     email: "qwer@req.ew",
     further_contact_requested: 2,
-    confirm_personal_order: true,
+    confirm_personal_order: 1,
     item_ids: [1]
   }
 }
 
 RSpec.describe OrdersController do
+  before do
+    FactoryBot.create(:table, id: 1)
+  end
+
   describe "POST create_table_order" do
     subject { post :create_table_order, create_table_order_params }
-      it "creates order" do
-        expect { subject }.to change(Order, :count).by(1)
-      end
-      it "marks order with table as method discovered and received" do
-        subject
-        expect(Order.last).to have_attributes(method_of_discovery: "table_disc",
-                                              method_received: "table",
-                                              table_id: create_table_order_params[:table_id])
-      end
-      it "creates shipment" do
-        expect { subject }.to change(Shipment, :count).by(1)
-      end
-      it "creates customer" do
-        expect { subject }.to change(Customer, :count).by(1)
-      end
+    it "creates order" do
+      expect { subject }.to change(Order, :count).by(1)
+    end
+    it "marks order with table as method discovered and received" do
+      subject
+      expect(Order.last).to have_attributes(method_of_discovery: "table_disc",
+                                            method_received: "table",
+                                            table_id: create_table_order_params[:table_id])
+    end
+    it "creates shipment" do
+      expect { subject }.to change(Shipment, :count).by(1)
+    end
+    it "creates customer" do
+      expect { subject }.to change(Customer, :count).by(1)
+    end
   end
 end

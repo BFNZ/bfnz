@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :table do
     location "vic uni"
     city "Wellington"

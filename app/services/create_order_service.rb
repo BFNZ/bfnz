@@ -48,6 +48,6 @@ class CreateOrderService
   end
 
   def send_confirmation_email
-    OrderMailer.confirmation_email(order).deliver if customer.has_email?
+    OrderMailer.confirmation_email(order).deliver_now if customer.has_email?
   end
 end

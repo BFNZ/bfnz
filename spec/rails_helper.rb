@@ -8,6 +8,7 @@ require 'webmock/rspec'
 require 'capybara/rails'
 require 'support/pages/capybara_page'
 require 'selenium-webdriver'
+require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -44,7 +45,7 @@ Capybara.register_driver :selenium do |app|
 end
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.include FeatureHelpers, type: :feature
   #webdriver.firefox.bin
