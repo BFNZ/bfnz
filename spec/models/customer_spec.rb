@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'shared_examples'
 
 describe Customer do
   describe ".customer_id" do
@@ -13,27 +14,15 @@ describe Customer do
   end
 
   describe ".first_name" do
-    subject(:first_name_scope) { Customer.first_name("den") }
+    subject { Customer.first_name("den") }
 
-    let!(:dennis) { Customer.make!(first_name: 'Dennis') }
-    let!(:ayden)  { Customer.make!(first_name: 'Ayden') }
-    let!(:dean)   { Customer.make!(first_name: 'Dean') }
-
-    it "returns customers that match on first name" do
-      expect(first_name_scope).to match_array [dennis, ayden]
-    end
+    include_examples 'matching name', :first_name
   end
 
   describe ".last_name" do
-    subject(:last_name_scope) { Customer.last_name("den") }
+    subject { Customer.last_name("den") }
 
-    let!(:dennis) { Customer.make!(last_name: 'Dennis') }
-    let!(:ayden)  { Customer.make!(last_name: 'Ayden') }
-    let!(:dean)   { Customer.make!(last_name: 'Dean') }
-
-    it "returns customers that match on last name" do
-      expect(last_name_scope).to match_array [dennis, ayden]
-    end
+    include_examples 'matching name', :last_name
   end
 
   describe ".email" do

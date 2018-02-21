@@ -18,3 +18,14 @@ shared_examples_for 'date_range' do
   end
 
 end
+
+shared_examples_for 'matching name' do |name|
+
+  let!(:dennis) { Customer.make!(name => 'Dennis') }
+  let!(:ayden)  { Customer.make!(name => 'Ayden') }
+  let!(:dean)   { Customer.make!(name => 'Dean') }
+
+  it "returns customers that match on #{name}" do
+    expect(subject).to match_array [dennis, ayden]
+  end
+end
