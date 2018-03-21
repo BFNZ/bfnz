@@ -111,7 +111,7 @@ RSpec.configure do |config|
       Capybara.server_port = "3000"
     end
     if ENV['use_travis']
-      Capybara.page.driver.browser.manage.window.resize_to(1400, 1000)
+      #Capybara.page.driver.browser.manage.window.resize_to(1400, 1000)
     else
       Capybara.page.driver.browser.manage.window.maximize
     end
