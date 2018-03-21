@@ -20,6 +20,8 @@ services:
 # If needed, use xvfb to setup fake monitor display so Firefox GUI can be used by specs:
 # http://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-GUI-(e.g.-a-Web-browser)
 before_install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.20.0/geckodriver-v0.20.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.20.0-linux64.tar.gz -C /usr/local/bin/geckodriver
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - psql -c "CREATE DATABASE bfnz_test;" -U postgres
