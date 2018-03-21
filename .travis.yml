@@ -12,7 +12,7 @@ rvm:
   # Travis supports these versions: http://rubies.travis-ci.org/
 
 addons:
-  firefox: "38.0.5" # Set Firefox Version if needed.
+  firefox: 'latest'
 
 services:
   - postgresql
