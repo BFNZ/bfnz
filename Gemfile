@@ -56,6 +56,7 @@ group :test do
   gem 'selenium-webdriver', '~> 3.8'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
   gem 'machinist', '~> 2.0'
+  gem 'simplecov'
   gem 'timecop', '~> 0.9.1'
   gem 'webmock', '~> 3.3'
 end
