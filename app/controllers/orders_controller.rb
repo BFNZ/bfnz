@@ -1,3 +1,6 @@
+
+require 'rack-google-analytics'
+
 class OrdersController < ApplicationController
   before_filter :setup_order_form
 
@@ -5,6 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    ga_track_event("Button", "Select", "New Order") # Raises Hash.write error
     order_service = CreateOrderService.new(request, @order_form)
     if order_service.save
       redirect_to root_path, notice: "Thanks, your order will be shipped as soon as possible"
