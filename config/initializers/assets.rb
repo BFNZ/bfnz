@@ -18,4 +18,5 @@ Rails.application.config.assets.precompile += %w( bootstrap.min.js )
 Rails.application.config.assets.precompile += %w( jquery.easing.min.js )
 Rails.application.config.assets.precompile += %w( jquery.fittext.js )
 Rails.application.config.assets.precompile += %w( wow.min.js )
+Rails.application.config.assets.precompile += %w[analytics.js]
 Rails.application.config.assets.precompile += %w( creative.js )
