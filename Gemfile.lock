@@ -179,6 +179,9 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.1)
     rack (1.6.8)
+    rack-google-analytics (1.2.0)
+      actionpack
+      activesupport
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.10)
@@ -332,6 +335,7 @@ DEPENDENCIES
   mini_portile2 (~> 2.3)
   pg (~> 0.18.4)
   pry (~> 0.11.3)
+  rack-google-analytics
   rails (= 4.2.10)
   rake
   rake-compiler (~> 1.0, >= 1.0.4)
