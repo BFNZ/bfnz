@@ -15,6 +15,7 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'byebug'
+  gem 'rake'
 end
 
 group :development do

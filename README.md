@@ -5,7 +5,7 @@ SETUP
 ```
 gem install bundler
 cd bfnz
-sudo apt install postgresql
+sudo apt install postgresql libpq-dev
 bundle install
 sudo -u postgres -i
 createuser bfnz -dP (will prompt for password, enter: secret)

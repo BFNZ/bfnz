@@ -30,6 +30,12 @@ Capybara.javascript_driver = :selenium
 # http://blog.pixarea.com/2013/02/locking-the-firefox-version-when-testing-rails-with-capybara-and-selenium/
 # Older version of firefox can be found https://ftp.mozilla.org/pub/firefox/releases/47.0.1/
 
+def driver_on_path_or_fixed
+  path = `which geckodriver`
+  return path.strip unless path.empty? # In this case 'geckodriver' is not on the path
+  '/usr/local/bin/geckodriver'
+end
+
 Capybara.register_driver :selenium do |app|
   if ENV['DOCKERIZED']
     Capybara::Selenium::Driver.new(app, {
@@ -39,7 +45,7 @@ Capybara.register_driver :selenium do |app|
     })
   else
     require 'selenium/webdriver'
-    Selenium::WebDriver::Firefox.driver_path = "/usr/local/bin/geckodriver"
+    Selenium::WebDriver::Firefox.driver_path = driver_on_path_or_fixed
     Capybara::Selenium::Driver.new(app, :browser => :firefox)
   end
 end
@@ -104,7 +110,11 @@ RSpec.configure do |config|
       Capybara.server_host = ip
       Capybara.server_port = "3000"
     end
-    Capybara.page.driver.browser.manage.window.maximize
+    if ENV['use_travis']
+      Capybara.page.driver.browser.manage.window.resize_to(1400, 1000)
+    else
+      Capybara.page.driver.browser.manage.window.maximize
+    end
   end
 
   config.filter_run_when_matching :focus
