@@ -1,16 +1,17 @@
 shared_examples_for 'date_range' do
 
   let!(:dec31) do
-    Timecop.freeze(Time.new(2013,12,31,1,0,0)) { Order.make!(:shipped) }
+    # 2013-12-31 01:00:00 NZ time
+    Timecop.freeze(Time.zone.parse("2013-12-31 01:00:00")) { Order.make!(:shipped) }
   end
   let!(:jan1) do
-    Timecop.freeze(Time.new(2014,1,1,11,0,0)) { Order.make!(:shipped) }
+    Timecop.freeze(Time.zone.parse("2014-01-01 11:00:00")) { Order.make!(:shipped) }
   end
   let!(:jan31) do
-    Timecop.freeze(Time.new(2014,1,31,12,0,0)) { Order.make!(:shipped) }
+    Timecop.freeze(Time.zone.parse("2014-01-31 12:00:00")) { Order.make!(:shipped) }
   end
   let!(:feb1) do
-    Timecop.freeze(Time.new(2014,2,1,1,0,0)) { Order.make!(:shipped) }
+    Timecop.freeze(Time.zone.parse("2014-02-01 01:00:00")) { Order.make!(:shipped) }
   end
 
   it "returns order that were shipped on or in between the dates specified" do
