@@ -100,5 +100,22 @@
         </div>
 
 </footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1021685194"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'AW-1021685194');
+</script>
+<script>
+window.addEventListener('load',function(){
+  if(jQuery('.alert-info:contains(your order will be shipped as soon as possible)').length>0){
+    gtag('event', 'conversion', {
+      'send_to': 'AW-1021685194/OouiCOXKi4YBEMrblucD',
+      'transaction_id': ''
+    })
+  }
+})
+</script>
 </html>
