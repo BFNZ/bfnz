@@ -10,6 +10,9 @@ shared_examples_for 'date_range' do
   let!(:jan31) do
     Timecop.freeze(Time.zone.parse("2014-01-31 12:00:00")) { Order.make!(:shipped) }
   end
+  let!(:feb1_start) do
+    Timecop.freeze(Time.zone.parse("2014-02-01 00:00:00")) { Order.make!(:shipped) }
+  end
   let!(:feb1) do
     Timecop.freeze(Time.zone.parse("2014-02-01 01:00:00")) { Order.make!(:shipped) }
   end
