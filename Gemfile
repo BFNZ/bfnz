@@ -13,9 +13,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
 
+# Required to work with modern Bundler. See https://makandracards.com/makandra/43292
+gem 'i18n', '~>0.7'
+gem 'rake', '~>12.3.1'
+
 group :development, :test do
   gem 'byebug'
-  gem 'rake'
+#including rake above so disabling the copy below
+# gem 'rake' , '~>12.3.1'
 end
 
 group :development do
