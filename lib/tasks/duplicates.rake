@@ -1,10 +1,6 @@
 require 'spreadsheet'
 require 'csv'
 
-# TODO single quote in first_name or last_name
-# TODO why wasn't overseas address in 54827 caught?
-
-
 # Find duplicates for customer details for orders that have not yet been shipped.
 # This needs to be run before the regular shipping days in order to allow users to look at the
 # Export to CSV file.  (Future enhancement may include setting duplicate flag and adding admin note with link to duplicates.)
@@ -98,24 +94,30 @@ task :find_duplicates_unshipped => :environment do |t, args|
 end
 # for all the customers with unshipped orders check for duplicate full name
 def find_full_name_duplicates(master_customer)
-  #TODO ignore customer records with no orders - i.e. merged records.
-
 
   if master_customer.last_name != nil && master_customer.first_name != nil
-  # TODO escape single and double quotes.
-  #  master_cust_local_firstname = master_customer.first_name.downcase
-  #  master_cust_local_lastname = master_customer.last_name.downcase
 
-    duplicate_by_name = Customer.select(:id).where("lower(first_name) = '#{master_customer.first_name.downcase}'
+ p "#{master_customer.first_name.downcase.gsub(/'/,"''")}"
+
+    if master_customer.last_name.include?("'") || master_customer.first_name.include?("'")
+      p "Found Quote in Name"
+      p "First name #{master_customer.first_name.downcase.gsub(/'/,"''")}"
+      p "Last name: #{master_customer.last_name.downcase.gsub(/'/,"''")}"
+      duplicate_by_name = Customer.select(:id).where("lower(first_name) = '#{master_customer.first_name.downcase.gsub(/'/,"''")}'
+                                                  and lower(last_name) = '#{master_customer.last_name.downcase.gsub(/'/,"''")}'
+                                                  and id < #{master_customer.id}")
+
+    else
+      duplicate_by_name = Customer.select(:id).where("lower(first_name) = '#{master_customer.first_name.downcase}'
                                                   and lower(last_name) = '#{master_customer.last_name.downcase}'
                                                   and id < #{master_customer.id}")
+    end
   end
 end
 
 # for all the customers with unshipped orders check for duplicate address
 def find_address_duplicates(master_customer)
   if master_customer.pxid != nil
-    #TODO ignore customer records with no orders - i.e. merged records.
     duplicate_by_address = Customer.select(:id).where("pxid = '#{master_customer.pxid}'
                                                        and id < #{master_customer.id}")
   end

@@ -15,7 +15,7 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'byebug'
-  gem 'rake'
+  gem 'rake' , '~>12.3.1'
 end
 
 group :development do
