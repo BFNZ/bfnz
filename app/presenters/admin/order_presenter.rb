@@ -27,6 +27,10 @@ class Admin::OrderPresenter
     customer.further_contact_requested.humanize
   end
 
+  def pxid
+    customer.pxid.presence
+  end
+
   private
 
   attr_reader :order
