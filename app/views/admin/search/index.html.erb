@@ -18,8 +18,13 @@
   </thead>
   <tbody>
     <% @orders_presenter.order_presenters do |presenter| %>
-      <tr>
-        <td><%= presenter.order_number %></td>
+      <tr class="<%= 'danger' unless presenter.pxid %>">
+        <td>
+          <% unless presenter.pxid %>
+            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+          <% end %>
+          <%= presenter.order_number %>
+        </td>
         <td><%= presenter.created %></td>
         <td><%= presenter.first_name %></td>
         <td><%= presenter.last_name %></td>
