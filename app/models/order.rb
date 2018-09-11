@@ -39,6 +39,6 @@ class Order < ActiveRecord::Base
   end
 
   def item_codes
-    items.map(&:code).join
+    items.map(&:code).sort.join
   end
 end
