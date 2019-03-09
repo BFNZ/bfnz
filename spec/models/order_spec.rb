@@ -42,6 +42,21 @@ describe Order do
     end
   end
 
+  describe ".item_codes" do
+    subject(:item_ids_scope) { Order.item_ids([new_testament.id]) }
+
+    let(:new_testament) { Item.find_by_code('R') }
+    let(:church) { Item.find_by_code('C') }
+
+    let!(:order_1) { Order.make!(items: [new_testament, church]) }
+    let!(:order_2) { Order.make!(items: [church, new_testament]) }
+
+    it "returns codes of items sorted" do
+      expect(order_1.item_codes).to eq('CR')
+      expect(order_2.item_codes).to eq('CR')
+    end
+  end
+
   describe ".shipped" do
     subject(:shipped_scope) { Order.shipped }
 
