@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -23,11 +23,10 @@ group :development do
   gem 'spring'
 end
 
-
 # Custom
 gem 'pg', '~> 0.18.4'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
 gem 'authlogic', '~> 3.6', '>= 3.6.1'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
@@ -51,7 +50,7 @@ end
 group :test do
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
-  gem 'capybara', '~> 2.17'
+  gem 'capybara', '~> 3.14'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
   gem 'selenium-webdriver', '~> 3.8'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
