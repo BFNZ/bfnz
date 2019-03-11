@@ -31,7 +31,7 @@ before_install:
 
 
 install:
-  - gem install rails rake bundler
+  - gem install bundler
   - bundle install --deployment
 
 # 4. OPTIONAL Only customize the `script` option if needed.
