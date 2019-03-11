@@ -32,6 +32,7 @@ before_install:
 
 install:
   - gem install bundler
+  - rm Gemfile.lock
   - bundle install --deployment
 
 # 4. OPTIONAL Only customize the `script` option if needed.
