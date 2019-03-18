@@ -15,6 +15,7 @@ $(document).ready ->
     fitTextArea(@)
 
     widget.on "result:select", (value, item)->
+      $(@.element).data("selected", value)
       $(".hidden-address.suburb").val(item.suburb || '')
       $(".hidden-address.city_town").val(item.city || '')
       $(".hidden-address.post_code").val(item.postcode || '')
@@ -27,8 +28,8 @@ $(document).ready ->
       fitTextArea(@.element)
 
     $(this).on "change", ->
-      clear_hidden_values()
-
+      if ($(this).data("selected") || '').trim() != $(this).val().trim()
+        clear_hidden_values()
 
   $("#tertiary_institution").hide() unless $(".tertiary-institution-toggle").attr('checked')
 
