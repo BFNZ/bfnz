@@ -5,7 +5,7 @@ module FeatureHelpers
   end
 
   def select_item
-    #select "The New Testament Recovery Version", from: "item_list"
+    # select "The New Testament Recovery Version", from: "item_list"
     page.first(".image_picker_image").click
   end
 
