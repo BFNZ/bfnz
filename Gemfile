@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -25,6 +25,7 @@ end
 
 
 # Custom
+gem "nokogiri", ">= 1.8.5"
 gem 'pg', '~> 0.18.4'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
