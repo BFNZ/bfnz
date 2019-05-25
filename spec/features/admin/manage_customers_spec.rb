@@ -23,6 +23,7 @@ feature 'Managing customers', js: true do
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
     select_address("1 Short Street")
+    select 'Far North District', from: 'District'
     fill_in "Phone", with: "12345678"
     fill_in "Email", with: "email@test.com"
     select "Phone", from: "Method received"
@@ -43,6 +44,7 @@ feature 'Managing customers', js: true do
     fill_in "First Name", with: "John"
     fill_in "Last Name", with: "Doe"
     select_address("1 Short Street")
+    select 'Far North District', from: 'District'
     select_item
     check "This order has already been delivered."
     click_button "Save and add another"
