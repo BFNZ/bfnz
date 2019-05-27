@@ -28,7 +28,7 @@ end
 gem "nokogiri", ">= 1.8.5"
 gem 'pg', '~> 0.18.4'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
 gem 'authlogic', '~> 3.6', '>= 3.6.1'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
