@@ -51,13 +51,13 @@ These users can be used to login to the admin site on your local environment
 
 6. Test single file
     ```
-    docker-compose run app bundle exec rspec spec/controllers/orders_controller_spec.rb
+    docker-compose run --rm app bundle exec rspec spec/controllers/orders_controller_spec.rb
     ```
 
 7. Run rails commands
     ```
-    docker-compose run app bin/rake routes
-    docker-compose run app bin/rails console
+    docker-compose run --rm app bin/rake routes
+    docker-compose run --rm app bin/rails console
     ```
 
 8. Ports
