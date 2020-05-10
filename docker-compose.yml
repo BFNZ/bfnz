@@ -1,18 +1,19 @@
 version: "2.1"
 services:
-  web:
+  app:
     build: .
     image: "bfnz_dev"
     volumes:
       - ./:/app
+      - bundle:/usr/local/bundle
     ports:
       - "3000:3000"
-    user: $UID:$GID
+    user: ${USER_ID}:${GROUP_ID}
+    working_dir: /app
     command: "bin/rails s -b 0.0.0.0"
     depends_on:
       - db
     environment:
-      - RAILS_ENV=development
       - DOCKERIZED=true
 
   db:
@@ -26,5 +27,9 @@ services:
       - POSTGRES_USER=bfnz
       - POSTGRES_PASSWORD=secret
 
+  firefox:
+    image: selenium/standalone-firefox:3.141.59
+
 volumes:
   db:
+  bundle:

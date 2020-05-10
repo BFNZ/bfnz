@@ -16,10 +16,10 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  host: <%= ENV['DOCKERIZED'] ? 'db' : 'localhost' %>
 
 development:
   <<: *default
+  host: <%= ENV['DOCKERIZED'] ? 'db' : 'localhost' %>
   database: bfnz_development
 
   # The specified database role being used to connect to postgres.
@@ -49,6 +49,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: <%= ENV['DOCKERIZED'] ? 'db' : 'localhost' %>
   database: bfnz_test
   username: bfnz
   password: secret
@@ -74,6 +75,7 @@ test:
 #
 production:
   <<: *default
+  host: localhost
   database: bfnz_production
   username: bfnz
   password: <%= ENV['BFNZ_DATABASE_PASSWORD'] %>
