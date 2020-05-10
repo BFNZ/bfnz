@@ -24,6 +24,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.javascript_driver = :selenium
+Capybara.server = :webrick
 
 # Current Firefox version not working with webdriver
 # Configuration to specify an older version of firefox
