@@ -30,7 +30,7 @@ gem 'pg', '~> 0.18.4'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
-gem 'authlogic', '~> 3.6', '>= 3.6.1'
+gem 'authlogic', '~> 4.2.0'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'attribute_normalizer', '~> 1.2'
@@ -38,6 +38,7 @@ gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'connection_pool', '~> 2.2', '>= 2.2.1'
 gem 'mini_portile2', '~> 2.3'
 gem 'rake-compiler', '~> 1.0', '>= 1.0.4'
+gem 'bigdecimal', '< 2.0', '>= 1.4' # update ruby 2.7.1 - https://github.com/ruby/bigdecimal/issues/127
 
 group :development do
   gem 'better_errors', '~> 2.4'
