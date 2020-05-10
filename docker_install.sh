@@ -6,7 +6,8 @@ printf "USER_ID=$(id -u)\nGROUP_ID=$(id -g)\n" > ./.env
 
 # printf "\033[0;32mBuild images\033[0m\n"
 docker-compose build
-docker-compose run app bundle install
-docker-compose run app bin/rake db:migrate
-docker-compose run app bin/rake db:seed
-docker-compose run app bin/rake db:test:prepare
+docker-compose run --rm app gem install bundler -v 1.16.3
+docker-compose run --rm app bundle install
+docker-compose run --rm app bin/rake db:migrate
+docker-compose run --rm app bin/rake db:seed
+docker-compose run --rm app bin/rake db:test:prepare
