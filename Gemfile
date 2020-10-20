@@ -53,7 +53,8 @@ end
 group :test do
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
-  gem 'capybara', '~> 3.32'
+  gem 'capybara', '~> 3.15'
+  gem 'puma'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
   gem 'selenium-webdriver', '~> 3.8'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
