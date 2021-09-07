@@ -40,7 +40,7 @@ gem 'mini_portile2', '~> 2.3'
 gem 'rake-compiler', '~> 1.0', '>= 1.0.4'
 
 group :development do
-  gem 'better_errors', '~> 2.4'
+  gem 'better_errors', '~> 2.8'
   gem 'binding_of_caller', '~> 0.8.0'
 end
 
