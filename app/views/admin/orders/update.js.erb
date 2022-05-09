@@ -1,8 +1,0 @@
-<% if @update_order.success? %>
-  <% flash_type = :success %>
-<% else %>
-  <% flash_type = :error %>
-  $("#<%= @order_view_model.form_id %>").html("<%= escape_javascript(render 'admin/customers/editable_order', presenter: @order_view_model) %>")
-<% end %>
-
-<%= render 'shared/flash_messages', header_class: 'orders', text: @update_order.message, type: flash_type %>

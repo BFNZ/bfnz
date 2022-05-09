@@ -1,8 +1,0 @@
-<% if @update_customer.success? %>
-  <% flash_type = :success %>
-<% else %>
-  <% flash_type = :error %>
-  $("#customer-form").html("<%= escape_javascript(render 'form', customer_form: @customer_form) %>")
-<% end %>
-
-<%= render 'shared/flash_messages', header_class: 'customer', text: @update_customer.message, type: flash_type %>

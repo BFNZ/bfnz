@@ -1,5 +1,0 @@
-<% require 'csv' %>
-<%= CSV.generate_line @label_presenter.headers %>
-<%- @label_presenter.each_label do |label| -%>
-  <%=raw CSV.generate_line label.row -%>
-<%- end -%>
