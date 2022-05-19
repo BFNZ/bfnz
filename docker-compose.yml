@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  db:
+    image: "postgres:14.2"
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=bfnz_development
+      - POSTGRES_USER=bfnz
+      - POSTGRES_PASSWORD=secret
+
+volumes:
+  db: {}

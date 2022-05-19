@@ -70,3 +70,28 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# Custom
+gem 'pg', '~> 1.3', '>= 1.3.5'
+gem 'spreadsheet', '~> 1.3'
+# gem 'bootstrap-sass', '~> 3.3.0'
+# gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
+gem 'authlogic', '~> 6.4', '>= 6.4.2'
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+gem 'virtus', '~> 2.0'
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
+gem 'attribute_normalizer', '~> 1.2'
+
+group :development, :test do
+  gem 'pry', '~> 0.14.1'
+  gem 'factory_bot_rails', '~> 6.2'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
+  gem 'launchy', '~> 2.5'
+  gem 'database_cleaner-active_record', '~> 2.0', '>= 2.0.1'
+  gem 'machinist', '~> 2.0'
+  gem 'timecop', '~> 0.9.5'
+  gem 'webmock', '~> 3.14'
+end
