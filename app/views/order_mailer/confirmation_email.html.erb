@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @customer.full_name %></p>
+
+    <p>Thank you for your request for free literature from Bibles for New Zealand. Your order will be processed as soon as possible.</p>
+
+    <p>Please note that free orders are limited to one per person, so if you are ordering the same item a second time, your second order may not be fulfilled.</p>
+
+    <p>If you have any questions, please do not hesitate to contact us at <%= mail_to('info@bfnz.org.nz') %></p>
+
+    <p>Kind regards</p>
+
+    <p>The Bibles for New Zealand team</p>
+  </body>
+</html>
