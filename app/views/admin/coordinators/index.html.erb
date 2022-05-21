@@ -1,0 +1,28 @@
+<h2>Coordinators</h2>
+
+<p><%= link_to "Add Coordinator", new_admin_coordinator_path, class: 'btn btn-success' %></p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>District</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @territorial_authorities.each do |ta| %>
+      <tr class="<%= ta.addressfinder_name %>">
+        <td><%= ta.name %></td>
+        <%= render 'coordinator', coordinator: ta.coordinator %>
+      </tr>
+    <% end %>
+    <% @unassigned_coordinators.each do |coordinator| %>
+      <tr>
+        <td><i>Unassigned</i></td>
+        <%= render 'coordinator', coordinator: coordinator %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

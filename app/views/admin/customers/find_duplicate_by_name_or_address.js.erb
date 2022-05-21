@@ -1,0 +1,5 @@
+$(".duplicates-by-name-or-address").html("<%= escape_javascript(
+  render 'duplicates_by_name_or_address',
+  duplicates_by_name:    @duplicates_by_name,
+  duplicates_by_address: @duplicates_by_address
+)%>")

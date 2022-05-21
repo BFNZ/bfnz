@@ -1,0 +1,26 @@
+<h2 class="customer">Customer <%= @edit_view_model.customer_identifier %><span class="flash"></span></h2>
+<div id="customer-form" class="row">
+  <%= render 'form', customer_form: @customer_form %>
+</div>
+
+<div class="row">
+  <h2 class="orders">Orders<span class="flash"></span></h2>
+  <% if @edit_view_model.cannot_ship_orders? %>
+    <div class="col-md-12">
+      <dl>
+        <dd class="error_msg">Orders not shippable: <%= @edit_view_model.not_shippable_reason %></dd>
+      </dl>
+    </div>
+  <% end %>
+
+  <div class="col-sm-10" id="orders">
+    <%= render 'orders', view_model: @edit_view_model %>
+  </div>
+</div>
+
+<div class="row merged-customers">
+  <h2 class="merged-customer-records">Merged Customer Records<span class="flash"></span></h2>
+  <div class="col-sm-12" id="merged-customers">
+    <%= render 'merged_customers', view_model: @edit_view_model %>
+  </div>
+</div>

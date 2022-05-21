@@ -1,0 +1,18 @@
+<h4>Order <%= view_model.order_identifier %></h4>
+<div class="col-md-4">
+  <dl>
+    <dt>Date ordered:</dt>
+    <dd><%= view_model.date_ordered %></dd>
+  </dl>
+  <dl>
+    <dt>Date shipped:</dt>
+    <dd><%= view_model.date_shipped %></dd>
+  </dl>
+</div>
+
+<div class="col-md-8">
+  <dl>
+    <dt>Titles ordered:</dt>
+    <dd><%= view_model.titles_ordered.join("<br>").html_safe %></dd>
+  </dl>
+</div>

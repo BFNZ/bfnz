@@ -1,0 +1,32 @@
+<table class="ready-to-ship table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Created At</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Items</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% view_model.each_order do |order_view| %>
+      <tr class="">
+        <td><%= order_view.order_id %></td>
+        <td><%= order_view.created %></td>
+        <td><%= order_view.full_name %></td>
+        <td><%= order_view.address %></td>
+        <td><%= order_view.email %></td>
+        <td><%= order_view.phone %></td>
+        <td><%= order_view.items %></td>
+        <td>
+          <div class='btn-group-vertical'>
+            <%= link_to 'Edit', edit_admin_customer_path(order_view.customer_id), class: 'btn btn-default' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

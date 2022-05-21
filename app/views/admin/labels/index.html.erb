@@ -1,0 +1,6 @@
+<h2>Ready to Ship Orders</h2>
+
+<%= render 'orders', view_model: @index_view %>
+<div class='btn-group-vertical'>
+  <%= link_to "Download #{pluralize(@index_view.label_count, 'Label')}", admin_labels_path(format: :csv), class: 'btn btn-default' if @index_view.any_labels_to_download? %>
+</div>

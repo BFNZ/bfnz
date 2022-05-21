@@ -1,0 +1,8 @@
+<% if @merge_form.valid? %>
+  $("#merge-preview").html("<%= escape_javascript(render 'admin/customers/merge_preview', view_model: @merge_view) %>")
+<% else %>
+  $("#merge-preview").html("")
+  <% flash_type = :error %>
+<% end %>
+
+<%= render 'shared/flash_messages', header_class: 'merged-customer-records', text: @merge_form.error_message, type: flash_type %>

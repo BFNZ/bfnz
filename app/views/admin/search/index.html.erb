@@ -1,0 +1,43 @@
+<h2>Search Orders</h2>
+
+<%= render 'search', :order_search => @order_search %>
+
+<div><%= page_entries_info @orders_presenter.orders_for_current_page %></div>
+<%= paginate @orders_presenter.orders_for_current_page %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Created</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Items</th>
+      <th>Further Contact Requested?</th>
+      <th>Shipped At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders_presenter.order_presenters do |presenter| %>
+      <tr class="<%= 'danger' unless presenter.pxid %>">
+        <td>
+          <% unless presenter.pxid %>
+            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+          <% end %>
+          <%= presenter.order_number %>
+        </td>
+        <td><%= presenter.created %></td>
+        <td><%= presenter.first_name %></td>
+        <td><%= presenter.last_name %></td>
+        <td><%= presenter.items %></td>
+        <td><%= presenter.further_contact_requested %></td>
+        <td><%= presenter.shipped_at %></td>
+        <td>
+          <div class='btn-group-vertical'>
+            <%= link_to 'Edit', edit_admin_customer_path(presenter.customer_id), class: 'btn btn-default' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @orders_presenter.orders_for_current_page %>

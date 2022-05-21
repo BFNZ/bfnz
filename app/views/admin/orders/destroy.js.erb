@@ -1,0 +1,9 @@
+<% if @cancel_order.success? %>
+  <% flash_type = :success %>
+<% else %>
+  <% flash_type = :error %>
+<% end %>
+
+$("#orders").html("<%= escape_javascript(render 'admin/customers/orders', view_model: @edit_customer_view) %>")
+
+<%= render 'shared/flash_messages', header_class: 'orders', text: @cancel_order.message, type: flash_type %>

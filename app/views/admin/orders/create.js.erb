@@ -1,0 +1,9 @@
+<% if @create_order.success? %>
+  <% flash_type = :success %>
+  $("#orders").html("<%= escape_javascript(render 'admin/customers/orders', view_model: @edit_customer_view) %>")
+<% else %>
+  <% flash_type = :error %>
+  $("#order-form").html("<%= escape_javascript(render 'form', order_form: @order_form) %>")
+<% end %>
+
+<%= render 'shared/flash_messages', header_class: 'orders', text: @create_order.message, type: flash_type %>
