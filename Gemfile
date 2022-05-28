@@ -89,9 +89,9 @@ group :development, :test do
 end
 
 group :test do
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'launchy', '~> 2.5'
-  gem 'database_cleaner-active_record', '~> 2.0', '>= 2.0.1'
   gem 'machinist', '~> 2.0'
   gem 'timecop', '~> 0.9.5'
   gem 'webmock', '~> 3.14'

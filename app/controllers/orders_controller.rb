@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :setup_order_form
+  before_action :permit_params, :setup_order_form
 
   def new
   end
@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       redirect_to show_table_path, notice: "Form submitted successfully. Have a great day!" # better wording for the notice?
     else
       flash[:error] = @order_form.errors.full_messages.join("<br>")
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
 

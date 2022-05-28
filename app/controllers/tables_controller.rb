@@ -30,7 +30,7 @@ class TablesController < ApplicationController
   end
 
   def update
-    @table = Table.find(:id)
+    @table = Table.find(params[:id])
     if @table.save
       bake_cookie @table.id
       redirect_to table_path, notice: "Table \##{@table.code} updated."

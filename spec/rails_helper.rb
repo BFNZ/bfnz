@@ -64,7 +64,17 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Rails.application.load_seed
+    WebMock.disable_net_connect!(allow_localhost: true)
   end
 
   config.include FactoryBot::Syntax::Methods
+  config.include FeatureHelpers, type: :feature
+end
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app,
+    browser: :remote,
+    url: "http://localhost:4444/wd/hub",
+    capabilities: :firefox
+  )
 end

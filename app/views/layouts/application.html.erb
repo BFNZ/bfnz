@@ -14,11 +14,12 @@
 
     <%= favicon_link_tag '/favicon.ico' %>
 
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application_main' %>
     <%= javascript_include_tag 'https://www.addressfinder.co.nz/assets/v2/widget.js' %>
     <%= javascript_include_tag 'bootstrap.min.js' %>
     <%= javascript_include_tag 'jquery.easing.min.js' %>
     <%= javascript_include_tag 'wow.min.js' %>
+    <%= javascript_importmap_tags %>
     <%= csrf_meta_tags %>
 
 
