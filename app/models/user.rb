@@ -15,6 +15,7 @@ class User < ApplicationRecord
   }
 
   validates :name, :email, presence: true
+  validates :email, uniqueness: { case_sensitive: false }
 
   def new_contacts
     Customer.contactable.for_districts(territorial_authorities.pluck(:id))
