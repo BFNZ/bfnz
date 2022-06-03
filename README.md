@@ -1,24 +1,18 @@
-# README
+bfnz
+====
+SETUP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+# Install rbenv https://github.com/rbenv/rbenv#installation
+# Install docker https://docs.docker.com/get-docker/
+# Install docker compose https://docs.docker.com/compose/install/
+cd bfnz
+rbenv install
+gem install bundler
+docker compose up -d
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
+rails s
+```
