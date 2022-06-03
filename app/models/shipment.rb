@@ -10,7 +10,7 @@ class Shipment < ApplicationRecord
   end
 
   def filename
-    "labels_#{created_at.to_s(:csv)}"
+    "labels_#{created_at.to_fs(:csv)}"
   end
 
 end

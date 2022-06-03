@@ -19,7 +19,7 @@ class ContactList < ApplicationRecord
   end
 
   def filename
-    "#{ta_name}_contacts_#{created_at.to_s(:csv)}"
+    "#{ta_name}_contacts_#{created_at.to_fs(:csv)}"
   end
 
   private
