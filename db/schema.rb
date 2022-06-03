@@ -14,24 +14,24 @@ ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cancelled_order_events", force: :cascade do |t|
+  create_table "cancelled_order_events", id: :serial, force: :cascade do |t|
     t.integer "cancelled_by_id"
     t.integer "customer_id"
     t.text "order_details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["cancelled_by_id"], name: "index_cancelled_order_events_on_cancelled_by_id"
     t.index ["customer_id"], name: "index_cancelled_order_events_on_customer_id"
   end
 
-  create_table "contact_lists", force: :cascade do |t|
+  create_table "contact_lists", id: :serial, force: :cascade do |t|
     t.integer "territorial_authority_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["territorial_authority_id"], name: "index_contact_lists_on_territorial_authority_id"
   end
 
-  create_table "customers", force: :cascade do |t|
+  create_table "customers", id: :serial, force: :cascade do |t|
     t.integer "territorial_authority_id"
     t.integer "contact_list_id"
     t.integer "created_by_id"
@@ -55,8 +55,8 @@ ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
     t.string "old_system_address"
     t.string "old_system_suburb"
     t.string "old_system_city_town"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "parent_id"
     t.integer "further_contact_requested", default: 0
     t.boolean "bad_address", default: false
@@ -78,31 +78,31 @@ ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
     t.index ["updated_by_id"], name: "index_customers_on_updated_by_id"
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.string "author"
     t.string "code", null: false
     t.string "image_path"
     t.string "description", limit: 1000
-    t.datetime "deactivated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "deactivated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "items_orders", id: false, force: :cascade do |t|
-    t.bigint "item_id"
-    t.bigint "order_id"
+    t.integer "item_id"
+    t.integer "order_id"
     t.index ["item_id"], name: "index_items_orders_on_item_id"
     t.index ["order_id"], name: "index_items_orders_on_order_id"
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.bigint "shipment_id"
+  create_table "orders", id: :serial, force: :cascade do |t|
+    t.integer "shipment_id"
     t.text "admin_notes"
     t.text "coordinator_notes"
     t.integer "method_of_discovery"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "ip_address", limit: 40
     t.string "session_identifier", limit: 100
     t.integer "method_received"
@@ -110,50 +110,49 @@ ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
     t.integer "created_by_id"
     t.integer "updated_by_id"
     t.integer "customer_id"
-    t.bigint "table_id"
+    t.integer "table_id"
     t.index ["created_by_id"], name: "index_orders_on_created_by_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["duplicate"], name: "index_orders_on_duplicate"
     t.index ["shipment_id"], name: "index_orders_on_shipment_id"
-    t.index ["table_id"], name: "index_orders_on_table_id"
     t.index ["updated_by_id"], name: "index_orders_on_updated_by_id"
   end
 
-  create_table "shipments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "shipments", id: :serial, force: :cascade do |t|
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["created_at"], name: "index_shipments_on_created_at"
   end
 
-  create_table "tables", force: :cascade do |t|
+  create_table "tables", id: :serial, force: :cascade do |t|
     t.string "coordinator_phone"
     t.string "coordinator_email"
     t.text "location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "coordinator_first_name"
     t.string "coordinator_last_name"
     t.string "city"
   end
 
-  create_table "territorial_authorities", force: :cascade do |t|
+  create_table "territorial_authorities", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "code", null: false
     t.string "addressfinder_name", null: false
     t.integer "coordinator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["addressfinder_name"], name: "index_territorial_authorities_on_addressfinder_name"
     t.index ["coordinator_id"], name: "index_territorial_authorities_on_coordinator_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password", null: false
     t.string "password_salt", null: false
     t.string "persistence_token", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "admin", default: false
     t.string "name"
     t.index ["admin"], name: "index_users_on_admin"
