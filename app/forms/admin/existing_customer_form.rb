@@ -44,7 +44,7 @@ module Admin
     private
 
     def customer_attributes
-      customer.attributes.slice(*CUSTOMER_ATTRS)
+      customer.attributes_for_database.slice(*CUSTOMER_ATTRS)
     end
   end
 end
