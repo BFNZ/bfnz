@@ -33,5 +33,5 @@ jobs:
       - name: Docker compose up
         run: docker-compose up -d
       - name: Run tests
-        run: docker-compose -rm -f docker-compose-test.yml run test
+        run: docker-compose -f docker-compose-test.yml run test
 
