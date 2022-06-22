@@ -12,6 +12,7 @@ services:
     environment:
       - RAILS_ENV=test
       - DOCKERIZED=true
+      - POSTGRES_DB=db
 
   db:
     image: "postgres:9.6"
