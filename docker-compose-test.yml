@@ -12,9 +12,11 @@ services:
     environment:
       - RAILS_ENV=test
       - DOCKERIZED=true
-      - POSTGRES_DB=db
+      - POSTGRES_DB=bfnz_test
+      - POSTGRES_USER=bfnz
+      - POSTGRES_PASSWORD=secret
 
-  db:
+  bfnz_test:
     image: "postgres:9.6"
     volumes:
       - db:/var/lib/postgresql/data
