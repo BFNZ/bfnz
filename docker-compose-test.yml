@@ -5,7 +5,7 @@ services:
     image: "bfnz_dev"
     volumes:
       - ./:/app
-    command: "bundle exec rspec"
+    command: "bundle install && bundle exec rspec"
     depends_on:
       - db
       - firefox
