@@ -1,4 +1,4 @@
-production:
+qa:
   after_symlink: # Or use after_rails depending on your application
     - source: /.cloud66/dbseed.sh
       destination: /tmp/dbseed.sh
