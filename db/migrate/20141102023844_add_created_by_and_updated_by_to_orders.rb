@@ -1,4 +1,4 @@
-class AddCreatedByAndUpdatedByToOrders < ActiveRecord::Migration
+class AddCreatedByAndUpdatedByToOrders < ActiveRecord::Migration[7.0]
   def change
     add_column :orders, :created_by_id, :integer
     add_column :orders, :updated_by_id, :integer

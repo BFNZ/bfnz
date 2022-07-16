@@ -1,5 +1,5 @@
-class TerritorialAuthority < ActiveRecord::Base
-  belongs_to :coordinator, class_name: 'User'
+class TerritorialAuthority < ApplicationRecord
+  belongs_to :coordinator, class_name: 'User', optional: true
 
   validates :name, presence: true
   validates :code, :addressfinder_name, uniqueness: true, presence: true

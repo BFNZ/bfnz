@@ -14,7 +14,7 @@ feature 'View past shipments' do
     within 'table' do
       shipment = Shipment.first
       expect(page).to have_text(shipment.id)
-      expect(page).to have_text(shipment.created_at.to_s(:display))
+      expect(page).to have_text(shipment.created_at.to_fs(:display))
     end
   end
 

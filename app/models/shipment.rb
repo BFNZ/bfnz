@@ -1,4 +1,4 @@
-class Shipment < ActiveRecord::Base
+class Shipment < ApplicationRecord
   has_many :orders
 
   def self.create_for_orders(orders)
@@ -10,7 +10,7 @@ class Shipment < ActiveRecord::Base
   end
 
   def filename
-    "labels_#{created_at.to_s(:csv)}"
+    "labels_#{created_at.to_fs(:csv)}"
   end
 
 end

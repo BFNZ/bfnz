@@ -15,7 +15,7 @@ RSpec.describe TablesController do
     end
   end
   describe "POST create" do
-    subject { post :create, table: FactoryBot.attributes_for(:table) }
+    subject { post :create, params: { table: FactoryBot.attributes_for(:table) } }
     it "creates table" do
       expect { subject }.to change(Table, :count).by(1)
     end

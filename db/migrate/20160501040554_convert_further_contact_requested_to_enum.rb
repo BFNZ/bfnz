@@ -1,4 +1,4 @@
-class ConvertFurtherContactRequestedToEnum < ActiveRecord::Migration
+class ConvertFurtherContactRequestedToEnum < ActiveRecord::Migration[7.0]
   def up
     remove_index :customers, :further_contact_requested
     remove_column :customers, :further_contact_requested

@@ -1,4 +1,4 @@
-class CreateTerritorialAuthorities < ActiveRecord::Migration
+class CreateTerritorialAuthorities < ActiveRecord::Migration[7.0]
   def change
     create_table :territorial_authorities do |t|
       t.string :name, null: false

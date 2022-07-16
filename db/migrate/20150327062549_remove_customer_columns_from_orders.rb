@@ -1,4 +1,4 @@
-class RemoveCustomerColumnsFromOrders < ActiveRecord::Migration
+class RemoveCustomerColumnsFromOrders < ActiveRecord::Migration[7.0]
   def up
     remove_column :orders, :territorial_authority_id
     remove_column :orders, :contact_list_id

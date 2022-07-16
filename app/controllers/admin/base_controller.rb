@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  before_filter :require_admin
+  before_action :require_admin
   helper_method :current_user_session, :current_user
   layout 'admin'
 

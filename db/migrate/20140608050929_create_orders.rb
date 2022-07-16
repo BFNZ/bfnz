@@ -1,4 +1,4 @@
-class CreateOrders < ActiveRecord::Migration
+class CreateOrders < ActiveRecord::Migration[7.0]
   def change
     create_table :orders do |t|
       t.integer :historical_subscriber_id
@@ -25,6 +25,5 @@ class CreateOrders < ActiveRecord::Migration
     add_index :orders, :city_town
     add_index :orders, :phone
     add_index :orders, :email
-    add_index :orders, :shipment_id
   end
 end

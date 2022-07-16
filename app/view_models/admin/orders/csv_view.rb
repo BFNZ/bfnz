@@ -12,7 +12,7 @@ class Admin::Orders::CsvView
   :method_received, :shipment_id, :item_codes, to: :order
 
   def created_at
-    order.created_at.to_s(:display)
+    order.created_at.to_fs(:display)
   end
 
   def items
@@ -20,7 +20,7 @@ class Admin::Orders::CsvView
   end
 
   def shipped_at
-    order.shipped_at.to_s(:display) if order.shipped?
+    order.shipped_at.to_fs(:display) if order.shipped?
   end
 
   def tertiary_student

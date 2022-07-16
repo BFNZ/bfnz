@@ -1,5 +1,5 @@
-class ContactList < ActiveRecord::Base
-  belongs_to :territorial_authority
+class ContactList < ApplicationRecord
+  belongs_to :territorial_authority, optional: true
   has_many :customers
 
   scope :for_districts, ->(territorial_authority_ids) {
@@ -19,7 +19,7 @@ class ContactList < ActiveRecord::Base
   end
 
   def filename
-    "#{ta_name}_contacts_#{created_at.to_s(:csv)}"
+    "#{ta_name}_contacts_#{created_at.to_fs(:csv)}"
   end
 
   private

@@ -1,9 +1,9 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   acts_as_authentic do |config|
-    config.validates_length_of_password_field_options =
-      { :minimum => 4, :if => :require_password? }
     config.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
+
+  validates :password, confirmation: { if: :require_password? }, length: { minimum: 4, if: :require_password? }
 
   has_many :territorial_authorities, foreign_key: :coordinator_id
 
@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   }
 
   validates :name, :email, presence: true
+  validates :email, uniqueness: { case_sensitive: false }
 
   def new_contacts
     Customer.contactable.for_districts(territorial_authorities.pluck(:id))

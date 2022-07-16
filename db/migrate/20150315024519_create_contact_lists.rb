@@ -1,4 +1,4 @@
-class CreateContactLists < ActiveRecord::Migration
+class CreateContactLists < ActiveRecord::Migration[7.0]
   def change
     create_table :contact_lists do |t|
       t.integer :territorial_authority_id, null: false

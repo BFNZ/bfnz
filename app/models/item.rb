@@ -1,4 +1,4 @@
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   has_and_belongs_to_many :orders
 
   validates :title, presence: true

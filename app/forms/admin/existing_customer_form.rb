@@ -38,13 +38,13 @@ module Admin
     end
 
     def date_created
-      customer.created_at.to_date.to_s(:display)
+      customer.created_at.to_date.to_fs(:display)
     end
 
     private
 
     def customer_attributes
-      customer.attributes.slice(*CUSTOMER_ATTRS)
+      customer.attributes_for_database.slice(*CUSTOMER_ATTRS)
     end
   end
 end

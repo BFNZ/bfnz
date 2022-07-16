@@ -12,7 +12,7 @@ class Admin::OrderPresenter
   end
 
   def created
-    "#{order.created_at.to_s(:display)} by #{created_by}"
+    "#{order.created_at.to_fs(:display)} by #{created_by}"
   end
 
   def items
@@ -20,7 +20,7 @@ class Admin::OrderPresenter
   end
 
   def shipped_at
-    order.shipped_at.to_s(:display) if order.shipped?
+    order.shipped_at.to_fs(:display) if order.shipped?
   end
 
   def further_contact_requested

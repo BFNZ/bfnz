@@ -1,5 +1,7 @@
 module Admin
   class OrdersController < BaseController
+    before_action :permit_params
+
     def new
       @order_form = NewOrderForm.new(customer: customer)
     end

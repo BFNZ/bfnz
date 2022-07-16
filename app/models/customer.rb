@@ -1,11 +1,11 @@
-class Customer < ActiveRecord::Base
+class Customer < ApplicationRecord
   has_many :orders
-  belongs_to :territorial_authority
-  belongs_to :created_by, class_name: 'User'
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :territorial_authority, optional: true
+  belongs_to :created_by, class_name: 'User', optional: true
+  belongs_to :updated_by, class_name: 'User', optional: true
   has_many :merged_customers, class_name: 'Customer', foreign_key: 'parent_id'
 
-  enum further_contact_requested: [:not_specified, :not_wanted, :wanted]
+  enum :further_contact_requested, [:not_specified, :not_wanted, :wanted], prefix: :further_contact_requested
   normalize_attributes :first_name, :last_name, :email, :address
   normalize_attribute :phone, with: :phone
 

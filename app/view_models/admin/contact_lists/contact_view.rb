@@ -6,7 +6,7 @@ class Admin::ContactLists::ContactView
   delegate :id, :title, :first_name, :last_name, :address, to: :customer
 
   def created
-    "#{customer.created_at.to_s(:display)}"
+    "#{customer.created_at.to_fs(:display)}"
   end
 
   def name

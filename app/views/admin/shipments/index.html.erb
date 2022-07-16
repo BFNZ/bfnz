@@ -15,7 +15,7 @@
     <% @shipments.each do |shipment| %>
     <tr>
       <td><%= shipment.id %></td>
-      <td><%= shipment.created_at.to_s(:display) %></td>
+      <td><%= shipment.created_at.to_fs(:display) %></td>
       <td><%= shipment.orders.count %></td>
       <td>
         <div class='btn-group-vertical'>

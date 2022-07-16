@@ -12,7 +12,7 @@ class Admin::ContactLists::ContactListView
   end
 
   def first_downloaded
-    contact_list.created_at.to_s(:display)
+    contact_list.created_at.to_fs(:display)
   end
 
   def customer_count

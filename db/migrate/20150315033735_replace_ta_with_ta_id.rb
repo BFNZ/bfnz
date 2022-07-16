@@ -1,4 +1,4 @@
-class ReplaceTaWithTaId < ActiveRecord::Migration
+class ReplaceTaWithTaId < ActiveRecord::Migration[7.0]
   def up
     add_column :orders, :territorial_authority_id, :integer
     add_index :orders, :territorial_authority_id

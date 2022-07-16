@@ -1,4 +1,4 @@
-class CreateCustomers < ActiveRecord::Migration
+class CreateCustomers < ActiveRecord::Migration[7.0]
   def up
     create_table :customers do |t|
       t.integer :territorial_authority_id

@@ -5,4 +5,12 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+
+  def permit_params
+    # Using unpermitted params raise an exception ActiveModel::ForbiddenAttributes.
+    # This method permit everything in params to avoid this exception but ideally
+    # need to permit only keys used in the action.
+    # https://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
+    params.permit!
+  end
 end

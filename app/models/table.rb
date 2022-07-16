@@ -1,4 +1,4 @@
-class Table < ActiveRecord::Base
+class Table < ApplicationRecord
   has_many :orders
 
   validates_presence_of :location

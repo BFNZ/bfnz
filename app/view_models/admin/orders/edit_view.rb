@@ -23,7 +23,7 @@ module Admin
       end
 
       def date_ordered
-        order.created_at.to_date.to_s(:display)
+        order.created_at.to_date.to_fs(:display)
       end
 
       def item_ids

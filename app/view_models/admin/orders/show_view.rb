@@ -14,12 +14,12 @@ module Admin
       end
 
       def date_ordered
-        order.created_at.to_date.to_s(:display)
+        order.created_at.to_date.to_fs(:display)
       end
 
       def date_shipped
         if order.shipped?
-          order.shipped_at.to_date.to_s(:display)
+          order.shipped_at.to_date.to_fs(:display)
         else
           "Not yet shipped"
         end

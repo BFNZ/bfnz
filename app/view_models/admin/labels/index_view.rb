@@ -31,7 +31,7 @@ module Admin
         end
 
         def created
-          "#{order.created_at.to_s(:display)} by #{created_by}"
+          "#{order.created_at.to_fs(:display)} by #{created_by}"
         end
 
         def items

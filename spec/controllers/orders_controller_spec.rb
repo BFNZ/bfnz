@@ -32,7 +32,7 @@ RSpec.describe OrdersController do
   end
 
   describe "POST create_table_order" do
-    subject { post :create_table_order, create_table_order_params }
+    subject { post :create_table_order, params: create_table_order_params }
     it "creates order" do
       expect { subject }.to change(Order, :count).by(1)
     end

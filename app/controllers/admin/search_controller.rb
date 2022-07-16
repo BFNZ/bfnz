@@ -2,6 +2,8 @@ require 'csv'
 
 module Admin
   class SearchController < BaseController
+    before_action :permit_params
+
     def index
       @order_search = OrderSearchForm.new(params[:admin_order_search_form])
       orders = @order_search.filtered_orders

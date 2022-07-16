@@ -1,0 +1,8 @@
+qa:
+  after_symlink: # Or use after_rails depending on your application
+    - source: /.cloud66/dbseed.sh
+      destination: /tmp/dbseed.sh
+      target: rails
+      execute: true
+      run_on: single_server
+      apply_during: build_only

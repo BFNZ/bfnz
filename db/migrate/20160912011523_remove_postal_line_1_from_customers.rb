@@ -1,4 +1,4 @@
-class RemovePostalLine1FromCustomers < ActiveRecord::Migration
+class RemovePostalLine1FromCustomers < ActiveRecord::Migration[7.0]
   def up
     remove_column :customers, :postal_line_1, :string, limit: 255
     remove_column :customers, :postal_line_2, :string, limit: 255

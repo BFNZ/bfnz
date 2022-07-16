@@ -1,4 +1,4 @@
-class AlterOrdersTable < ActiveRecord::Migration
+class AlterOrdersTable < ActiveRecord::Migration[7.0]
   def up
     add_column :orders, :title, :string, limit: 10
     add_column :orders, :ip_address, :string, limit: 40
