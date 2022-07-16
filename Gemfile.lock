@@ -281,7 +281,7 @@ GEM
     sqlite3 (1.4.2)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
-    strscan (3.0.2)
+    strscan (3.0.1)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -347,7 +347,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
-  strscan (>= 3.0.2)
+  strscan (= 3.0.1)
   timecop (~> 0.9.5)
   turbo-rails
   tzinfo-data
