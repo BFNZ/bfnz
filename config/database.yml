@@ -25,4 +25,4 @@ production:
   <<: *default
   database: bfnz_production
   username: bfnz
-  password: <%= ENV['BFNZ_DATABASE_PASSWORD'] %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
