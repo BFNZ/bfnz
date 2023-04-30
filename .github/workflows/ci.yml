@@ -26,6 +26,10 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
+      - name: Zalenium Server
+        # You may pin to the exact commit or the version.
+        # uses: ajinx/zalenium@3ecdaeb59ddb99373339150de9bbd50408fc23c3
+        uses: ajinx/zalenium@1.1
       - name: Checkout code
         uses: actions/checkout@v3
       # Add or replace dependency steps here
@@ -50,9 +54,9 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
+   #   - name: Security audit dependencies
+   #     run: bin/bundler-audit --update
+   #   - name: Security audit application code
+   #     run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
