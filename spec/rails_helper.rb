@@ -71,9 +71,6 @@ RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
 end
 
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app,
-    browser: :selenium_headless,
-    capabilities: :firefox
-  )
+Capybara.register_driver :rack_test do |app|
+  Capybara::RackTest::Driver.new(app, headers: { 'HTTP_USER_AGENT' => 'Capybara' })
 end
