@@ -26,7 +26,6 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
-      steps:
       - uses: browser-actions/setup-firefox@v1
       #- name: Zalenium Server
         # You may pin to the exact commit or the version.
