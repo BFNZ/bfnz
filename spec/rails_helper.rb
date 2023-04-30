@@ -73,8 +73,7 @@ end
 
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app,
-    browser: :remote,
-    url: "http://localhost:4444/wd/hub",
+    browser: :selenium_headless,
     capabilities: :firefox
   )
 end
