@@ -32,7 +32,8 @@ jobs:
         run: mkdir geckodriver
       - name: Unzip driver 
         run: tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C geckodriver
-      - echo "$PWD/geckodriver" >> $GITHUB_PATH
+      - name: Add to path
+        run: echo "$PWD/geckodriver" >> $GITHUB_PATH
       - name: export display
         run: "export DISPLAY=:99.0"
       - name: Start virtual frame buffer
