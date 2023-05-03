@@ -26,11 +26,19 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
+      - name: Download Geckodriver
+        run: wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+      - name: Make folder
+        run: mkdir geckodriver
+      - name: Unzip driver 
+        run: tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C geckodriver
+      - echo "$PWD/geckodriver" >> $GITHUB_PATH
+      - name: export display
+        run: "export DISPLAY=:99.0"
+      - name: Start virtual frame buffer
+        run: "sh -e /etc/init.d/xvfb start"
+    
       - uses: browser-actions/setup-firefox@v1
-      #- name: Zalenium Server
-        # You may pin to the exact commit or the version.
-        # uses: ajinx/zalenium@3ecdaeb59ddb99373339150de9bbd50408fc23c3
-      #  uses: ajinx/zalenium@1.1
       - name: Checkout code
         uses: actions/checkout@v3
       # Add or replace dependency steps here
