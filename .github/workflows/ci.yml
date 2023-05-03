@@ -36,8 +36,8 @@ jobs:
         run: echo "$PWD/geckodriver" >> $GITHUB_PATH
       - name: export display
         run: "export DISPLAY=:99.0"
-      - name: Start virtual frame buffer
-        run: "sh -e /etc/init.d/xvfb start"
+      #- name: Start virtual frame buffer
+      #  run: "sh -e /etc/init.d/xvfb start"
     
       - uses: browser-actions/setup-firefox@v1
       - name: Checkout code
