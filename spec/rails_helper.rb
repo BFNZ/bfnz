@@ -72,5 +72,5 @@ RSpec.configure do |config|
 end
 
 Capybara.register_driver :selenium_headless do |app|
-  Capybara::Selenium::Driver.new(app)
+  Capybara::Selenium::Driver.new(app, browser: :selenium_headless)
 end
