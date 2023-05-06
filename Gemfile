@@ -74,7 +74,7 @@ end
 # Custom
 gem 'pg', '~> 1.3', '>= 1.3.5'
 gem 'spreadsheet', '~> 1.3'
-gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
 gem 'authlogic', '~> 6.4', '>= 6.4.2'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
