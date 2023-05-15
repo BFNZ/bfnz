@@ -15,7 +15,7 @@ feature 'Placing an order', js: true do
     check "Are you a tertiary student?"
     fill_in "Tertiary institution", with: "AUT"
     select_item
-    check "I am interested in receiving guidance in using the recovery version to better understand the Bible"
+    check "Please email me monthly with information to help me understand and enjoy the Bible"
     click_button "Place Order"
     expect(page).to have_text("your order will be shipped as soon as possible")
   end
