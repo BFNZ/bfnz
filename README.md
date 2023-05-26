@@ -5,7 +5,6 @@ SETUP
 ```
 # Install rbenv https://github.com/rbenv/rbenv#installation
 # Install docker https://docs.docker.com/get-docker/
-# Install docker compose https://docs.docker.com/compose/install/
 cd bfnz
 rbenv install
 gem install bundler
