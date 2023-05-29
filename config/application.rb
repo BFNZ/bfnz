@@ -18,8 +18,7 @@ module Bfnz
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.time_zone = 'Wellington'
-    config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
-
+    
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
