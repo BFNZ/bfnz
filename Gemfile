@@ -84,7 +84,7 @@ gem 'attribute_normalizer', '~> 1.2'
 gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
 
 group :development, :test do
-  gem 'pry', '~> 0.14.1'
+  gem 'pry', '~> 0.14.2'
   gem 'factory_bot_rails', '~> 6.2'
 end
 
