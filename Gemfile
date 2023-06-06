@@ -93,7 +93,7 @@ group :test do
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'launchy', '~> 2.5'
   gem 'machinist', '~> 2.0'
-  gem 'timecop', '~> 0.9.5'
+  gem 'timecop', '~> 0.9.6'
   gem 'webmock', '~> 3.14'
 end
 
