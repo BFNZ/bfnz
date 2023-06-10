@@ -97,4 +97,4 @@ group :test do
   gem 'webmock', '~> 3.18'
 end
 
-gem "strscan", '3.0.6'
+gem "strscan", '3.0.1'
