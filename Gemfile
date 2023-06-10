@@ -96,3 +96,5 @@ group :test do
   gem 'timecop', '~> 0.9.6'
   gem 'webmock', '~> 3.18'
 end
+
+gem "strscan", '3.0.6'
