@@ -52,5 +52,5 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: bin/bundle exec rspec spec/models
+        run: bin/bundle exec rspec --exclude-pattern "spec/features/admin/manage_customers_spec, spec/features/admin/manage_orders_spec, spec/features/authentication_spec, spec/features/place_order_spec.rb, spec/features/show_hide_deactived_items_spec"
 
