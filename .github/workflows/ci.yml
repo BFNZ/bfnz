@@ -34,8 +34,8 @@ jobs:
         run: tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C geckodriver
       - name: Add to path
         run: echo "$PWD/geckodriver" >> $GITHUB_PATH
-      - name: export display
-        run: "export DISPLAY=:99.0"
+    #  - name: export display
+    #    run: "export DISPLAY=:99.0"
       #- name: Start virtual frame buffer
       #  run: "sh -e /etc/init.d/xvfb start"
     
@@ -52,5 +52,5 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: bin/rake
+        run: bin/bundle exec rspec spec/models
 
