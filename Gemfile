@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.2", ">= 7.0.2.4"
+gem "rails", "~> 7.0.4.3"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -13,7 +13,7 @@ gem "sprockets-rails"
 # gem "sqlite3", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.3"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -74,8 +74,8 @@ end
 # Custom
 gem 'pg', '~> 1.3', '>= 1.3.5'
 gem 'spreadsheet', '~> 1.3'
-gem 'bootstrap-sass', '~> 3.3.0'
-gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap-datepicker-rails', '~> 1.10'
 gem 'authlogic', '~> 6.4', '>= 6.4.2'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'virtus', '~> 2.0'
@@ -84,17 +84,17 @@ gem 'attribute_normalizer', '~> 1.2'
 gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
 
 group :development, :test do
-  gem 'pry', '~> 0.14.1'
+  gem 'pry', '~> 0.14.2'
   gem 'factory_bot_rails', '~> 6.2'
 end
 
 group :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
-  gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
+  gem 'rspec-rails', '~> 6.0'
   gem 'launchy', '~> 2.5'
   gem 'machinist', '~> 2.0'
-  gem 'timecop', '~> 0.9.5'
-  gem 'webmock', '~> 3.14'
+  gem 'timecop', '~> 0.9.6'
+  gem 'webmock', '~> 3.18'
 end
 
 gem "strscan", '3.0.1'
