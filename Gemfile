@@ -72,7 +72,7 @@ group :test do
 end
 
 # Custom
-gem 'pg', '~> 1.3', '>= 1.3.5'
+gem 'pg', '~> 1.5'
 gem 'spreadsheet', '~> 1.3'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'bootstrap-datepicker-rails', '~> 1.10'
