@@ -1,0 +1,56 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Download Geckodriver
+        run: wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+      - name: Make folder
+        run: mkdir geckodriver
+      - name: Unzip driver 
+        run: tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C geckodriver
+      - name: Add to path
+        run: echo "$PWD/geckodriver" >> $GITHUB_PATH
+    #  - name: export display
+    #    run: "export DISPLAY=:99.0"
+      #- name: Start virtual frame buffer
+      #  run: "sh -e /etc/init.d/xvfb start"
+    
+      - uses: browser-actions/setup-firefox@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      # Add or replace test runners here
+      - name: Run tests
+        run: bin/bundle exec rspec --exclude-pattern "spec/features/admin/manage_customers_spec.rb, spec/features/admin/manage_orders_spec.rb, spec/features/authentication_spec.rb, spec/features/place_order_spec.rb, spec/features/show_hide_deactived_items_spec.rb"
+
