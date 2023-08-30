@@ -94,7 +94,7 @@ group :test do
   gem 'launchy', '~> 2.5'
   gem 'machinist', '~> 2.0'
   gem 'timecop', '~> 0.9.8'
-  gem 'webmock', '~> 3.18'
+  gem 'webmock', '~> 3.19'
 end
 
 gem "strscan", '3.0.1'
