@@ -50,4 +50,10 @@ Rails.application.routes.draw do
     resources :contact_lists, only: [:index, :show, :create]
     resources :coordinators, except: [:show, :destroy]
   end
+
+  namespace :api do
+    namespace :v1 do
+      get 'available_items' => 'home#available_items'
+    end
+  end
 end
