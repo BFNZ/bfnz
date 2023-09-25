@@ -38,3 +38,7 @@
 /.idea/
 /vendor/
 /coverage
+
+
+.env
+.byebug_history

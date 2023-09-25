@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'home#index', as: :root
     get '/orders' => 'search#index'
+    get '/duplicates_csv' => 'search#duplicates_csv'
 
     resources :customers, only: [:new, :create, :edit, :update] do
       post 'find_duplicate_by_name_or_address', on: :collection
