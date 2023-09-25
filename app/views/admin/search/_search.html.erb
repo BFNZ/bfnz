@@ -112,5 +112,6 @@
     <%= f.submit "Search", class: "btn btn-default" %>
     <%= f.button "Export to CSV", name: 'format', value: 'csv', class: "btn btn-default" %>
     <%= link_to "Reset", admin_orders_path, class: "btn btn-default" %>
+    <%= link_to "Download Duplicates", admin_duplicates_csv_path, class: "btn btn-default" %>
   </div>
 <% end %>

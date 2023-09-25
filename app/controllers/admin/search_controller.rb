@@ -7,7 +7,6 @@ module Admin
     def index
       @order_search = OrderSearchForm.new(params[:admin_order_search_form])
       orders = @order_search.filtered_orders
-
       params[:format] = 'csv' if params[:csv]
       respond_to do |format|
         format.html do
@@ -19,6 +18,11 @@ module Admin
           headers['Content-Type'] = 'text/csv'
         end
       end
+    end
+
+    def duplicates_csv
+      filename = "new_dup_#{Time.now.strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+      send_data Admin::DuplicateFinder.new.csv, filename: filename
     end
   end
 end
