@@ -1,7 +1,6 @@
 require 'spreadsheet'
 require 'csv'
 
-
 class Admin::DuplicateFinder
 
   CSV_HEADERS = ["master_id","duplicate_type","customer_id","title","first_name","last_name","address","email","phone","ip_address","cust_create_date","admin_notes","order_id","order_items","order_date","ship_date","created_by"]
@@ -39,7 +38,6 @@ class Admin::DuplicateFinder
           rows << export_line_to_csv(duplicate_type, duplicate_customer, order, customer)
         end
       end
-      # We need to test this compared to the rake task to see if ouput is the same
     end.compact
 
     rows.map {|row| row.to_csv}.join
@@ -57,28 +55,29 @@ class Admin::DuplicateFinder
   def find_address_duplicates(master_customer)
     return unless master_customer.pxid.present?
 
-    Customer.where("pxid = ? and id < ?", master_customer.pxid, master_customer.id)
+    # joins to ignore customer records with no orders - i.e. merged records.
+    Customer.joins(:orders).where("customers.pxid = ? and customers.id < ?", master_customer.pxid, master_customer.id).presence
   end
 
   def find_phone_duplicates(master_customer)
     return unless master_customer.phone.present?
 
     # joins to ignore customer records with no orders - i.e. merged records.
-    Customer.joins(:orders).where("customers.phone = ? and customers.id < ?", master_customer.phone, master_customer.id)
+    Customer.joins(:orders).where("customers.phone = ? and customers.id < ?", master_customer.phone, master_customer.id).presence
   end
 
   def find_email_duplicates(master_customer)
     return unless master_customer.email.present?
 
     #joins to ignore customer records with no orders - i.e. merged records.
-    Customer.joins(:orders).where("customers.email = ? and customers.id < ?", master_customer.email, master_customer.id)
+    Customer.joins(:orders).where("customers.email = ? and customers.id < ?", master_customer.email, master_customer.id).presence
   end
 
   def find_ip_address_duplicates(master_customer)
     latest_customer_order = Order.where("customer_id = ?", master_customer.id).last
     return unless latest_customer_order.ip_address.present?
 
-    Order.where("Ip_Address = ? and id < ?", latest_customer_order.ip_address, latest_customer_order.id).includes(:customer)
+    Order.where("Ip_Address = ? and id < ?", latest_customer_order.ip_address, latest_customer_order.id).includes(:customer).presence
   end
 
   def dup_print_line_header (customer, duplicate_type)
