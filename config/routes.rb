@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'available_items' => 'home#available_items'
       post 'validate_order' => 'orders#validate'
+      post 'orders' => 'orders#create'
     end
   end
 end

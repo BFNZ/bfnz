@@ -18,12 +18,15 @@ class CreateOrderService
   end
 
   def order
-    @order ||= customer.orders.build(@form.order_attributes.merge(ip_address: ip_address,
-                                                                  method_received: method_received,
-                                                                  method_of_discovery: @table_id.present? ? :table_disc : nil,
-                                                                  table_id: @table_id,
-                                                                  received_in_person: !!@table_id
-                                                                  ))
+    attrs = {
+      ip_address:,
+      method_received:,
+      method_of_discovery: @table_id.present? ? :table_disc : nil,
+      table_id: @table_id,
+      received_in_person: !!@table_id
+    }
+    order_attrs = @form.order_attributes.merge(attrs)
+    @order ||= customer.orders.build(order_attrs)
   end
 
   def customer
