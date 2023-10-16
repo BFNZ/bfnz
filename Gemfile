@@ -82,6 +82,7 @@ gem 'virtus', '~> 2.0'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'attribute_normalizer', '~> 1.2'
 gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
+gem 'strscan', '3.0.7'
 
 group :development, :test do
   gem 'pry', '~> 0.14.2'
@@ -96,5 +97,3 @@ group :test do
   gem 'timecop', '~> 0.9.8'
   gem 'webmock', '~> 3.18'
 end
-
-gem "strscan", '3.0.7'
