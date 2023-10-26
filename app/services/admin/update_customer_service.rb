@@ -1,10 +1,10 @@
 module Admin
   class UpdateCustomerService
-
     def initialize(current_user, form)
       @user = current_user
       @form = form
       @customer = form.customer
+      @success = false
     end
 
     def perform
@@ -25,7 +25,12 @@ module Admin
     private
 
     def save_customer
-      @customer.update(@form.attributes.merge(:updated_by => @user))
+      @customer.assign_attributes(
+        first_name: @form.first_name,
+        last_name: @form.last_name,
+        updated_by: @user
+      )
+      @customer.save
     end
   end
 end

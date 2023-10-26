@@ -1,9 +1,6 @@
 module Admin
   class NewOrderForm < BaseForm
-    attribute :method_received, String
-    attribute :method_of_discovery, String
-    attribute :item_ids, Array[Integer]
-    attribute :received_in_person, Virtus::Attribute::Boolean
+    attr_accessor :method_received, :method_of_discovery, :item_ids, :received_in_person
 
     validate :contains_at_least_one_item
 

@@ -34,6 +34,8 @@ class Customer < ApplicationRecord
       where(bad_address: false).where.not("further_contact_requested = #{Customer.further_contact_requesteds[:not_wanted]}")
   }
 
+  attr_accessor :confirm_personal_order, :item_ids
+
   def self.strip_non_numeric(string)
     string.gsub(/\D/, '')
   end

@@ -4,17 +4,19 @@ module Admin
       @user = user
       @form = form
       @customer = form.customer
+      @success = false
     end
 
     def perform
       if @form.valid?
+        @order = build_order
         @success = save_order && create_shipment
       end
       self
     end
 
     def order
-      @order ||= customer.orders.build(form.attributes.merge(:created_by => user))
+      @order
     end
 
     def success?
@@ -28,6 +30,18 @@ module Admin
     private
 
     attr_reader :customer, :form, :user
+
+    def build_order
+      order = customer.orders.build
+      order.attributes = {
+        method_received: form.method_received,
+        method_of_discovery: form.method_of_discovery,
+        item_ids: form.item_ids,
+        received_in_person: form.received_in_person
+      }
+      order.created_by = user
+      order
+    end
 
     def save_order
       order.save

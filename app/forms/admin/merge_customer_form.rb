@@ -1,6 +1,7 @@
 module Admin
   class MergeCustomerForm < BaseForm
-    attribute :duplicate_id
+    
+    attr_accessor :duplicate_id
 
     validate :duplicate_exists
     validate :duplicate_is_not_the_original_record

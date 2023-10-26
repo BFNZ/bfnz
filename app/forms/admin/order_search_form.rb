@@ -1,38 +1,34 @@
 module Admin
   class OrderSearchForm < BaseForm
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :item_ids, Array[Integer]
-    attribute :shipped, Boolean
-    attribute :id, Integer
-    attribute :phone, String
-    attribute :email, String
-    attribute :address, String
-    attribute :suburb, String
-    attribute :city_town, String
-    attribute :created_at_from, Date
-    attribute :created_at_to, Date
-    attribute :shipped_at_from, Date
-    attribute :shipped_at_to, Date
-    attribute :further_contact_requested, Integer
-    attribute :customer_id, Integer
-    attribute :creator_email, String
-    attribute :district, Integer
 
-    def created_at_from=(date)
-      super parse_date(date)
+    attr_accessor :first_name, :last_name, :item_ids, :shipped, :id, :phone, :email, :address, :suburb, :city_town, :created_at_from, :created_at_to, :shipped_at_from, :shipped_at_to, :further_contact_requested, :customer_id, :creator_email, :district
+
+    def initialize(params = {})
+      params ||= {}
+      params.each do |key, value|
+        setter_method = "#{key}="
+        if respond_to?(setter_method)
+          send(setter_method, value)
+        else
+          instance_variable_set("@#{key}", value)
+        end
+      end
     end
 
-    def created_at_to=(date)
-      super parse_date(date)
+    def created_at_from=(created_at_from)
+      @created_at_from = parse_date(created_at_from)
     end
 
-    def shipped_at_from=(date)
-      super parse_date(date)
+    def created_at_to=(created_at_to)
+      @created_at_to = parse_date(created_at_to)
     end
 
-    def shipped_at_to=(date)
-      super parse_date(date)
+    def shipped_at_from=(shipped_at_from)
+      @shipped_at_from = parse_date(shipped_at_from)
+    end
+
+    def shipped_at_to=(shipped_at_to)
+      @shipped_at_to = parse_date(shipped_at_to)
     end
 
     def item_ids_options
@@ -109,11 +105,24 @@ module Admin
     end
 
     def customer_attributes
-      attributes.slice(:customer_id, :first_name, :last_name, :email, :phone, :address, :suburb, :city_town, :further_contact_requested, :district)
+      {
+        'customer_id' => customer_id,
+        'first_name' => first_name,
+        'last_name' => last_name,
+        'address' => address,
+        'suburb' => suburb,
+        'city_town' => city_town,
+        'phone' => phone,
+        'email' => email,
+        'district' => district,
+        'further_contact_requested' => further_contact_requested.to_i
+      }
     end
 
     def order_attributes
-      attributes.slice(:item_ids, :id)
+      { 'item_ids' => item_ids,
+        'id' => id
+      }
     end
   end
 end
