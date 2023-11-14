@@ -1,50 +1,37 @@
 class CustomerAndOrderForm < BaseForm
-  attribute :title, String
-  attribute :first_name, String
-  attribute :last_name, String
 
-  attribute :address, String
-  attribute :suburb, String
-  attribute :city_town, String
-  attribute :post_code, String
-  attribute :dpid, String
-  attribute :x, Decimal
-  attribute :y, Decimal
-  attribute :pxid, String
-
-  attribute :ta, String
-
-  attribute :phone, String
-  attribute :email, String
-
-  attribute :tertiary_student, Virtus::Attribute::Boolean
-  attribute :tertiary_institution, String
-
-  attribute :item_ids, Array[Integer]
-
-  attribute :further_contact_requested, Integer
-
-  attribute :confirm_personal_order
-
+  attr_accessor :title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :dpid, :x, :y, :ta, :phone, :email, :tertiary_student, :tertiary_institution, :item_ids, :further_contact_requested, :confirm_personal_order
+  
   validates :title, :first_name, :last_name, :address, presence: true
+  validates :confirm_personal_order, acceptance: true
   validate :contains_at_least_one_item
 
-  validates :confirm_personal_order, acceptance: true
-
-  def order_attr_keys
-    %w{item_ids}
-  end
-
-  def customer_attr_keys
-    %w{title first_name last_name address suburb city_town post_code pxid dpid x y  ta phone email tertiary_student tertiary_institution further_contact_requested}
-  end
-
   def order_attributes
-    attributes.stringify_keys.slice(*order_attr_keys)
+    { 'item_ids' => item_ids.reject(&:blank?) }
   end
 
   def customer_attributes
-    attributes.stringify_keys.slice(*customer_attr_keys)
+    {
+      'confirm_personal_order' => confirm_personal_order,
+      'title' => title,
+      'first_name' => first_name,
+      'last_name' => last_name,
+      'address' => address,
+      'suburb' => suburb,
+      'city_town' => city_town,
+      'post_code' => post_code,
+      'pxid' => pxid,
+      'dpid' => dpid,
+      'x' => x,
+      'y' => y,
+      'ta' => ta,
+      'phone' => phone,
+      'email' => email,
+      'tertiary_student' => tertiary_student,
+      'tertiary_institution' => tertiary_institution,
+      'item_ids' => item_ids,
+      'further_contact_requested' => further_contact_requested.to_i
+    }
   end
 
   def item_ids=(item_ids)

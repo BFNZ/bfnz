@@ -9,7 +9,7 @@ module Admin
 
     def perform
       if @form.valid?
-        save_order
+        @success = save_order
       end
       self
     end
@@ -25,7 +25,13 @@ module Admin
     private
 
     def save_order
-      @success = @order.update(@form.attributes.merge(:updated_by => @user))
+      @order.assign_attributes(
+        method_received: @form.method_received,
+        method_of_discovery: @form.method_of_discovery,
+        item_ids: @form.item_ids,
+        updated_by: @user
+      )
+      @order.save
     end
   end
 end

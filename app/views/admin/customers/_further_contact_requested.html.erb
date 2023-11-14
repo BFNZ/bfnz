@@ -1,2 +1,2 @@
 <%= form.label :further_contact_requested, "Are they interested in receiving further contact?" %>
-<%= form.select :further_contact_requested, contact_requested_options_for_select, {}, class: "form-control" %>
+<%= form.select :further_contact_requested, options_for_select(contact_requested_options_for_select, selected_further_contact_requested(@customer_form)), {}, { class: "form-control" } %>
