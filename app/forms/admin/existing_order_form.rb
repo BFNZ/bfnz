@@ -1,8 +1,7 @@
 module Admin
   class ExistingOrderForm < BaseForm
-    attribute :item_ids, Array[Integer]
-    attribute :method_received, String
-    attribute :method_of_discovery, String
+    
+    attr_accessor :item_ids, :method_received, :method_of_discovery
 
     validate :contains_at_least_one_item
     validates :method_received, :method_of_discovery, presence: true

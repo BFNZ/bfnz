@@ -1,32 +1,7 @@
 module Admin
   class NewCustomerForm < BaseForm
-    attribute :title, String
-    attribute :first_name, String
-    attribute :last_name, String
 
-    attribute :address, String
-    attribute :suburb, String
-    attribute :city_town, String
-    attribute :post_code, String
-    attribute :pxid, String
-    attribute :dpid, String
-    attribute :x, Decimal
-    attribute :y, Decimal
-    attribute :ta, String
-    attribute :bad_address, Virtus::Attribute::Boolean
-
-    attribute :phone, String
-    attribute :email, String
-
-    attribute :tertiary_student, Virtus::Attribute::Boolean
-    attribute :tertiary_institution, String
-    attribute :further_contact_requested, Integer
-    attribute :received_in_person, Virtus::Attribute::Boolean
-    attribute :admin_notes, String
-
-    attribute :method_received, String
-    attribute :method_of_discovery, String
-    attribute :item_ids, Array[Integer]
+    attr_accessor :title, :first_name, :last_name, :address, :suburb, :city_town, :post_code, :pxid, :dpid, :x, :y, :ta, :bad_address, :phone, :email, :tertiary_student, :tertiary_institution, :further_contact_requested, :received_in_person, :admin_notes, :method_received, :method_of_discovery, :item_ids
 
     validates :first_name, :last_name, :ta, presence: true
     validate :contains_at_least_one_item
