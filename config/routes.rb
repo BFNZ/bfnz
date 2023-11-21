@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     get '/' => 'home#index', as: :root
     get '/orders' => 'search#index'
     get '/duplicates_csv' => 'search#duplicates_csv'
-    get '/stock_take' => 'stock_takes#index'
+    get '/inventory' => 'inventory#index'
 
     resources :customers, only: [:new, :create, :edit, :update] do
       post 'find_duplicate_by_name_or_address', on: :collection
