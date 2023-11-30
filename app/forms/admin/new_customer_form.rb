@@ -7,11 +7,37 @@ module Admin
     validate :contains_at_least_one_item
 
     def order_attributes
-      attributes.stringify_keys.slice(*order_attr_keys)
+      {
+        item_ids: item_ids,
+        method_received: method_received,
+        method_of_discovery: method_of_discovery,
+        received_in_person: received_in_person
+      }
     end
 
     def customer_attributes
-      attributes.stringify_keys.slice(*customer_attr_keys)
+      {
+        'bad_address' => bad_address,
+        'title' => title,
+        'first_name' => first_name,
+        'last_name' => last_name,
+        'address' => address,
+        'suburb' => suburb,
+        'city_town' => city_town,
+        'post_code' => post_code,
+        'pxid' => pxid,
+        'dpid' => dpid,
+        'x' => x,
+        'y' => y,
+        'ta' => ta,
+        'bad_address' => bad_address,
+        'phone' => phone,
+        'email' => email,
+        'tertiary_student' => tertiary_student,
+        'tertiary_institution' => tertiary_institution,
+        'admin_notes' => admin_notes,
+        'further_contact_requested' => further_contact_requested.to_i
+      }
     end
 
     def item_ids=(item_ids)
