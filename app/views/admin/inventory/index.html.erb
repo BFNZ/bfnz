@@ -1,6 +1,9 @@
 <h1>Inventory</h1>
 
-<table class="table table-striped">
+<%= link_to 'Add Stock Take', admin_inventory_path(entry_type: 'Stock Take'), class: 'btn btn-primary' %>
+<%= link_to 'Add Stock In', admin_inventory_path(entry_type: 'Stock In'), class: 'btn btn-success' %>
+
+<table class="table">
   <thead>
     <tr>
       <th>Entry Type</th>
@@ -11,6 +14,14 @@
     </tr>
   </thead>
   <tbody>
-
+    <% @inventories.each do |inventory| %>
+        <tr>
+          <td><%= inventory.entry_type %></td>
+          <td><%= inventory.date %></td>
+          <td><%= inventory.book.code %></td>
+          <td><%= inventory.quantity %></td>
+          <td><%= inventory.unit_cost %></td>
+        </tr>
+    <% end %>
   </tbody>
 </table>
