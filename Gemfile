@@ -85,7 +85,7 @@ gem 'strscan', '3.0.1'
 
 group :development, :test do
   gem 'pry', '~> 0.14.2'
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'factory_bot_rails', '~> 6.4'
 end
 
 group :test do
