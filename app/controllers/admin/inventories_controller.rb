@@ -15,6 +15,21 @@ class Admin::InventoriesController < Admin::BaseController
     redirect_to admin_inventories_path, notice: 'Stock Take submitted successfully.'
   end
 
+  def stock_in
+    stock_in_params.each do |_, data|
+      Inventory.create!(
+        entry_type: 'Stock In',
+        date: data[:date],
+        book_id: data[:book_id],
+        quantity: data[:quantity],
+        unit_cost: data[:unit_cost],
+        person_name: data[:person_name]
+      )
+    end
+
+    redirect_to admin_inventories_path, notice: 'Stock In submitted successfully.'
+  end
+
   def index
     @inventory_entries = Inventory.all
     @books = Book.all
@@ -53,6 +68,11 @@ class Admin::InventoriesController < Admin::BaseController
     redirect_to admin_inventories_path, notice: 'Inventory entry was successfully destroyed.'
   end
 
+  def reset_table
+    Inventory.destroy_all
+    redirect_to admin_inventories_path, notice: 'Table reset successfully.'
+  end
+
   private
 
   def set_inventory
@@ -66,4 +86,9 @@ class Admin::InventoriesController < Admin::BaseController
   def stock_take_params
     params.require(:stock_take).permit!
   end
+
+  def stock_in_params
+    params.require(:stock_in).permit!
+  end
+
 end

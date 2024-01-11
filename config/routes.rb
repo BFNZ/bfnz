@@ -53,6 +53,8 @@ Rails.application.routes.draw do
     resources :inventories do
       collection do
         post :stock_take
+        post :stock_in
+        post :reset_table
       end
     end
   end

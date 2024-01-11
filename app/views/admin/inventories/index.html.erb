@@ -1,4 +1,106 @@
-<%= link_to "Stock In", new_admin_inventory_path(entry_type: 'Stock In'), class: 'btn btn-primary' %>
+<%= link_to "Stock In", '#', class: 'btn btn-primary', id: 'stockInButton' %>
+
+<%= form_tag(stock_in_admin_inventories_path, method: :post, id: 'stockInForm', style: 'display: none;') do %>
+  <style>
+    #stockInForm {
+      margin-top: 20px;
+    }
+
+    .form-row {
+      display: flex;
+    }
+
+    .form-row .col {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .mb-2 {
+      margin-bottom: 16px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .add-row-btn {
+      margin-top: 8px;
+    }
+  </style>
+
+  <div class="form-row mb-2" id="stockInRow">
+    <div class="col"><strong>Date</strong></div>
+    <div class="col"><strong>Book Title</strong></div>
+    <div class="col"><strong>Quantity</strong></div>
+    <div class="col"><strong>Unit Cost</strong></div>
+    <div class="col"><strong>Person Name</strong></div>
+  </div>
+
+  <div id="stockInRowContainer">
+    <% @books.each do |book| %>
+      <div class="form-row mb-2 stockInRowClone" style="display: none;">
+        <div class="col">
+          <%= hidden_field_tag "stock_in[#{book.id}][book_id]", book.id %>
+          <%= text_field_tag "stock_in[#{book.id}][date]", Date.current, class: 'form-control', readonly: true %>
+        </div>
+        <div class="col">
+          <%= select_tag "stock_in[#{book.id}][book_id]", options_for_select(@books.map { |b| [b.title, b.id] }), class: 'form-control'%>
+        </div>
+        <div class="col">
+          <%= number_field_tag "stock_in[#{book.id}][quantity]", nil, class: 'form-control', placeholder: 'Quantity' %>
+        </div>
+        <div class="col">
+          <%= number_field_tag "stock_in[#{book.id}][unit_cost]", nil, class: 'form-control', placeholder: 'Unit Cost' %>
+        </div>
+        <div class="col">
+          <%= text_field_tag "stock_in[#{book.id}][person_name]", nil, class: 'form-control', placeholder: 'Person Name' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" class="btn btn-secondary add-row-btn" id="addStockInRow">Add Row</button>
+
+  <%= submit_tag 'Submit Stock In', class: 'btn btn-success' %>
+<% end %>
+
+<script>
+  document.getElementById('stockInButton').addEventListener('click', function() {
+    document.getElementById('stockInForm').style.display = 'block';
+  });
+
+  document.getElementById('addStockInRow').addEventListener('click', function() {
+    const container = document.getElementById('stockInRowContainer');
+    const rowClone = container.querySelector('.stockInRowClone').cloneNode(true);
+
+    // Find the number of existing rows and use it as the index for the new row
+    const index = container.getElementsByClassName('stockInRowClone').length;
+
+    // Update IDs and names of form fields in the cloned row
+    rowClone.querySelectorAll('[id], [name]').forEach(element => {
+      const id = element.getAttribute('id');
+      const name = element.getAttribute('name');
+
+      if (id) {
+        element.setAttribute('id', id.replace(/\[\d+\]/, `[${index}]`));
+      }
+
+      if (name) {
+        element.setAttribute('name', name.replace(/\[\d+\]/, `[${index}]`));
+      }
+    });
+
+    rowClone.style.display = 'flex';
+    container.appendChild(rowClone);
+  });
+</script>
+
+
+
+
 
 <%= link_to "Stock Take", '#', class: 'btn btn-success', id: 'stockTakeButton' %>
 
@@ -66,13 +168,8 @@
   <%= submit_tag 'Submit Stock Take', class: 'btn btn-success' %>
 <% end %>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('stockTakeButton').addEventListener('click', function() {
-      document.getElementById('stockTakeForm').style.display = 'block';
-    });
-  });
-</script>
+<%= link_to "Reset Table", reset_table_admin_inventories_path, method: :post, class: 'btn btn-danger' %>
+
 <table class="table">
   <thead>
     <tr>
@@ -97,3 +194,22 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // const stockInButton = document.getElementById('stockInButton');
+    // const stockInForm = document.getElementById('stockInForm');
+    const stockTakeButton = document.getElementById('stockTakeButton');
+    const stockTakeForm = document.getElementById('stockTakeForm');
+
+    // stockInButton.addEventListener('click', function() {
+    //   stockInForm.style.display = 'block';
+    //   stockTakeForm.style.display = 'none';
+    // });
+
+    stockTakeButton.addEventListener('click', function() {
+      stockTakeForm.style.display = 'block';
+      stockInForm.style.display = 'none';
+    });
+  });
+</script>
