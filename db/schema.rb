@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.string "code"
+    t.string "isbn"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cancelled_order_events", id: :serial, force: :cascade do |t|
     t.integer "cancelled_by_id"
@@ -76,6 +85,17 @@ ActiveRecord::Schema[7.0].define(version: 2017_05_10_022444) do
     t.index ["suburb"], name: "index_customers_on_suburb"
     t.index ["territorial_authority_id"], name: "index_customers_on_territorial_authority_id"
     t.index ["updated_by_id"], name: "index_customers_on_updated_by_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "entry_type"
+    t.date "date"
+    t.string "book_id"
+    t.integer "quantity"
+    t.decimal "unit_cost"
+    t.string "person_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "items", id: :serial, force: :cascade do |t|

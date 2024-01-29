@@ -50,6 +50,13 @@ Rails.application.routes.draw do
     resources :shipments, only: [:index, :show]
     resources :contact_lists, only: [:index, :show, :create]
     resources :coordinators, except: [:show, :destroy]
+    resources :inventories do
+      collection do
+        post :stock_take
+        post :stock_in
+        post :reset_table
+      end
+    end
   end
 
   namespace :api do
