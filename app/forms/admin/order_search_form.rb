@@ -13,6 +13,7 @@ module Admin
           instance_variable_set("@#{key}", value)
         end
       end
+      self.shipped = parse_boolean_value(shipped) # Rails forms submit boolean values as strings
     end
 
     def created_at_from=(created_at_from)

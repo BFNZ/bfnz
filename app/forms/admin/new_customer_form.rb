@@ -11,13 +11,12 @@ module Admin
         item_ids: item_ids,
         method_received: method_received,
         method_of_discovery: method_of_discovery,
-        received_in_person: received_in_person
+        received_in_person: parse_boolean_value(received_in_person)
       }
     end
 
     def customer_attributes
       {
-        'bad_address' => bad_address,
         'title' => title,
         'first_name' => first_name,
         'last_name' => last_name,
@@ -30,10 +29,10 @@ module Admin
         'x' => x,
         'y' => y,
         'ta' => ta,
-        'bad_address' => bad_address,
+        'bad_address' => parse_boolean_value(bad_address),
         'phone' => phone,
         'email' => email,
-        'tertiary_student' => tertiary_student,
+        'tertiary_student' => parse_boolean_value(tertiary_student),
         'tertiary_institution' => tertiary_institution,
         'admin_notes' => admin_notes,
         'further_contact_requested' => further_contact_requested.to_i
