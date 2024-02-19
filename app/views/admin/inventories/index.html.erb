@@ -44,7 +44,7 @@
       <div class="form-row mb-2 stockInRowClone" style="display: none;">
         <div class="col">
           <%= hidden_field_tag "stock_in[#{book.id}][book_id]", book.id %>
-          <%= text_field_tag "stock_in[#{book.id}][date]", Date.current, class: 'form-control', readonly: true %>
+          <%= text_field_tag "stock_in[#{book.id}][date]", Date.current, class: "form-control" %>
         </div>
         <div class="col">
           <%= select_tag "stock_in[#{book.id}][book_id]", options_for_select(@books.map { |b| [b.title, b.id] }), class: 'form-control'%>
@@ -167,7 +167,7 @@
     <div class="form-row mb-2">
       <div class="col">
         <%= hidden_field_tag "stock_take[#{book.id}][book_id]", book.id %>
-        <%= text_field_tag "stock_take[#{book.id}][date]", Date.current, class: 'form-control', readonly: true %>
+        <%= text_field_tag "stock_take[#{book.id}][date]", Date.current, class: 'form-control' %>
       </div>
       <div class="col">
         <%= text_field_tag "stock_take[#{book.id}][title]", book.title, class: 'form-control', readonly: true %>
