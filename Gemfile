@@ -81,7 +81,7 @@ gem 'bcrypt', '~> 3.1'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'attribute_normalizer', '~> 1.2'
 gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
-gem 'strscan', '3.0.1'
+gem 'strscan', '3.1.0'
 
 group :development, :test do
   gem 'pry', '~> 0.14.2'
