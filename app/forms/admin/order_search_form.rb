@@ -116,7 +116,7 @@ module Admin
         'phone' => phone,
         'email' => email,
         'district' => district,
-        'further_contact_requested' => further_contact_requested.to_i
+        'further_contact_requested' => further_contact_requested.presence&.to_i
       }
     end
 
