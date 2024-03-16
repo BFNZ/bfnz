@@ -91,7 +91,7 @@ end
 group :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 6.1'
-  gem 'launchy', '~> 2.5'
+  gem 'launchy', '~> 3.0'
   gem 'machinist', '~> 2.0'
   gem 'timecop', '~> 0.9.8'
   gem 'webmock', '~> 3.23'
