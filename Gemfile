@@ -68,7 +68,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver", "~> 4.16.0"
+  gem "selenium-webdriver", "~> 4.18.1"
 end
 
 # Custom
@@ -76,7 +76,7 @@ gem 'pg', '~> 1.5'
 gem 'spreadsheet', '~> 1.3'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'bootstrap-datepicker-rails', '~> 1.10'
-gem 'authlogic', '~> 6.4', '>= 6.4.2'
+gem 'authlogic', '~> 6.4'
 gem 'bcrypt', '~> 3.1'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'attribute_normalizer', '~> 1.2'
@@ -91,8 +91,8 @@ end
 group :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 6.1'
-  gem 'launchy', '~> 2.5'
+  gem 'launchy', '~> 3.0'
   gem 'machinist', '~> 2.0'
   gem 'timecop', '~> 0.9.8'
-  gem 'webmock', '~> 3.18'
+  gem 'webmock', '~> 3.23'
 end

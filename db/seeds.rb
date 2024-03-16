@@ -91,6 +91,36 @@ end
    Item.create!(code: code, title: title, author: author, image_path: image_path, description: description, deactivated_at: deactivated_at) unless Item.find_by_code(code)
  end
 
+ books_data = [
+  ['Basic Elements 1', 'BX1', 'temp1', 'WL/WN'],
+  ['Basic Elements 2', 'BX2', 'temp2', 'WL/WN'],
+  ['Basic Elements 3', 'BX3', 'temp3', 'WL/WN'],
+  ['Economy of God', 'EOG', 'temp4', 'WL'],
+  ['The Glorious Church', 'TGC', 'temp5', 'WN'],
+  ['All Inclusive Christ', 'AIX', 'temp6', 'WL'],
+  ['Knowledge of Life', 'KOL', 'temp7', 'WL'],
+  ['Normal Christian Life', 'NCL', 'temp8', 'WN'],
+  ['New Testament Recovery Version', 'NT', 'temp9', 'LSM']
+]
+
+books_data.each do |title, code, isbn, author|
+  Book.create!(title: title, code: code, isbn: isbn, author: author) unless Book.find_by_code(code)
+end
+
+books_data.each do |title, code, isbn, author|
+  book = Book.find_by_code(code)
+  unless book.nil?
+    Inventory.create!(
+      entry_type: 'Stock In',
+      date: DateTime.now,
+      book_id: book.id,
+      quantity: 10,
+      unit_cost: 15.99,
+      person_name: 'Admin'
+    )
+  end
+end
+
 if Rails.env.development?
   User.create!(name: 'Shevaun', email: 'shevaun.coker@gmail.com', password: 'password', password_confirmation: 'password', admin: true) unless User.find_by_email('shevaun.coker@gmail.com')
   User.create!(name: 'Russell', email: 'russell.healy@gmail.com', password: 'password', password_confirmation: 'password', admin: true) unless User.find_by_email('russell.healy@gmail.com')

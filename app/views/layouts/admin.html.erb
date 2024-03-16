@@ -47,6 +47,8 @@
             <%= link_to "View Shipments", admin_shipments_path, class: "list-group-item #{active_if_current_page(:shipments, :index)}" %>
             <%= link_to "Download Contacts", admin_contact_lists_path, class: "list-group-item #{active_if_current_page(:contact_lists, :index)}" %>
             <%= link_to "Manage Coordinators", admin_coordinators_path, class: "list-group-item #{active_if_current_page(:coordinators, :index)}" %>
+            <%= link_to "Manage Inventory", admin_inventories_path, class: "list-group-item #{active_if_current_page(:inventories, :index)}" %>
+            <%= link_to "Users", admin_users_path, class: "list-group-item #{active_if_current_page(:users, :index)}" %>
           </div>
         </div>
         <div class="col-sm-10">
