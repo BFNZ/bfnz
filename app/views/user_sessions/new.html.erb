@@ -8,6 +8,7 @@
   <div class="form-group">
     <%= form.label :password, "Password" %>
     <%= form.password_field :password, class: 'form-control' %>
+    <%= link_to  "Forgot your password?", password_reset_path %>
   </div>
   <%= form.submit "Log in", class: "btn btn-default" %>
 <% end %>
