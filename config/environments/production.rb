@@ -66,13 +66,13 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'bfnz.org.nz', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'www.bfnz.org.nz', protocol: 'https' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:         'smtp.gmail.com',
     port:            587,
-    domain:          'bfnz.org.nz',
+    domain:          'www.bfnz.org.nz',
     user_name:       ENV["ACTION_MAILER_USERNAME"],
     password:        ENV["ACTION_MAILER_PASSWORD"],
     authentication:  'plain',
