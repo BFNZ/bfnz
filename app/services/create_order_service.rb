@@ -10,7 +10,7 @@ class CreateOrderService
       customer.save!
       order.save!
       create_shipment
-      send_confirmation_email
+      # send_confirmation_email
       true
     else
       false
