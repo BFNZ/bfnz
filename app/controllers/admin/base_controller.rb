@@ -24,6 +24,13 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def require_superadmin
+    unless current_user.superadmin?
+      flash[:error] = "You must have special permissions to access this page"
+      redirect_to login_path
+    end
+  end
+
   def store_location
     session[:return_to] = request.path
   end

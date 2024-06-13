@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_13_193137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,31 +45,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
     t.integer "contact_list_id"
     t.integer "created_by_id"
     t.integer "updated_by_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "address"
-    t.string "suburb"
-    t.string "city_town"
-    t.string "post_code"
-    t.string "ta"
-    t.string "pxid"
-    t.string "phone"
-    t.string "email"
-    t.string "title"
+    t.string "first_name", limit: 255
+    t.string "last_name", limit: 255
+    t.string "address", limit: 255
+    t.string "suburb", limit: 255
+    t.string "city_town", limit: 255
+    t.string "post_code", limit: 255
+    t.string "ta", limit: 255
+    t.string "pxid", limit: 255
+    t.string "phone", limit: 255
+    t.string "email", limit: 255
+    t.string "title", limit: 255
     t.boolean "tertiary_student"
-    t.string "tertiary_institution"
+    t.string "tertiary_institution", limit: 255
     t.text "admin_notes"
     t.text "coordinator_notes"
     t.integer "old_subscriber_id"
-    t.string "old_system_address"
-    t.string "old_system_suburb"
-    t.string "old_system_city_town"
+    t.string "old_system_address", limit: 255
+    t.string "old_system_suburb", limit: 255
+    t.string "old_system_city_town", limit: 255
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "parent_id"
     t.integer "further_contact_requested", default: 0
     t.boolean "bad_address", default: false
-    t.string "dpid"
+    t.string "dpid", limit: 255
     t.decimal "x", precision: 10, scale: 6
     t.decimal "y", precision: 10, scale: 6
     t.index ["address"], name: "index_customers_on_address"
@@ -99,10 +99,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
-    t.string "title", null: false
-    t.string "author"
-    t.string "code", null: false
-    t.string "image_path"
+    t.string "title", limit: 255, null: false
+    t.string "author", limit: 255
+    t.string "code", limit: 255, null: false
+    t.string "image_path", limit: 255
     t.string "description", limit: 1000
     t.datetime "deactivated_at", precision: nil
     t.datetime "created_at", precision: nil
@@ -156,9 +156,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
   end
 
   create_table "territorial_authorities", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.integer "code", null: false
-    t.string "addressfinder_name", null: false
+    t.string "addressfinder_name", limit: 255, null: false
     t.integer "coordinator_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
@@ -167,14 +167,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_191341) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", null: false
-    t.string "crypted_password", null: false
-    t.string "password_salt", null: false
-    t.string "persistence_token", null: false
+    t.string "email", limit: 255, null: false
+    t.string "crypted_password", limit: 255, null: false
+    t.string "password_salt", limit: 255, null: false
+    t.string "persistence_token", limit: 255, null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.boolean "admin", default: false
-    t.string "name"
+    t.string "name", limit: 255
+    t.boolean "superadmin", default: false, null: false
     t.index ["admin"], name: "index_users_on_admin"
     t.index ["email"], name: "index_users_on_email"
   end

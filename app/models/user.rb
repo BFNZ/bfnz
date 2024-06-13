@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def new_contacts
     Customer.contactable.for_districts(territorial_authorities.pluck(:id))
   end
+
+  def superadmin?
+    superadmin
+  end
 end
