@@ -1,0 +1,19 @@
+<h1>Edit Password for <%= @user.email %></h1>
+
+<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :password, "New Password" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm New Password" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update Password" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', admin_users_path %>

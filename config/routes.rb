@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     get '/orders' => 'search#index'
     get '/duplicates_csv' => 'search#duplicates_csv'
 
+    resources :users, only: [:index, :edit, :update]
+
     resources :customers, only: [:new, :create, :edit, :update] do
       post 'find_duplicate_by_name_or_address', on: :collection
       member do
